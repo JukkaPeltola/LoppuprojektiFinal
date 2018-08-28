@@ -18,19 +18,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
-        {/*Header -- POIS KÄYTÖSTÄ
-        <header className="App-header">
-        </header>
-        */}
-
-        {/*Navbar */}
-
-        {/* <Etsi /> */}
-
-        {/* <Map/> */}
-
-        {/*Vaihtuva kontentti*/}
         <center>
         <div>
 
