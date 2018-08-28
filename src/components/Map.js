@@ -21,6 +21,7 @@ const {
 var youPosition = {};
 // const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 
+var allToilets = []
 const MapWithASearchBox = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k&v=3.exp&libraries=geometry,drawing,places",
@@ -52,7 +53,6 @@ const MapWithASearchBox = compose(
 
       navigator.geolocation.watchPosition(showPosition, errorPosition, { enableHighAccuracy: true });
 
-      var allToilets = []
       getAllToilets((data) => {
         data.map(res => {
           allToilets.push(res)
@@ -153,7 +153,7 @@ const MapWithASearchBox = compose(
     </SearchBox>
     <MapControl position={google.maps.ControlPosition.LEFT_TOP}> <button style={{backgroundColor: 'transparent', border: 'none'}}><img src={logo}></img></button>
     <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData}/>
-    <AdMarker/>
+    <AdMarker addMarker={props.addMarker}/>
     </MapControl>
    </div>
     {props.markers.map((marker, index) =>
@@ -169,16 +169,21 @@ const MapWithASearchBox = compose(
 
 
 class Map2 extends Component {
-    state = { markers: [] };
+    state = { markers: allToilets };
     filterCallback = (filterData) => {
       this.setState({markers: filterData});
+    }
+    addMarker=(newMarker)=>{
+      var allMarkers= this.state.markers
+      allMarkers.push(newMarker)
+      this.setState({markers:allToilets})
     }
     render() {
       
       return(
           <div>
       
-          <MapWithASearchBox getFilterData={this.filterCallback} filteredMarkers={this.state.markers} showRouteOnClick={this.props.showRouteOnClick}/>              
+          <MapWithASearchBox addMarker={this.addMarker}getFilterData={this.filterCallback} filteredMarkers={this.state.markers} showRouteOnClick={this.props.showRouteOnClick}/>              
 
           </div>
       );

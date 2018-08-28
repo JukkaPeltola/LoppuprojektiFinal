@@ -5,7 +5,7 @@ import { addNewToilet } from '../utilities/Service';
 import './AdMarker.css';
 import Geocode from 'react-geocode'
 import logo from './plus2.png';
-
+var counter = 100000
 class AdMarker extends Component {
     constructor(props) {
         super(props);
@@ -90,10 +90,12 @@ class AdMarker extends Component {
             longitude: this.state.newToilet.longitude,
             address: splittedAddress[0] + " " + splittedAddress[1],
             zip: splittedAddress[2],
-            city: splittedAddress[3]
+            city: splittedAddress[3],
+            toilet_id: counter
             
         }
-        addNewToilet(newToilet)
+        this.props.addMarker(newToilet)
+        // addNewToilet(newToilet)
         this.setState({
             markerOpen: false,
             draggable: true,
@@ -104,7 +106,7 @@ class AdMarker extends Component {
             checked: false,
             address: {}
         })
-        console.log()
+        counter++
     }
     switchClick = () => {
         this.setState({ checked: !this.state.checked })
