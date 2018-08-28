@@ -1,0 +1,57 @@
+/* Full-width inputs */
+input[type=text], input[type=password] {
+    width: 100%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+.buttonSignup {
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+
+/* Add a hover effect for buttons */
+.buttonSignup:hover {
+    opacity: 0.8;
+}
+
+.teksti {
+    width: 30%;
+}
+
+.normalSignup {
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    padding: 5%;
+}
+
+.socialAuth {
+    background-color: #f7f7f7;
+    border-radius: 5px;
+}
+
+.notReg {
+    font-size: 0.8em;
+}
+
+/* Change styles for smaller screens */
+
+@media screen and (max-width: 1000px) {
+    .teksti {
+        display: block;
+        float: none;
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .teksti {
+        display: block;
+        float: none;
+        width: 80%;
+    }
+}

@@ -1,0 +1,21 @@
+.profile {
+    width: 30%;
+}
+
+/* Change styles for smaller screens */
+
+@media screen and (max-width: 1000px) {
+    .teksti {
+        display: block;
+        float: none;
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .teksti {
+        display: block;
+        float: none;
+        width: 80%;
+    }
+}

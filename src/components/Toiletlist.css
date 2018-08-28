@@ -1,0 +1,21 @@
+.jotain {
+    margin-left: 0;
+    margin-right: 0;
+    display: block;
+}
+
+@media screen and (max-width: 1000px) {
+    .wc {
+        display: block;
+        float: none;
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .wc {
+        display: block;
+        float: none;
+        width: 100%;
+    }
+}
