@@ -3,7 +3,7 @@ import './Toiletlist.css';
 import { getAllToilets } from '../utilities/Service';
 import geolib from 'geolib';
 import Toilet from './Toilet';
-import { Button, ButtonGroup } from 'reactstrap';
+import {Input, Button, ButtonGroup } from 'reactstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 var allToilets = []
@@ -17,7 +17,8 @@ class Toiletlist extends Component {
             lng: 24.94145,
             zoom: 17,
             markers: [],
-            rSelected: Number
+            rSelected: Number,
+            searchText: ''
         }
 
         this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
@@ -28,6 +29,14 @@ class Toiletlist extends Component {
         this.setState({ rSelected }, () => {
             this.filterToilets();
         })
+    }
+
+    onSearchChange = (e) => {
+        this.setState({searchText: e.target.value}, () => {
+            let tempToilet = allToilets.filter(x => x.name.includes(this.state.searchText))
+            this.setState({markers: tempToilet})
+        })
+        
     }
 
     filterToilets = () => {
@@ -63,7 +72,6 @@ class Toiletlist extends Component {
             console.log(this.state.markers)
         });
     }
-
     render() {
         var toilets = this.state.markers.map(marker => (
             <Toilet marker={marker} key={marker.toilet_id}>
@@ -76,14 +84,13 @@ class Toiletlist extends Component {
                 <h2>TOILET LIST</h2>
                 <br />
                 <h6>Järjestä</h6>
-                <div className="filterBtns">
                 <ButtonGroup>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Rating</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(2)} active={this.state.rSelected === 2}>Inva</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(3)} active={this.state.rSelected === 3}>Name</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
                 </ButtonGroup>
-                </div>
+                <Input onChange={this.onSearchChange} style={{width: '50%', marginLeft: '1%'}} size="" placeholder="Search by name.." type="text"></Input>
                 <ReactCSSTransitionGroup
                     transitionName="fade"
                     transitionEnterTimeout={700}
