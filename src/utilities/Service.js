@@ -26,6 +26,20 @@ export function getAllToilets(callback) {
             callback(myjson);
         })
 }
+export function getAllReports(callback) {
+    fetch(reportsUrl)
+        .then(result => {
+            return result.json()
+        }).then(myjson => {
+            callback(myjson);
+        })
+}
+export function DeleteReport(report_id) {
+    fetch(reportsUrl + report_id, {
+        method: 'DELETE'
+    })
+        .then(res => res.json())
+}
 
 export function GetOneToilets(toilet_id, callback) {
     fetch(toiletsUrl + toilet_id)
@@ -63,7 +77,8 @@ export function AddNewUser(user) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             'firstname': user.firstname, 'lastname': user.lastname, 'email': user.email,
-            'nickname': user.nickname, 'password': user.password, 'picture': user.picture
+            'nickname': user.nickname, 'password': user.password, 'picture': user.picture,
+            'admin': user.admin, 'social_id': user.social_id
         })
     })
         .then(res => console.log(res))
