@@ -102,23 +102,13 @@ class Filter extends Component {
         if(count === 2) {
             listWithAll = this.props.markerList;
         }
-        
-        this.props.markerList.sort(function (s1, s2) {
-            return geolib.getDistance(
-                   {latitude: 60.17131, longitude: 24.94145},
-                {latitude: s1.latitude, longitude: s1.longitude}) - geolib.getDistance(
-                    {latitude: 60.17131, longitude: 24.94145},
-                    {latitude: s2.latitude, longitude: s2.longitude})
-        });
-                        
-      
         // var currentlyOpen = this.props.markerList((marker) => {
         //     var dateNow = new Date().getDay();
         //     var timeNow = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit', hour12: false});
             
         // });
         
-        return (
+        return (           
             <div>
             <Button className="mapFilterBtn" style={{width: '80px', height: '40px',  borderColor:'transparent', marginTop: '5px', marginLeft: '10px', borderRadius: '3px', backgroundColor: 'info', color: 'white', display: 'inline-block', fontSize:'16px'}} onClick={this.toggle}>Filtering</Button>
             <Modal size="sm" isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
