@@ -4,7 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { addNewToilet } from '../utilities/Service';
 import './AdMarker.css';
 import Geocode from 'react-geocode'
-import logo from './plus2.png';
+import logo from './plus.png';
 
 class AdMarker extends Component {
     constructor(props) {
@@ -112,7 +112,8 @@ class AdMarker extends Component {
     render() {
         return (
             <div>
-                <Button onClick={this.markerToggleOpen} style={{width: '80px', height: '40px',  borderColor:'transparent', marginTop: '5px', marginLeft: '10px', borderRadius: '3px', backgroundColor: '#ff2d55', color: 'white', display: 'inline-block', fontSize:'15px'}}>+</Button>
+                <button className="addNewMarker" onClick={this.markerToggleOpen} style={{backgroundColor: 'transparent', display: 'inline-block', border: 'none', marginTop: '1%'}}><img src={logo} alt="Add toilet"></img>
+                    </button>
                 {
                     this.state.markerOpen &&
                     <Marker

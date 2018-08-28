@@ -154,6 +154,7 @@ const MapWithASearchBox = compose(
     </SearchBox>
     <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
     <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData}/>
+    <br />
     <AdMarker/>
     </MapControl>
    </div>
