@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import './Facebook.css';
+import { GetAllUsers, AddNewUser } from '../utilities/Service';
+var users;
 
 class Facebook extends Component {
     state = {
         isLoggedIn: false,
-        userID: '',
+        userId: '',
         name: '',
         email: '',
-        picture: ''
+        picture: '',
+        admin: false
+    }
+
+    componentDidMount() {
+        GetAllUsers((data) => {
+            users = data
+            console.log(users)
+        })
     }
 
     responseFacebook = response => {
@@ -16,23 +26,39 @@ class Facebook extends Component {
 
         this.setState({
             isLoggedIn: true,
-            userID: response.userID,
+            userId: response.userID,
             name: response.name,
             email: response.email,
             picture: response.picture.data.url
+        }, () => {
+            let exist = users.filter(x => x.social_id == response.id);
+            if (exist.length == 0) {
+                let newUser = {
+                    'firstname': "", 'lastname': "", 'email': "",
+                    'nickname': "", 'password': "", 'picture': "",
+                    'admin': false, 'social_id': response.id
+                }
+                this.props.facebookIn()
+                console.log(newUser)
+                console.log(exist)
+                sessionStorage.setItem('id', response.id)
+                AddNewUser(newUser)
+            } else {
+                this.props.facebookIn()
+                sessionStorage.setItem('id', response.id)
+                exist[0].admin == true ? this.setState({ admin: true }) : null
+                console.log(exist[0])
+            }
         })
     }
 
-    componentClicked = () =>
-        console.log("clicked");
-
     render() {
-        
+
         let fbContent;
 
         if (this.state.isLoggedIn) {
             fbContent = (
-                <div style={{ 
+                <div style={{
                     width: '20wv',
                     margin: 'auto',
                     background: '#F4F4F4',
@@ -50,12 +76,12 @@ class Facebook extends Component {
                 buttonText="LOGIN WITH FB"
                 autoLoad={false}
                 fields="name,email,picture"
-                onClick={this.componentClicked}
+
                 callback={this.responseFacebook} />);
         }
 
         return (
-            
+
             <div>
                 {fbContent}
             </div>

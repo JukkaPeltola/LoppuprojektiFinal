@@ -63,7 +63,8 @@ export function AddNewUser(user) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             'firstname': user.firstname, 'lastname': user.lastname, 'email': user.email,
-            'nickname': user.nickname, 'password': user.password, 'picture': user.picture
+            'nickname': user.nickname, 'password': user.password, 'picture': user.picture,
+            'admin': user.admin, 'social_id': user.social_id
         })
     })
         .then(res => console.log(res))
