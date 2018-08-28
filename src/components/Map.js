@@ -135,8 +135,9 @@ const MapWithASearchBox = compose(
     >
       <input
         type="text"
-        placeholder="Customized your placeholder"
+        placeholder="Search places"
         style={{
+          marginLeft:'10px',
           boxSizing: `border-box`,
           border: `1px solid transparent`,
           width: `240px`,
