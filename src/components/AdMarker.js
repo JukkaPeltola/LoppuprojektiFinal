@@ -74,7 +74,6 @@ class AdMarker extends Component {
                 },
                 address: Address
             })  
-            console.log(this.state.address)
         })
         
     }
@@ -95,7 +94,7 @@ class AdMarker extends Component {
             
         }
         this.props.addMarker(newToilet)
-        // addNewToilet(newToilet)
+        addNewToilet(newToilet)
         this.setState({
             markerOpen: false,
             draggable: true,
