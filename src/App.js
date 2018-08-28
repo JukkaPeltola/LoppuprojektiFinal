@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import About from './components/About';
 import Toiletlist from './components/Toiletlist';
+import Reportlist from './components/Reportlist';
 import Chat from './components/Chat';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -30,7 +31,7 @@ class App extends Component {
               <Route path="/About" component={About} />
               <Route path="/Wclist" component={Toiletlist} />
               <Route path="/Chat" component={Chat} />
-              {/* <Route path="/Reports" component={Reportlist} /> */}
+              <Route path="/Reports" component={Reportlist} />
               <Route path="/Login" component={Login} />
               <Route path="/Signup" component={Signup} />
               </Switch>

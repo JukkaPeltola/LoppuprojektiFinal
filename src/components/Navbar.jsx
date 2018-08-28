@@ -62,9 +62,17 @@ export default class CustomNavbar extends React.Component {
                     <NavItem>
                         <NavLink onClick={this.changeToLoggedOut} to="/About" activeClassName="active" tag={RRNavLink}>Tietoa</NavLink>
                     </NavItem>
+                    {
+                        this.state.addNew &&
                     <NavItem>
                         <NavLink onClick={this.changeToLoggedOut} to="/Reports" activeClassName="active" tag={RRNavLink}>Reports</NavLink>
                     </NavItem>
+                    }
+                    
+                    
+                    
+                    
+                    
                 </Nav>
 
                 <Nav className="navbar-nav ml-auto">
