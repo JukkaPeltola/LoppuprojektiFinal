@@ -33,7 +33,6 @@ class App extends Component {
               <Route path="/Chat" component={Chat} />
               <Route path="/Reports" component={Reportlist} />
               <Route path="/Login" component={Login} />
-              <Route path="/Signup" component={Signup} />
               </Switch>
             </div>
           </Router>

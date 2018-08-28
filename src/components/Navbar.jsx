@@ -23,6 +23,11 @@ export default class CustomNavbar extends React.Component {
         };
     }
 
+    logout = () => {
+        sessionStorage.removeItem('id')
+        
+    }
+
     changeToLoggedIn = () => {
         this.setState({ logged: true })
     }
@@ -73,7 +78,7 @@ export default class CustomNavbar extends React.Component {
                             {
                                 (loggedin != null && this.state.logged == false) &&
                                 <NavItem>
-                                    <NavLink onClick={this.changeToLoggedOut} style={{ color: 'green' }} to="/Signup" activeClassName="active" tag={RRNavLink}>Logout</NavLink>
+                                    <NavLink onClick={this.logout} style={{ color: 'green' }} to="/" activeClassName="active" tag={RRNavLink}>Logout</NavLink>
                                 </NavItem>
                             }
 
