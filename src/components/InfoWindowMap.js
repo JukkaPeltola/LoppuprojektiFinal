@@ -4,6 +4,8 @@ import ModalAddReview from './ModalAddReview';
 import ModalReportToilet from './ModalReportToilet';
 import { Button } from 'reactstrap';
 import { GetOneToilets } from '../utilities/Service';
+import NotDisabled from '../images/notForDisabled.gif';
+import Disable from '../images/suitableForDisabled.jpg';
 var paivitetty;
 
 class InfoWindowMap extends Component {
@@ -51,7 +53,15 @@ class InfoWindowMap extends Component {
         if (rating != null) {
             rating = rating.toFixed(2);
         }
-    
+        let inva =this.props.marker.inva;
+      if(!inva){
+        inva=<img alt='some value' style={{ width: `30px`,
+        height: `30px`,}} src={NotDisabled} />;
+      }
+      else{
+          inva=<img alt='some value' style={{ width: `30px`,
+          height: `30px`,}} src={Disable} />;;
+      }    
         return (
             <Marker
                 key={this.props.index}
@@ -64,6 +74,7 @@ class InfoWindowMap extends Component {
                     <InfoWindow onCloseClick={this.handleToggleClose}>
                         <div>
                             <h4>{this.props.marker.name}</h4>
+                            <h4>{inva}</h4>
                             {
                                 this.state.addNew && 
                                 <h6>Rating: {(paivitetty.rating).toFixed(2)}</h6>

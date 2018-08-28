@@ -10,8 +10,8 @@ import {
     NavLink,
     Form
 } from 'reactstrap';
+import { NavLink as RRNavLink } from 'react-router-dom';
 import Map from './Map';
-
 
 export default class CustomNavbar extends React.Component {
     constructor(props) {
@@ -19,8 +19,17 @@ export default class CustomNavbar extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            logged: false
         };
+    }
+
+    changeToLoggedIn = () => {
+        this.setState({logged: true})
+    }
+
+    changeToLoggedOut = () => {
+        this.setState({logged: false})
     }
 
     toggle() {
@@ -30,46 +39,52 @@ export default class CustomNavbar extends React.Component {
     }
     
     render() {
+        let loggedin = sessionStorage.getItem('id')
+        
         return (
             <div>
             <Navbar className="navbar navbar-expand-md navbar-dark bg-dark" light expand="md">
-                <NavbarBrand href="/">TOILET</NavbarBrand>
+                <NavbarBrand to="/" activeClassName="active" tag={RRNavLink}>TOILET</NavbarBrand>
 
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                 
                 <Nav className="navbar-nav mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="/">Koti</NavLink>
+                        <NavLink onClick={this.changeToLoggedOut} to="/" activeClassName="active" tag={RRNavLink}>Koti</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/Wclist">WC-lista</NavLink>
+                        <NavLink onClick={this.changeToLoggedOut} to="/Wclist" activeClassName="active" tag={RRNavLink}>WC-lista</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/Chat">Chat</NavLink>
+                        <NavLink onClick={this.changeToLoggedOut} to="/Chat" activeClassName="active" tag={RRNavLink}>Chat</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/About">Tietoa</NavLink>
+                        <NavLink onClick={this.changeToLoggedOut} to="/About" activeClassName="active" tag={RRNavLink}>Tietoa</NavLink>
                     </NavItem>
+                    {
+                        this.state.addNew &&
+                    <NavItem>
+                        <NavLink onClick={this.changeToLoggedOut} to="/Reports" activeClassName="active" tag={RRNavLink}>Reports</NavLink>
+                    </NavItem>
+                    }
+                    
+                    
+                    
+                    
+                    
                 </Nav>
 
                 <Nav className="navbar-nav ml-auto">
                 
                     <NavItem>
-                        <NavLink style={{ color: 'green' }} href="/Signup">Luo tunnus</NavLink>
+                        <NavLink onClick={this.changeToLoggedOut} style={{ color: 'green' }} to="/Signup" activeClassName="active" tag={RRNavLink}>Luo tunnus</NavLink>
                     </NavItem>
+                    {(loggedin == null && this.state.logged == false) &&
                     <NavItem>
-                        <NavLink style={{ border: '1px solid', borderRadius: '10px', backgroundColor: 'green' }} className="btn-primary" href="/Login">Kirjaudu</NavLink>
+                        <NavLink onClick={this.changeToLoggedIn} style={{ border: '1px solid', borderRadius: '10px', backgroundColor: 'green' }} className="btn-primary" to="/Login" activeClassName="active" tag={RRNavLink}>Kirjaudu</NavLink>
                     </NavItem>
-                
-                    <Form style={{ minWidth: '25vw', maxWidth: '120vw' }} className="form-inline mt-2 mt-md-0">
-                        <NavItem className="searchBtn">
-                            <button style={{ marginLeft: '1vw' }} className="btn btn-outline-success my-2 my-sm-0 text-center" type="submit">&#9906;</button>
-                        </NavItem>
-                        <NavItem className="searchField">
-                            <input style={{ minWidth: '25vw', maxWidth: '100vm', marginLeft: '5px' }} className="form-control mr-sm-2" type="text" placeholder="Hae katu tai kaupunki"></input>
-                        </NavItem>
-                    </Form>
+                    }
                 </Nav>
                 </Collapse>
             </Navbar>

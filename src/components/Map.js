@@ -7,7 +7,7 @@ import MapControl from './MapControl';
 import logo from './plus.png';
 import YourPosition from './YourPosition';
 import AdMarker from './AdMarker';
-;
+import FindNearestToilet from './FindNearestToilet';
 
 const google = window.google;
 const _ = require("lodash");
@@ -145,8 +145,9 @@ const MapWithASearchBox = compose(
     >
       <input
         type="text"
-        placeholder="Customized your placeholder"
+        placeholder="Search places"
         style={{
+          marginLeft:'10px',
           boxSizing: `border-box`,
           border: `1px solid transparent`,
           width: `240px`,
@@ -164,6 +165,7 @@ const MapWithASearchBox = compose(
     <MapControl position={google.maps.ControlPosition.LEFT_TOP}> <button style={{backgroundColor: 'transparent', border: 'none'}}><img src={logo}></img></button>
     <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData}/>
     <AdMarker addMarker={props.addMarker}/>
+    <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData}/>
     </MapControl>
    </div>
     {props.markers.map((marker, index) =>
