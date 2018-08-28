@@ -34,7 +34,7 @@ export function getAllReports(callback) {
             callback(myjson);
         })
 }
-export function DeleteReport(report_id) {
+export function deleteReport(report_id) {
     fetch(reportsUrl + report_id, {
         method: 'DELETE'
     })

@@ -63,7 +63,6 @@ class Toiletlist extends Component {
             console.log(this.state.markers)
         });
     }
-
     render() {
         var toilets = this.state.markers.map(marker => (
             <Toilet marker={marker} key={marker.toilet_id}>
@@ -75,7 +74,7 @@ class Toiletlist extends Component {
                 <br />
                 <h2>TOILET LIST</h2>
                 <br />
-                <h6>Järjestä</h6>
+                <h6>Järjestä</h6>               
                 <ButtonGroup>
                     <Button color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Rating</Button>
                     <Button color="primary" onClick={() => this.onRadioBtnClick(2)} active={this.state.rSelected === 2}>Inva</Button>
