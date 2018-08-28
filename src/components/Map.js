@@ -147,7 +147,7 @@ const MapWithASearchBox = compose(
         type="text"
         placeholder="Search places"
         style={{
-          marginLeft:'10px',
+          marginLeft:'15px',
           boxSizing: `border-box`,
           border: `1px solid transparent`,
           width: `240px`,
@@ -162,10 +162,11 @@ const MapWithASearchBox = compose(
         }}
       /> 
     </SearchBox>
-    <MapControl position={google.maps.ControlPosition.LEFT_TOP}> <button style={{backgroundColor: 'transparent', border: 'none'}}><img src={logo}></img></button>
-    <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData}/>
-    <AdMarker addMarker={props.addMarker}/>
+    <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
     <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData}/>
+    <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData}/>
+    <br />
+    <AdMarker addMarker={props.addMarker}/>
     </MapControl>
    </div>
     {props.markers.map((marker, index) =>

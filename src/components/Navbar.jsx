@@ -11,7 +11,6 @@ import {
     Form
 } from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
-import Map from './Map';
 
 export default class CustomNavbar extends React.Component {
     constructor(props) {

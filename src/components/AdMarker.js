@@ -4,8 +4,9 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { addNewToilet } from '../utilities/Service';
 import './AdMarker.css';
 import Geocode from 'react-geocode'
-import logo from './plus2.png';
+import logo from './plus.png';
 var counter = 100000
+
 class AdMarker extends Component {
     constructor(props) {
         super(props);
@@ -113,8 +114,15 @@ class AdMarker extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.markerToggleOpen} style={{backgroundColor: 'transparent', border: 'none', marginTop: '10px'}}><img src={logo} alt="Add toilet"></img>
-                    </button>
+                <button className="addNewMarker" onClick={this.markerToggleOpen} style={{ 
+                    backgroundColor: 'transparent', 
+                    display: 'inline-block', 
+                    border: 'none',
+                    marginTop: '30%',
+                    marginLeft: '-180px'
+                }}>
+                <img src={logo} alt="Add toilet"></img>
+                </button>
                 {
                     this.state.markerOpen &&
                     <Marker
