@@ -19,7 +19,8 @@ export default class CustomNavbar extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            addNew: false
         };
     }
 
@@ -47,10 +48,19 @@ export default class CustomNavbar extends React.Component {
                     </NavItem>
                     <NavItem>
                         <NavLink href="/Chat">Chat</NavLink>
-                    </NavItem>
+                    </NavItem>                   
                     <NavItem>
                         <NavLink href="/About">Tietoa</NavLink>
                     </NavItem>
+                    {
+                        this.state.addNew &&
+                    <NavItem>
+                        <NavLink href="/Report">Report</NavLink>
+                    </NavItem>
+                    }
+                    
+                    
+                    
                 </Nav>
 
                 <Nav className="navbar-nav ml-auto">

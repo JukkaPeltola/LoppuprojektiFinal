@@ -26,6 +26,20 @@ export function getAllToilets(callback) {
             callback(myjson);
         })
 }
+export function getAllReports(callback) {
+    fetch(reportsUrl)
+        .then(result => {
+            return result.json()
+        }).then(myjson => {
+            callback(myjson);
+        })
+}
+export function DeleteReport(report_id) {
+    fetch(reportsUrl + report_id, {
+        method: 'DELETE'
+    })
+        .then(res => res.json())
+}
 
 export function GetOneToilets(toilet_id, callback) {
     fetch(toiletsUrl + toilet_id)
