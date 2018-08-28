@@ -112,8 +112,7 @@ class AdMarker extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.markerToggleOpen} style={{backgroundColor: 'transparent', border: 'none', marginTop: '10px'}}><img src={logo} alt="Add toilet"></img>
-                    </button>
+                <Button onClick={this.markerToggleOpen} style={{width: '80px', height: '40px',  borderColor:'transparent', marginTop: '5px', marginLeft: '10px', borderRadius: '3px', backgroundColor: '#ff2d55', color: 'white', display: 'inline-block', fontSize:'15px'}}>+</Button>
                 {
                     this.state.markerOpen &&
                     <Marker

@@ -31,7 +31,7 @@ class Filter extends Component {
 
     componentWillReceiveProps(nextProps){
         if(nextProps.markerList !== this.props.markerList){
-             this.setState({ markers: nextProps.markerList })
+            this.setState({ markers: nextProps.markerList })
             
         }  
     };
@@ -120,7 +120,7 @@ class Filter extends Component {
         
         return (
             <div>
-            <Button style={{width: '125px', height: '50px',  borderColor:'transparent', marginTop: '5px', marginLeft: '10px', borderRadius: '10%', backgroundColor: '#ff2d55', color: 'white', fontFamily: 'Roboto Mono', fontSize:'17px', fontWeight: 'bold'}} onClick={this.toggle}>FILTERING</Button>
+            <Button className="mapFilterBtn" style={{width: '80px', height: '40px',  borderColor:'transparent', marginTop: '5px', marginLeft: '10px', borderRadius: '3px', backgroundColor: 'info', color: 'white', display: 'inline-block', fontSize:'16px'}} onClick={this.toggle}>Filtering</Button>
             <Modal size="sm" isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
               {/* <ModalHeader toggle={this.toggle}></ModalHeader> */}
               <div style={{ marginBottom: '20px'}}>
