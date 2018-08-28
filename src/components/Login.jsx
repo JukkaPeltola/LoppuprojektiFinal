@@ -16,8 +16,6 @@ import Facebook from './Facebook';
 // import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import Google from './Google';
 
-import Auth from './Auth.js';
-
 // import { validateInput } from './loginValidation';
 // import { connect } from 'react-redux';
 
