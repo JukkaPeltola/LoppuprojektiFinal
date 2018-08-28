@@ -6,7 +6,6 @@ import Toiletlist from './components/Toiletlist';
 import Reportlist from './components/Reportlist';
 import Chat from './components/Chat';
 import Login from './components/Login';
-import Signup from './components/Signup';
 // import Reportlist from './components/Reportlist';
 import Main from './components/Main';
 import CustomNavbar from './components/Navbar';
