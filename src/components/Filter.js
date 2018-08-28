@@ -110,7 +110,19 @@ class Filter extends Component {
         
         return (           
             <div>
-            <Button className="mapFilterBtn" style={{width: '80px', height: '40px',  borderColor:'transparent', marginTop: '5px', marginLeft: '10px', borderRadius: '3px', backgroundColor: 'info', color: 'white', display: 'inline-block', fontSize:'16px'}} onClick={this.toggle}>Filtering</Button>
+            <Button className="mapFilterBtn bg-dark" style={{
+                width: '80px',  
+                borderColor:'transparent', 
+                margin: '5%',
+                marginLeft: '15px',
+                opacity: '0.7',
+                float: 'left',
+                borderRadius: '3px', 
+                color: 'white', 
+                display: 'inline-block', 
+                fontSize:'16px'
+            }} onClick={this.toggle}>Filtering</Button>
+
             <Modal size="sm" isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
               {/* <ModalHeader toggle={this.toggle}></ModalHeader> */}
               <div style={{ marginBottom: '20px'}}>
