@@ -2,86 +2,94 @@ import React, { Component } from 'react';
 import './Toiletlist.css';
 import { getAllToilets } from '../utilities/Service';
 import geolib from 'geolib';
+import Toilet from './Toilet';
+import { Button, ButtonGroup } from 'reactstrap';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+var allToilets = []
 
 class Toiletlist extends Component {
-    state = {  }
 
-    constructor() {
-        super()
-        
+    constructor(props) {
+        super(props)
         this.state = {
-        lat: 60.17131,
-        lng: 24.94145,
-        zoom: 17,
-        markers: []
+            lat: 60.17131,
+            lng: 24.94145,
+            zoom: 17,
+            markers: [],
+            rSelected: Number
+        }
 
+        this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+
+    }
+
+    onRadioBtnClick(rSelected) {
+        this.setState({ rSelected }, () => {
+            this.filterToilets();
+        })
+    }
+
+    filterToilets = () => {
+        if (this.state.rSelected == 2) {
+            let tempToilets = allToilets.filter(x => x.inva != true)
+            this.setState({ markers: tempToilets })
+        } else if (this.state.rSelected == 1) {
+            let tempToilets = allToilets.sort((a, b) => (a.rating < b.rating ? 1 : -1))
+            this.setState({ markers: tempToilets })
+        } else if (this.state.rSelected == 4) {
+            let tempToilets = allToilets.sort((a, b) => (geolib.getDistance(
+                { latitude: 60.17131, longitude: 24.94145 },
+                { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
+                    { latitude: 60.17131, longitude: 24.94145 },
+                    { latitude: b.latitude, longitude: b.longitude })
+
+            ))
+            this.setState({ markers: tempToilets })
+        } else if (this.state.rSelected == 3) {
+            let tempToilets = allToilets.sort((a, b) => (a.name > b.name ? 1 : -1))
+            this.setState({ markers: tempToilets })
         }
     }
 
     componentDidMount() {
-    
-        var allToilets = []
-        
+
         getAllToilets((data) => {
             data.map(res => {
-            allToilets.push(res)
+                allToilets.push(res)
             })
-    
-            this.setState({markers: allToilets})
+
+            this.setState({ markers: allToilets })
             console.log(this.state.markers)
         });
-
     }
 
     render() {
-
-        // var distance = this.props.markerList((marker) => {
-        //     geolib.getDistance(
-        //         {latitude: sessionStorage.getItem("latitude"), longitude: sessionStorage.getItem("longitude")},
-        //         {latitude: marker.latitude, longitude: marker.longitude}
-        //     );
-        // });
-
-        var t = this.state.markers.map(marker => (
-
-            <center>
-                <li style={{ 
-                    width: '70%',
-                    margin: '1% 0',
-                    padding: '3%',
-                    border: 'solid',
-                    borderRadius: '10px',
-                    backgroundColor: '#e2edff' 
-                }} >
-
-                    {marker.name}, {marker.address}, {marker.zip}, {marker.city},
-                    {marker.rating} , {marker.inva} , {marker.pricing} ,
-            
-                    {/* {geolib.getDistance(
-                        {latitude: sessionStorage.getItem("latitude"), longitude: sessionStorage.getItem("longitude")},
-                        {latitude: marker.latitude, longitude: marker.longitude}
-                    )/1000 } km */}
-                </li>
-            </center>
+        var toilets = this.state.markers.map(marker => (
+            <Toilet marker={marker} key={marker.toilet_id}>
+            </Toilet>
         ));
-
-        // t.sort(function (s1, s2) {
-        //     return geolib.getDistance(
-        //         {latitude: 60.17131, longitude: 24.94145},
-        //         {latitude: s2.latitude, longitude: s2.longitude}) - geolib.getDistance(
-        //             {latitude: 60.17131, longitude: 24.94145},
-        //             {latitude: s1.latitude, longitude: s1.longitude});
-        // });
 
         return (
             <div>
                 <br />
                 <h2>TOILET LIST</h2>
                 <br />
-                
-                <table className="wc" style={{ marginLeft: 0, marginRight: 0, display: 'block', width: '100%', listStyleType: 'none' }}>
-                    {t}
-                </table>
+                <h6>Järjestä</h6>
+                <ButtonGroup>
+                    <Button color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Rating</Button>
+                    <Button color="primary" onClick={() => this.onRadioBtnClick(2)} active={this.state.rSelected === 2}>Inva</Button>
+                    <Button color="primary" onClick={() => this.onRadioBtnClick(3)} active={this.state.rSelected === 3}>Name</Button>
+                    <Button color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
+                </ButtonGroup>
+                <ReactCSSTransitionGroup
+                    transitionName="fade"
+                    transitionEnterTimeout={700}
+                    transitionLeaveTimeout={700}
+                    transitionAppear={true}
+                    transitionAppearTimeout={700}>
+                    {toilets}
+                </ReactCSSTransitionGroup>
             </div>
         );
     }
