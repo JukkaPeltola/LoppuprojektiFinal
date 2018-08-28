@@ -9,7 +9,6 @@ import {
     FormGroup,
     Button 
 } from 'reactstrap';
-import { GetAllUsers } from '../utils/WebapiService';
 import Facebook from './Facebook';
 
 

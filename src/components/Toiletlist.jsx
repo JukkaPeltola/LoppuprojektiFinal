@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Toiletlist.css';
-import { GetAllToilets } from '../utils/WebapiService';
+import { getAllToilets } from '../utilities/Service';
 import geolib from 'geolib';
 
 class Toiletlist extends Component {
@@ -22,7 +22,7 @@ class Toiletlist extends Component {
     
         var allToilets = []
         
-        GetAllToilets((data) => {
+        getAllToilets((data) => {
             data.map(res => {
             allToilets.push(res)
             })

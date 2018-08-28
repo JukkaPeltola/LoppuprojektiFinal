@@ -9,7 +9,7 @@ import {
     Button 
 } from 'reactstrap';
 
-import { GetAllUsers } from '../utils/WebapiService';
+import { GetAllUsers } from '../utilities/Service';
 import Facebook from './Facebook';
 
 // import firebase from 'firebase';
