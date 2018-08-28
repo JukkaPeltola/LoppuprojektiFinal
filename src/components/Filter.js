@@ -73,8 +73,8 @@ class Filter extends Component {
                 {latitude: marker.latitude, longitude: marker.longitude}
             ) < distanceRange && marker.rating >= this.state.rating);
             this.props.getFilterData(b);
-            console.log(b);
-        }      
+        } 
+        this.toggle();     
     }
 
     clear(event) {
@@ -84,7 +84,7 @@ class Filter extends Component {
         this.setState({disabledCheckboxState2: false});
         this.setState({rating: 0})
         distanceRange = 40075000;
-        console.log(listWithAll)
+        this.toggle();
     }
     handleChecked () {
         this.setState({disabledCheckboxState: !this.state.disabledCheckboxState});
@@ -102,8 +102,7 @@ class Filter extends Component {
         if(count === 2) {
             listWithAll = this.props.markerList;
         }
-        console.log(count);
-        console.log(listWithAll);
+        
         this.props.markerList.sort(function (s1, s2) {
             return geolib.getDistance(
                    {latitude: 60.17131, longitude: 24.94145},
@@ -111,7 +110,7 @@ class Filter extends Component {
                     {latitude: 60.17131, longitude: 24.94145},
                     {latitude: s2.latitude, longitude: s2.longitude})
         });
-                 console.log(distanceRange);        
+                        
       
         // var currentlyOpen = this.props.markerList((marker) => {
         //     var dateNow = new Date().getDay();
@@ -122,8 +121,8 @@ class Filter extends Component {
         return (
             <div>
             <Button style={{width: '125px', height: '50px',  borderColor:'transparent', marginTop: '5px', marginLeft: '10px', borderRadius: '10%', backgroundColor: '#ff2d55', color: 'white', fontFamily: 'Roboto Mono', fontSize:'17px', fontWeight: 'bold'}} onClick={this.toggle}>FILTERING</Button>
-            <Modal isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
-              <ModalHeader toggle={this.toggle}></ModalHeader>
+            <Modal size="sm" isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
+              {/* <ModalHeader toggle={this.toggle}></ModalHeader> */}
               <div style={{ marginBottom: '20px'}}>
               <ModalBody>       
               <Slider min={0} max={1000} step={10} marks={{0: '0m', 250: '250m', 500: '500m', 750: '750m', 990: '1000m'}} defaultValue={500} onAfterChange={this.onSliderChange}/>  
@@ -157,7 +156,7 @@ class Filter extends Component {
               </ModalBody>
               <ModalFooter>
                 <Button style={{backgroundColor: '#ff2d55', color: 'white', fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.applyFilters}>Apply filters</Button>
-                <Button style={{fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.clear}>Clear filters</Button>
+                <Button style={{fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.clear}>Cancel</Button>
               </ModalFooter>
               </div>
             </Modal>

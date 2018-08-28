@@ -151,7 +151,7 @@ const MapWithASearchBox = compose(
         }}
       /> 
     </SearchBox>
-    <MapControl position={google.maps.ControlPosition.LEFT_TOP}> <button style={{backgroundColor: 'transparent', border: 'none'}}><img src={logo}></img></button>
+    <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
     <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData}/>
     <AdMarker/>
     </MapControl>
