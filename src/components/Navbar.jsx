@@ -74,35 +74,6 @@ export default class CustomNavbar extends React.Component {
                             }
                         </Nav>
 
-<<<<<<< HEAD
-                <NavbarToggler onClick={this.toggle} />
-                <Collapse isOpen={this.state.isOpen} navbar>
-                
-                <Nav className="navbar-nav mr-auto" navbar>
-                    <NavItem>
-                        <NavLink onClick={this.changeToLoggedOut} to="/" activeClassName="active" tag={RRNavLink}>Koti</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink onClick={this.changeToLoggedOut} to="/Wclist" activeClassName="active" tag={RRNavLink}>WC-lista</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink onClick={this.changeToLoggedOut} to="/Chat" activeClassName="active" tag={RRNavLink}>Chat</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink onClick={this.changeToLoggedOut} to="/About" activeClassName="active" tag={RRNavLink}>Tietoa</NavLink>
-                    </NavItem>
-                    
-                    <NavItem>
-                        <NavLink onClick={this.changeToLoggedOut} to="/Reports" activeClassName="active" tag={RRNavLink}>Reports</NavLink>
-                    </NavItem>
-                    
-                    
-                    
-                    
-                    
-                    
-                </Nav>
-=======
                         <Nav className="navbar-nav ml-auto">
                             {
                                 (loggedin != null && this.state.logged == false) &&
@@ -110,7 +81,6 @@ export default class CustomNavbar extends React.Component {
                                     <NavLink onClick={this.logout} style={{ color: 'green' }} to="/" activeClassName="active" tag={RRNavLink}>Logout</NavLink>
                                 </NavItem>
                             }
->>>>>>> c0a7073d54bb741c58bb58ba0005e76d6b273d78
 
                             {(loggedin == null && this.state.logged == false) &&
                                 <NavItem>
