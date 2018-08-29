@@ -30,7 +30,7 @@ class InfoWindowMap extends Component {
     }
 
     handleToggleOpen = () => {
-
+    
         this.setState({
             isOpen: true
         });
@@ -67,6 +67,7 @@ class InfoWindowMap extends Component {
           height: `30px`,}} src={Disable} />;;
       }    
         return (
+           
             <Marker
                 key={this.props.index}
                 position={{ lat: parseFloat(this.props.lat), lng: parseFloat(this.props.lng) }}
@@ -99,7 +100,6 @@ class InfoWindowMap extends Component {
 
 
             </Marker>
-
         )
 
     }

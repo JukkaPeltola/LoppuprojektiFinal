@@ -10,9 +10,9 @@ import AdMarker from './AdMarker';
 import FindNearestToilet from './FindNearestToilet';
 import { componentWillUnmount } from 'react-google-maps/lib/utils/MapChildHelper';
 
-const google = window.google;
+const google = window.google
 const _ = require("lodash");
-const { compose, withProps, lifecycle } = require("recompose");
+const { compose, withProps, lifecycle, } = require("recompose");
 const {
   withScriptjs,
   withGoogleMap,
@@ -29,7 +29,7 @@ const MapWithASearchBox = compose(
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `92vh`, width: '100wv' }} />,
-    mapElement: <div style={{ height: `100%` }} />,
+    mapElement: <div style={{ height: `100%` }}  />,
   }),
   lifecycle({
     
@@ -127,7 +127,7 @@ const MapWithASearchBox = compose(
     }
     
   }),
-  withScriptjs,
+  // withScriptjs,
   withGoogleMap
 )(props =>
 
@@ -195,6 +195,7 @@ class Map2 extends Component {
     newMarkers.push(newMarker)
     this.setState({ addedMarker: newMarkers })
   }
+ 
   render() {
 
     return (
