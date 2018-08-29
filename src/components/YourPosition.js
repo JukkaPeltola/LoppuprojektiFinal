@@ -11,12 +11,21 @@ class YourPosition extends Component {
         }
     }
 
+
+
     componentWillReceiveProps() {
-        this.setState({
-            lat: parseFloat(sessionStorage.getItem('lat')),
-            lng: parseFloat(sessionStorage.getItem('lng'))
-            
-        })
+        console.log("asd")
+        let lat = parseFloat(sessionStorage.getItem('lat'))
+        let lng = parseFloat(sessionStorage.getItem('lng'))
+
+        this.setState({lat: lat, lng: lng })
+
+        setInterval(() => {
+            let lat = parseFloat(sessionStorage.getItem('lat'))
+            let lng = parseFloat(sessionStorage.getItem('lng'))
+            this.setState({lat: lat, lng: lng})
+            console.log(this.state)
+        },1000)
     }
 
     render() {

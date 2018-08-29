@@ -4,11 +4,22 @@ import ModalShowToiletReviews from './ModalShowToiletReviews';
 import geolib from 'geolib';
 import './Toilet.css';
 import {Button} from 'reactstrap';
+import { GetOneUser } from '../utilities/Service';
 class Toilet extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin: true
+            admin: false
+        }
+    }
+
+    componentDidMount(){
+        let user = sessionStorage.getItem('id')
+        if (user != null) {
+            GetOneUser(user,(data) => {
+                // console.log((data.admin))
+                this.setState({admin: data.admin})
+            })
         }
     }
 
