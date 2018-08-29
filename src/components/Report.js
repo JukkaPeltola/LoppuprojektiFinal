@@ -14,7 +14,6 @@ class report extends Component {
         this.props.poista(this.props.marker.report_id)
         deleteReport(this.props.marker.report_id)
     }
-    ;
     
     render() {
         const formattedDate = Moment(this.props.marker.date).format('DD-MMM-YY HH:mm');
