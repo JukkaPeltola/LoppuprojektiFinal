@@ -4,7 +4,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { addNewToilet } from '../utilities/Service';
 import './AdMarker.css';
 import Geocode from 'react-geocode'
-import logo from './plus2.png';
+import logo from './plus.png';
+var counter = 100000
 
 class AdMarker extends Component {
     constructor(props) {
@@ -64,24 +65,23 @@ class AdMarker extends Component {
         var lat = e.latLng.lat(), lng = e.latLng.lng()
         Geocode.fromLatLng(lat, lng).then(
             response => {
-             var Address = response.results[0].formatted_address.toString();
-                
-             this.setState({
-                infoWindowOpen: true, latLng: { lat: lat, lng: lng },
-                newToilet: {
-                    latitude: lat,
-                    longitude: lng,
-                },
-                address: Address
-            })  
-            console.log(this.state.address)
-        })
-        
+                var Address = response.results[0].formatted_address.toString();
+
+                this.setState({
+                    infoWindowOpen: true, latLng: { lat: lat, lng: lng },
+                    newToilet: {
+                        latitude: lat,
+                        longitude: lng,
+                    },
+                    address: Address
+                })
+            })
+
     }
-    addNew=()=>{
+    addNew = () => {
         var theAddress = this.state.address
         var splittedAddress = theAddress.split(" ")
-        var newToilet={
+        var newToilet = {
             inva: this.state.checked,
             name: this.refs.name.value,
             pricing: this.refs.hinta.value,
@@ -90,9 +90,11 @@ class AdMarker extends Component {
             longitude: this.state.newToilet.longitude,
             address: splittedAddress[0] + " " + splittedAddress[1],
             zip: splittedAddress[2],
-            city: splittedAddress[3]
-            
+            city: splittedAddress[3],
+            toilet_id: counter
+
         }
+        this.props.addMarker(newToilet)
         addNewToilet(newToilet)
         this.setState({
             markerOpen: false,
@@ -104,7 +106,7 @@ class AdMarker extends Component {
             checked: false,
             address: {}
         })
-        console.log()
+        counter++
     }
     switchClick = () => {
         this.setState({ checked: !this.state.checked })
@@ -112,8 +114,15 @@ class AdMarker extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.markerToggleOpen} style={{backgroundColor: 'transparent', border: 'none', marginTop: '10px'}}><img src={logo} alt="Add toilet"></img>
-                    </button>
+                <button className="addNewMarker" onClick={this.markerToggleOpen} style={{
+                    backgroundColor: 'transparent',
+                    display: 'inline-block',
+                    border: 'none',
+                    marginTop: '30%',
+                    marginLeft: '-180px'
+                }}>
+                    <img src={logo} alt="Add toilet"></img>
+                </button>
                 {
                     this.state.markerOpen &&
                     <Marker
@@ -126,8 +135,8 @@ class AdMarker extends Component {
                             this.state.infoWindowOpen &&
                             <InfoWindow>
                                 <div>
-                                    <Button style={{marginRight: `10px`}} color="success" onClick={this.modalToggleopen}>Add new toilet</Button>
-                                    <Button style={{marginRight: `10px`}} onClick={this.markerToggleClose}>Cancel</Button>
+                                    <Button style={{ marginRight: `10px` }} color="success" onClick={this.modalToggleopen}>Add new toilet</Button>
+                                    <Button style={{ marginRight: `10px` }} onClick={this.markerToggleClose}>Cancel</Button>
                                 </div>
                             </InfoWindow>
                         }

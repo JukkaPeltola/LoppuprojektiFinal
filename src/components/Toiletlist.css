@@ -1,7 +1,7 @@
-.jotain {
-    margin-left: 0;
-    margin-right: 0;
-    display: block;
+
+.filterBtn {
+    width: 120px;
+    margin: 1%;
 }
 
 @media screen and (max-width: 1000px) {
@@ -9,6 +9,14 @@
         display: block;
         float: none;
         width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .filterBtn {
+        display: block;
+        float: none;
+        width: 85px;
     }
 }
 

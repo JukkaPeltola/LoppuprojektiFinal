@@ -41,7 +41,7 @@ class Toiletlist extends Component {
 
     filterToilets = () => {
         if (this.state.rSelected == 2) {
-            let tempToilets = allToilets.filter(x => x.inva != true)
+            let tempToilets = allToilets.filter(x => x.inva == true)
             this.setState({ markers: tempToilets })
         } else if (this.state.rSelected == 1) {
             let tempToilets = allToilets.sort((a, b) => (a.rating < b.rating ? 1 : -1))
@@ -83,12 +83,12 @@ class Toiletlist extends Component {
                 <br />
                 <h2>TOILET LIST</h2>
                 <br />
-                <h6>Järjestä</h6>               
+                <h6>Järjestä</h6>
                 <ButtonGroup>
-                    <Button color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Rating</Button>
-                    <Button color="primary" onClick={() => this.onRadioBtnClick(2)} active={this.state.rSelected === 2}>Inva</Button>
-                    <Button color="primary" onClick={() => this.onRadioBtnClick(3)} active={this.state.rSelected === 3}>Name</Button>
-                    <Button color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
+                    <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Rating</Button>
+                    <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(2)} active={this.state.rSelected === 2}>Inva</Button>
+                    <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(3)} active={this.state.rSelected === 3}>Name</Button>
+                    <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
                 </ButtonGroup>
                 <Input onChange={this.onSearchChange} style={{width: '50%', marginLeft: '1%'}} size="" placeholder="Search by name.." type="text"></Input>
                 <ReactCSSTransitionGroup
