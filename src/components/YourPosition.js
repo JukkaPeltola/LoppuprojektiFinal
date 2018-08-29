@@ -11,12 +11,36 @@ class YourPosition extends Component {
         }
     }
 
+
+
     componentWillReceiveProps() {
-        this.setState({
-            lat: parseFloat(sessionStorage.getItem('lat')),
-            lng: parseFloat(sessionStorage.getItem('lng'))
+        let lat = parseFloat(sessionStorage.getItem('lat'))
+        let lng = parseFloat(sessionStorage.getItem('lng'))
+
+        this.setState({ lat: lat, lng: lng })
+
+        //Hakee käyttäjän sijainnin 1sek välein
+        setInterval(() => {
+            let lat = parseFloat(sessionStorage.getItem('lat'))
+            let lng = parseFloat(sessionStorage.getItem('lng'))
             
-        })
+            //Jos sijainti ei löydy alussa niin haetaan uusiksi
+            if ((lat || lng) == null) {
+                navigator.geolocation.getCurrentPosition(showPosition, errorPosition, { enableHighAccuracy: true });
+            }
+
+            function errorPosition() {
+                alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all features.`)
+            }
+
+            function showPosition(position) {
+                sessionStorage.setItem('lat', position.coords.latitude);
+                sessionStorage.setItem('lng', position.coords.longitude);
+                console.log("En löytänyt sijaintia niin nyt olen hakemassa uusiksi! HYVÄ JUTTU!")
+            }
+
+            this.setState({ lat: lat, lng: lng })
+        }, 1000)
     }
 
     render() {

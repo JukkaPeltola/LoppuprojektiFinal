@@ -16,8 +16,8 @@ class Filter extends Component {
           modal: false,
           filterButtonShown: true,
           markers:[],
-          lat: 60.17131,
-          lng: 24.94145,
+          lat: null,
+          lng: null,
           all: [],
           disabledCheckboxState: false,
           disabledCheckboxState2: false,
@@ -36,6 +36,7 @@ class Filter extends Component {
             this.setState({ markers: nextProps.markerList })
             
         }  
+        this.setState({lat: sessionStorage.getItem("lat"), lng: sessionStorage.getItem("lng")});
     };
     
     toggle() {
@@ -57,6 +58,14 @@ class Filter extends Component {
         if(this.state.disabledCheckboxState && distanceRange === 40075000)
         {
             a = kaikkiVessat.filter(marker => marker.inva && marker.rating >= this.state.rating);
+            if(a.length === 0) {
+                alert("No toilets found!")
+                this.setState({disabledCheckboxState: false});
+                this.setState({disabledCheckboxState2: false});
+                this.setState({rating: 0})
+                distanceRange = 40075000;
+                return ;
+              }
             this.props.getFilterData(a);
         }
         if(this.state.disabledCheckboxState && distanceRange !== 40075000){
@@ -65,6 +74,14 @@ class Filter extends Component {
             {latitude: marker.latitude, longitude: marker.longitude}
         ) < distanceRange);
         c = b.filter(marker => marker.inva && marker.rating >= this.state.rating);
+        if(c.length === 0) {
+            alert("No toilets found!")
+            this.setState({disabledCheckboxState: false});
+            this.setState({disabledCheckboxState2: false});
+            this.setState({rating: 0})
+            distanceRange = 40075000;
+            return ;
+        }
         this.props.getFilterData(c);
         }
 
@@ -74,6 +91,15 @@ class Filter extends Component {
                 {latitude: this.state.lat, longitude: this.state.lng},
                 {latitude: marker.latitude, longitude: marker.longitude}
             ) < distanceRange && marker.rating >= this.state.rating);
+
+            if(b.length === 0) {
+                alert("No toilets found!")
+                this.setState({disabledCheckboxState: false});
+                this.setState({disabledCheckboxState2: false});
+                this.setState({rating: 0})
+                distanceRange = 40075000;
+                return ;
+              }
             this.props.getFilterData(b);
         } 
         this.setState({filterButtonShown: false});
@@ -110,7 +136,9 @@ class Filter extends Component {
         count++;
         if(count === 2) {
             listWithAll = this.props.markerList;
+            this.setState({lat: sessionStorage.getItem("lat"), lng: sessionStorage.getItem("lng")});
         }
+        
         // var currentlyOpen = this.props.markerList((marker) => {
         //     var dateNow = new Date().getDay();
         //     var timeNow = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit', hour12: false});
