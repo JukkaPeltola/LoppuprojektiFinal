@@ -73,7 +73,7 @@ export default class CustomNavbar extends React.Component {
                 <Navbar className="navbar navbar-expand-md navbar-dark bg-dark" light expand="md">
                     <NavbarBrand to="/" activeClassName="active" tag={RRNavLink}>TOILET</NavbarBrand>
 
-                    {/* <NavbarToggler onClick={this.toggle} />
+                    <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
 
                         <Nav className="navbar-nav mr-auto" navbar>
@@ -95,10 +95,10 @@ export default class CustomNavbar extends React.Component {
                                     <NavLink onClick={this.changeToLoggedOut} to="/Reports" activeClassName="active" tag={RRNavLink}>Reports</NavLink>
                                 </NavItem>
                             }
-                        </Nav> */}
+                        </Nav>
 
                 {/*Tarvitaanko?*/}
-                <NavbarToggler onClick={this.toggle} />
+                {/* <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                 
                 <Nav className="navbar-nav mr-auto" navbar>
@@ -121,7 +121,7 @@ export default class CustomNavbar extends React.Component {
                     </NavItem>
                     }
                     
-                </Nav>
+                </Nav> */}
                 {/*Tähän asti? plus mahd. alempi pökäle. v/o*/}
                         <Nav className="navbar-nav ml-auto">
                             {
