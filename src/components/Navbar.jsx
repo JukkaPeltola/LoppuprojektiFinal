@@ -68,10 +68,6 @@ export default class CustomNavbar extends React.Component {
                     </NavItem>
                     }
                     
-                    
-                    
-                    
-                    
                 </Nav>
 
                 <Nav className="navbar-nav ml-auto">

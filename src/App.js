@@ -39,17 +39,6 @@ class App extends Component {
           </Router>
 
         </div>
-        {/*
-        <div className="footerClass">
-          <hr style={{ marginBottom: '0' }}></hr>
-        
-          // Footer
-          <footer>
-            Copyright &copy; 2018 Toilet APP
-          </footer>
-          <br />
-        </div>
-        */}
         </center>
       </div>
     );
