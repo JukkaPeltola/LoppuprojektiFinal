@@ -36,7 +36,7 @@ const MapWithASearchBox = compose(
     componentDidMount() {
     
       function errorPosition() {
-        alert(`Unfortunately I can't locate you!`)
+        alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all the features.`)
       }
      
       function showPosition(position) {

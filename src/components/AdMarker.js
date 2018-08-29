@@ -28,6 +28,10 @@ class AdMarker extends Component {
     }
     markerToggleOpen = () => {
         console.log("moi")
+        if(sessionStorage.getItem("lat") === null) {
+            alert("Please enable GPS to use this feature");
+            return;
+        }
         this.setState({
             markerOpen: true
         });
