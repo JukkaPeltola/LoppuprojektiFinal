@@ -60,7 +60,7 @@ class FindNearestToilet extends Component {
     
         this.props.getFilterData(nearestToilet);
         this.setState({changeToggle: true});
-
+  
     }
     cancel() {
         this.props.getFilterData(listWithAll);

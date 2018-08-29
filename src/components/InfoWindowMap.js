@@ -18,6 +18,12 @@ class InfoWindowMap extends Component {
         }
 
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.status !== this.props.status){
+            this.setState({ isOpen: nextProps.status })
+            
+        }  
+    };
 
     testi = () => {
         GetOneToilets(this.props.marker.toilet_id,(data) => {

@@ -10,6 +10,7 @@ import AdMarker from './AdMarker';
 import FindNearestToilet from './FindNearestToilet';
 
 const google = window.google;
+console.log(google)
 const _ = require("lodash");
 const { compose, withProps, lifecycle } = require("recompose");
 const {
@@ -36,7 +37,7 @@ const MapWithASearchBox = compose(
     componentDidMount() {
 
       function errorPosition() {
-        alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all the features.`)
+        alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all features.`)
       }
 
       function showPosition(position) {
@@ -181,7 +182,7 @@ const MapWithASearchBox = compose(
     <YourPosition lat={youPosition.lat} lng={youPosition.lng} />
   </GoogleMap>
 );
-
+  
 
 class Map2 extends Component {
   state = { markers: [], addedMarker: [] };
