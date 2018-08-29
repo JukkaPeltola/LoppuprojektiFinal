@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Map2 from './Map';
 import MapDrive from './MapDrive';
-import './a.css'
+import './mapdrive.css'
 
 class Main extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class Main extends Component {
             return (
                 <div>
                  <Map2 showRouteOnClick={this.showRouteOnClick}/>
-                 <div id="lol">
+                 <div id="mapdrive">
                 {  this.state.route &&
                   
                     <MapDrive  showNormalMap={this.showNormalMap} position={{lat: this.state.lat, lng: this.state.lng}} />
