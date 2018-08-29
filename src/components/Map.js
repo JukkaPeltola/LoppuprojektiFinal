@@ -41,16 +41,12 @@ const MapWithASearchBox = compose(
       }
      
       function showPosition(position) {
-        // this.setState({
-        //   lat: position.coords.latitude,
-        //   lng: position.coords.longitude
-        // })
         youPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
         console.log(youPosition);
         sessionStorage.setItem('lat', youPosition.lat);
         sessionStorage.setItem('lng', youPosition.lng);
-        // this.props.getPositionFromMap(youPosition)
         this.setState({center: youPosition})
+        console.log(`olen showPositionissa`)
       }
 
       navigator.geolocation.watchPosition(showPosition.bind(this), errorPosition, { enableHighAccuracy: true });
