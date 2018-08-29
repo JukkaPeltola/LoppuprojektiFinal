@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Button} from 'reactstrap';
 import geolib from 'geolib';import ModalShowToiletInfo from './ModalShowToiletInfo';
 import InfoWindowMap from './InfoWindowMap';
-;
 
 var listWithAll = [];
 var count = 0;
@@ -26,22 +25,35 @@ class FindNearestToilet extends Component {
     }
     componentDidMount() {
         this.setState({lat: sessionStorage.getItem("lat"), lng: sessionStorage.getItem("lng")})
+        console.log(this.state.lat)
     }
  
 
     componentWillReceiveProps(nextProps){
         if(nextProps.markerList !== this.props.markerList){
              this.setState({ markers: nextProps.markerList })
-                count++;
+                // count++;
         }
         // if(nextProps.updatedStatus !== false ) {
         //     this.setState({changeToggle: false})
         //     console.log("hiiohoi")
         // } 
-        if(count < 2)
-        listWithAll = nextProps.markerList;
+        // if(count=== 2) {
+           
+        // }
+        
     };
     onSubmit() {
+        // listWithAll = this.state.markers;
+        // console.log(listWithAll)
+        var sortedList = listWithAll.sort((a, b) => (geolib.getDistance(
+            { latitude: this.state.lat, longitude: this.state.lng },
+            { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
+                { latitude: this.state.lat, longitude: this.state.lng },
+                { latitude: b.latitude, longitude: b.longitude })
+            ));
+        nearestToilet = sortedList.slice(0,1);
+    
         this.props.getFilterData(nearestToilet);
         this.setState({changeToggle: true});
 
@@ -51,33 +63,49 @@ class FindNearestToilet extends Component {
         this.setState({changeToggle: false})
     }
     render() {
-        
-        var sortedList = this.props.markerList.sort((a, b) => (geolib.getDistance(
-            { latitude: this.state.lat, longitude: this.state.lng },
-            { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
-                { latitude: this.state.lat, longitude: this.state.lng },
-                { latitude: b.latitude, longitude: b.longitude })
-            ));
-        nearestToilet = sortedList.slice(0,1);
-        
-        if(!this.state.changeToggle) {
-            return (          
-                <div>
-                    <Button className="bg-dark" style={{ 
-                        marginLeft: '15px',
-                        opacity: '0.7',
-                        marginTop: '5%'
-                    }} onClick={this.onSubmit}>Find nearest toilet</Button>
-                </div>
-            );
+        console.log(this.state.markers)
+        count++;
+        console.log(count)
+        if(count === 3 && this.state.lat !== null) {
+            
+            listWithAll = this.state.markers;
+            console.log(listWithAll)
+        //     var sortedList = listWithAll.sort((a, b) => (geolib.getDistance(
+        //         { latitude: this.state.lat, longitude: this.state.lng },
+        //         { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
+        //             { latitude: this.state.lat, longitude: this.state.lng },
+        //             { latitude: b.latitude, longitude: b.longitude })
+        //         ));
+        //     nearestToilet = sortedList.slice(0,1);
+        // }
+        // console.log("adslfasdäf")
+        // console.log(listWithAll)
         }
-        if(this.state.changeToggle) {
+        if(this.state.lat !== null) {
+            if(!this.state.changeToggle) {
+                return (          
+                    <div>
+                        <Button onClick={this.onSubmit}>Find nearest toilet</Button>
+                    </div>
+                );
+            }
+            if(this.state.changeToggle) {
+                return (
+                    <div>
+                        <Button onClick={this.cancel}>Show all toilets</Button>¨
+                    </div>
+                );
+            }
+            
+        }
+        else {
             return (
-                <div>
-                    <Button onClick={this.cancel}>Show all toilets</Button>¨
+            <div>
+                    {/* <Button disabled></Button> */}
                 </div>
             );
         }   
+
     }
 }
 

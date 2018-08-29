@@ -41,7 +41,7 @@ class Toiletlist extends Component {
 
     filterToilets = () => {
         if (this.state.rSelected == 2) {
-            let tempToilets = allToilets.filter(x => x.inva != true)
+            let tempToilets = allToilets.filter(x => x.inva == true)
             this.setState({ markers: tempToilets })
         } else if (this.state.rSelected == 1) {
             let tempToilets = allToilets.sort((a, b) => (a.rating < b.rating ? 1 : -1))

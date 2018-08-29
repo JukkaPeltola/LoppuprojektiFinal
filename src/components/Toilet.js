@@ -33,7 +33,7 @@ class Toilet extends Component {
                         { latitude: 60.17131, longitude: 24.94145 },
                         { latitude: this.props.marker.latitude, longitude: this.props.marker.longitude })} metriä sijainnistasi</h6>
                         <p>INFORMATION</p>
-    
+                        
                         <div className="toiletlistBtn"><ModalShowToiletInfo marker={this.props.marker} /></div>
                         <div className="toiletlistBtn"><ModalShowToiletReviews marker={this.props.marker} /></div>
                         <div className="toiletlistBtn">

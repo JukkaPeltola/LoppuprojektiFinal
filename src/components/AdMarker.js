@@ -65,23 +65,23 @@ class AdMarker extends Component {
         var lat = e.latLng.lat(), lng = e.latLng.lng()
         Geocode.fromLatLng(lat, lng).then(
             response => {
-             var Address = response.results[0].formatted_address.toString();
-                
-             this.setState({
-                infoWindowOpen: true, latLng: { lat: lat, lng: lng },
-                newToilet: {
-                    latitude: lat,
-                    longitude: lng,
-                },
-                address: Address
-            })  
-        })
-        
+                var Address = response.results[0].formatted_address.toString();
+
+                this.setState({
+                    infoWindowOpen: true, latLng: { lat: lat, lng: lng },
+                    newToilet: {
+                        latitude: lat,
+                        longitude: lng,
+                    },
+                    address: Address
+                })
+            })
+
     }
-    addNew=()=>{
+    addNew = () => {
         var theAddress = this.state.address
         var splittedAddress = theAddress.split(" ")
-        var newToilet={
+        var newToilet = {
             inva: this.state.checked,
             name: this.refs.name.value,
             pricing: this.refs.hinta.value,
@@ -92,7 +92,7 @@ class AdMarker extends Component {
             zip: splittedAddress[2],
             city: splittedAddress[3],
             toilet_id: counter
-            
+
         }
         this.props.addMarker(newToilet)
         addNewToilet(newToilet)
@@ -114,14 +114,14 @@ class AdMarker extends Component {
     render() {
         return (
             <div>
-                <button className="addNewMarker" onClick={this.markerToggleOpen} style={{ 
-                    backgroundColor: 'transparent', 
-                    display: 'inline-block', 
+                <button className="addNewMarker" onClick={this.markerToggleOpen} style={{
+                    backgroundColor: 'transparent',
+                    display: 'inline-block',
                     border: 'none',
                     marginTop: '30%',
                     marginLeft: '-180px'
                 }}>
-                <img src={logo} alt="Add toilet"></img>
+                    <img src={logo} alt="Add toilet"></img>
                 </button>
                 {
                     this.state.markerOpen &&
@@ -135,8 +135,8 @@ class AdMarker extends Component {
                             this.state.infoWindowOpen &&
                             <InfoWindow>
                                 <div>
-                                    <Button style={{marginRight: `10px`}} color="success" onClick={this.modalToggleopen}>Add new toilet</Button>
-                                    <Button style={{marginRight: `10px`}} onClick={this.markerToggleClose}>Cancel</Button>
+                                    <Button style={{ marginRight: `10px` }} color="success" onClick={this.modalToggleopen}>Add new toilet</Button>
+                                    <Button style={{ marginRight: `10px` }} onClick={this.markerToggleClose}>Cancel</Button>
                                 </div>
                             </InfoWindow>
                         }
