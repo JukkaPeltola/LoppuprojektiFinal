@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Map2 from './Map';
 import MapDrive from './MapDrive';
-
+import './a.css'
 
 class Main extends Component {
     constructor(props) {
@@ -23,16 +23,20 @@ class Main extends Component {
     }
 
     render() {
-        if (this.state.route == true) {
             return (
-                <MapDrive showNormalMap={this.showNormalMap} position={{lat: this.state.lat, lng: this.state.lng}}/>
+                <div>
+                 <Map2 showRouteOnClick={this.showRouteOnClick}/>
+                 <div id="lol">
+                {  this.state.route &&
+                  
+                    <MapDrive  showNormalMap={this.showNormalMap} position={{lat: this.state.lat, lng: this.state.lng}} />
+                }
+                </div>
+                </div>
             )
-        } else {
-            return (
-                <Map2 showRouteOnClick={this.showRouteOnClick}/>
-            )
+       
         }
     }
-}
+
 
 export default Main;
