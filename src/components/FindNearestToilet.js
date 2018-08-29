@@ -71,7 +71,7 @@ class FindNearestToilet extends Component {
         console.log(this.state.markers)
         count++;
         console.log(count)
-        if(count === 3 && this.state.lat !== null) {
+        if(count === 3) {
             
             listWithAll = this.state.markers;
             console.log(listWithAll)
