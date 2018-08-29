@@ -21,7 +21,8 @@ class Filter extends Component {
           all: [],
           disabledCheckboxState: false,
           disabledCheckboxState2: false,
-          rating: 0      
+          rating: 0 ,
+          sliderDisabled: false     
         };
     this.applyFilters = this.applyFilters.bind(this);   
     this.toggle = this.toggle.bind(this);
@@ -96,10 +97,16 @@ class Filter extends Component {
     }
 
     onSliderChange = (value) => {
+        if(sessionStorage.getItem("lat") === null) {
+            alert("Please enable GPS to use this feature");
+            this.setState({sliderDisabled: true})
+            return;
+        }
         distanceRange = (value);       
     }
     
     render() {
+        console.log(sessionStorage.getItem("lat"))
         count++;
         if(count === 2) {
             listWithAll = this.props.markerList;
@@ -128,8 +135,9 @@ class Filter extends Component {
             <Modal size="sm" isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
               {/* <ModalHeader toggle={this.toggle}></ModalHeader> */}
               <div style={{ marginBottom: '20px'}}>
-              <ModalBody>       
-              <Slider min={0} max={1000} step={10} marks={{0: '0m', 250: '250m', 500: '500m', 750: '750m', 990: '1000m'}} defaultValue={500} onAfterChange={this.onSliderChange}/>  
+              <ModalBody>
+              <div style={{fontWeight: 'bold'}}>Search within range (in meters) </div>    
+              <Slider disabled={this.state.sliderDisabled} min={0} max={1000} step={10} marks={{0: '0m', 250: '250m', 500: '500m', 750: '750m', 990: '1000m'}} defaultValue={500} onAfterChange={this.onSliderChange}/>  
               <br/>
               <div style={{fontWeight: 'bold'}}>Disabled access? </div>
               <div className="onoffswitch">

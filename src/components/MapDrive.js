@@ -29,7 +29,7 @@ const MapWithADirectionsRenderer = compose(
       const refs = {}
 
       DirectionsService.route({
-        origin: new google.maps.LatLng(60.17131, 24.94145),
+        origin: new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng")),
         destination: new google.maps.LatLng(this.props.position.lat, this.props.position.lng),
         travelMode: google.maps.TravelMode.WALKING,
       }, (result, status) => {
