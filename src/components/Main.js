@@ -25,7 +25,7 @@ class Main extends Component {
     render() {
             return (
                 <div>
-                 <Map2 showRouteOnClick={this.showRouteOnClick}/>
+                 <Map2  showRouteOnClick={this.showRouteOnClick}/>
                  <div id="mapdrive">
                 {  this.state.route &&
                   

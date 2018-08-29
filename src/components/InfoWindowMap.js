@@ -19,13 +19,12 @@ class InfoWindowMap extends Component {
 
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.status !== this.props.status){
-            this.setState({ isOpen: nextProps.status })
-            
+        if(nextProps.status !== 3){
+            this.setState({ isOpen: false })
         }  
     };
 
-    testi = () => {
+    testi = () => { 
         GetOneToilets(this.props.marker.toilet_id,(data) => {
             paivitetty = data
             console.log(paivitetty)
@@ -36,12 +35,10 @@ class InfoWindowMap extends Component {
     }
 
     handleToggleOpen = () => {
-    
-        this.setState({
-            isOpen: true
-        });
+        this.props.sendProps("sendmessagetothiscomponent")
+        this.setState({isOpen: this})
     }
-
+    
     handleToggleClose = () => {
         this.setState({
             isOpen: false
