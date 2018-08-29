@@ -63,9 +63,9 @@ class Toiletlist extends Component {
             this.setState({ markers: tempToilets })
         } else if (this.state.rSelected == 4) {
             let tempToilets = allToilets.sort((a, b) => (geolib.getDistance(
-                { latitude: 60.17131, longitude: 24.94145 },
+                { latitude: sessionStorage.getItem('lat'), longitude: sessionStorage.getItem('lng')},
                 { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
-                    { latitude: 60.17131, longitude: 24.94145 },
+                    { latitude: sessionStorage.getItem('lat'), longitude: sessionStorage.getItem('lng')},
                     { latitude: b.latitude, longitude: b.longitude })
 
             ))
