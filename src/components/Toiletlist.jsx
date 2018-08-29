@@ -48,7 +48,7 @@ class Toiletlist extends Component {
 
     onSearchChange = (e) => {
         this.setState({ searchText: e.target.value }, () => {
-            let tempToilet = allToilets.filter(x => x.name.includes(this.state.searchText))
+            let tempToilet = allToilets.filter(x => x.name.toUpperCase().includes(this.state.searchText.toUpperCase()))
             this.setState({ markers: tempToilet })
         })
 
