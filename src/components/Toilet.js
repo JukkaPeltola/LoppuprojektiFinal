@@ -41,7 +41,7 @@ class Toilet extends Component {
                     <h6>{this.props.marker.address}, {this.props.marker.city}</h6>
                     <h6>{this.props.marker.inva}</h6>
                     <h6>{geolib.getDistance(
-                        { latitude: 60.17131, longitude: 24.94145 },
+                        { latitude: parseFloat(sessionStorage.getItem('lat')), longitude: parseFloat(sessionStorage.getItem('lng')) },
                         { latitude: this.props.marker.latitude, longitude: this.props.marker.longitude })} metriä sijainnistasi</h6>
                         <p>INFORMATION</p>
                         

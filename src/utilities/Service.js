@@ -78,7 +78,7 @@ export function AddNewUser(user) {
         body: JSON.stringify({
             'firstname': user.firstname, 'lastname': user.lastname, 'email': user.email,
             'nickname': user.nickname, 'password': user.password, 'picture': user.picture,
-            'admin': user.admin, 'social_id': user.social_id
+            'admin': user.admin, 'social_id': user.social_id, 'user_id': null /////TAI 1!!
         })
     })
         .then(res => console.log(res))
@@ -115,7 +115,8 @@ export function UpdateUser(user) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             'user_id': user.user_id, 'firstname': user.firstname, 'lastname': user.lastname, 'email': user.email,
-            'nickname': user.nickname, 'password': user.password, 'picture': user.picture
+            'nickname': user.nickname, 'password': user.password, 'picture': user.picture, 'social_id': user.social_id,
+            'admin': user.admin
         })
     })
         .then(res => console.log(res))
@@ -126,7 +127,7 @@ export function addNewReview(review) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            'user_id': review.user_id, 'toilet_id': review.toilet_id, 'rating': review.rating,
+            'social_id': review.social_id, 'toilet_id': review.toilet_id, 'rating': review.rating,
             'review_text': review.review_text
         })
     })
@@ -163,7 +164,7 @@ export function UpdateReview(review) {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            'review_id': review.review_id, 'user_id': review.user_id, 'toilet_id': review.toilet_id, 
+            'review_id': review.review_id, 'social_id': review.user_id, 'toilet_id': review.toilet_id, 
             'rating': review.rating, 'review_text': review.review_text
         })
     })
@@ -175,7 +176,7 @@ export function addNewReport(report) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            'toilet_id': report.toilet_id, 'user_id': report.user_id, 'name': report.name,
+            'toilet_id': report.toilet_id, 'social_id': report.user_id, 'name': report.name,
             'text': report.text
         })
     })
