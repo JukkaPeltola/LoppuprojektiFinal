@@ -46,12 +46,16 @@ class Facebook extends Component {
             } else {
                 this.props.facebookIn()
                 sessionStorage.setItem('id', response.id)
-                exist[0].admin == true ? this.setState({ admin: true }) : null
+                exist[0].admin == true ? this.setState({ admin: true }, () => this.props.setAdmin(true)) 
+                : this.setState({admin: false}, () => this.props.setAdmin(false))
                 console.log(exist[0])
+                
             }
         })
     }
-
+    aa = () => {
+        this.props.setAdmin()
+    }
     render() {
 
         let fbContent;

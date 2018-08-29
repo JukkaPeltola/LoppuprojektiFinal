@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import About from './components/About';
 import Toiletlist from './components/Toiletlist';
 import Reportlist from './components/Reportlist';
@@ -10,44 +10,41 @@ import Login from './components/Login';
 import Main from './components/Main';
 import CustomNavbar from './components/Navbar';
 
-
-// import Etsi from './Components/GoogleMap';
-// import { GoogleMap } from 'react-google-maps';
-
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state= {
+      isAdmin : false
+    }
+
+    this.setAdmin = this.setAdmin.bind(this);
+  }
+  
+  setAdmin = (state) => {
+    this.setState({isAdmin: state})
+    console.log(`Olen setAdmin func ${state}`)
+  }
+
   render() {
     return (
       <div className="App">
         <center>
         <div>
-
           <Router>
             <div>
-            <CustomNavbar />
+            <CustomNavbar isAdmin={this.state.isAdmin} setAdmin={this.setAdmin}/>
             <Switch>
               <Route exact path="/" component={Main} />
-              {/* <Route path="/Home" component={Home} /> */}
               <Route path="/About" component={About} />
               <Route path="/Wclist" component={Toiletlist} />
               <Route path="/Chat" component={Chat} />
-              <Route path="/Reports" component={Reportlist} />
-              <Route path="/Login" component={Login} />
+              <Route path="/Reports" render={() => (this.state.isAdmin) ?  <Reportlist/> : <Redirect to="/"/> }/>
+              <Route path="/Login" render={() => <Login setAdmin={this.setAdmin} /> } />
               </Switch>
             </div>
           </Router>
 
         </div>
-        {/*
-        <div className="footerClass">
-          <hr style={{ marginBottom: '0' }}></hr>
-        
-          // Footer
-          <footer>
-            Copyright &copy; 2018 Toilet APP
-          </footer>
-          <br />
-        </div>
-        */}
         </center>
       </div>
     );
