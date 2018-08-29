@@ -43,6 +43,10 @@ class InfoWindowMap extends Component {
     }
 
     showDirectionsMap = () => {
+        if(sessionStorage.getItem("lat") === null) {
+            alert("Please enable GPS to use this feature");
+            return;
+        }
         this.props.showRouteOnClick(this.props.marker.latitude, this.props.marker.longitude)
         console.log('olen infowindowsmapissa ja showroutemap:issa')
     }
