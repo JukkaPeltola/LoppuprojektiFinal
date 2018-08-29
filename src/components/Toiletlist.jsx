@@ -19,7 +19,7 @@ class Toiletlist extends Component {
             markers: [],
             rSelected: Number,
             searchText: '',
-            
+
             currentPage: 1,
             toiletsPerPage: 10,
             active: false
@@ -37,7 +37,7 @@ class Toiletlist extends Component {
     }
 
     onRadioBtnClick(rSelected) {
-        if(sessionStorage.getItem("lat") === null && rSelected === 4) {
+        if (sessionStorage.getItem("lat") === null && rSelected === 4) {
             alert("Please enable GPS to use this feature");
             return;
         }
@@ -48,7 +48,7 @@ class Toiletlist extends Component {
 
     onSearchChange = (e) => {
         this.setState({ searchText: e.target.value }, () => {
-            let tempToilet = allToilets.filter(x => x.name.includes(this.state.searchText))
+            let tempToilet = allToilets.filter(x => x.name.toUpperCase().includes(this.state.searchText.toUpperCase()))
             this.setState({ markers: tempToilet })
         })
 
@@ -63,9 +63,9 @@ class Toiletlist extends Component {
             this.setState({ markers: tempToilets })
         } else if (this.state.rSelected == 4) {
             let tempToilets = allToilets.sort((a, b) => (geolib.getDistance(
-                { latitude: 60.17131, longitude: 24.94145 },
+                { latitude: sessionStorage.getItem('lat'), longitude: sessionStorage.getItem('lng') },
                 { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
-                    { latitude: 60.17131, longitude: 24.94145 },
+                    { latitude: sessionStorage.getItem('lat'), longitude: sessionStorage.getItem('lng') },
                     { latitude: b.latitude, longitude: b.longitude })
 
             ))
@@ -137,14 +137,14 @@ class Toiletlist extends Component {
 
         const renderPageNumbers = pageNumbers.map(number => {
             return (
-            <li 
-                style={{ border: 'solid 1px', borderRadius: '5px', padding: '2%', backgroundColor: '#e2edff' }}
-                // key={number}
-                id={number}
-                onClick={this.handleClick}
-            >
-                {number}
-            </li>
+                <li
+                    style={{ border: 'solid 1px', borderRadius: '5px', padding: '2%', backgroundColor: '#e2edff' }}
+                    // key={number}
+                    id={number}
+                    onClick={this.handleClick}
+                >
+                    {number}
+                </li>
             );
         });
 
@@ -159,24 +159,25 @@ class Toiletlist extends Component {
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(3)} active={this.state.rSelected === 3}>Name</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
                 </ButtonGroup>
-                <Input onChange={this.onSearchChange} style={{width: '50%', marginLeft: '1%'}} size="" placeholder="Search by name" type="text"></Input>
-                <ReactCSSTransitionGroup
-                    transitionName="fade"
-                    transitionEnterTimeout={700}
-                    transitionLeaveTimeout={700}
-                    transitionAppear={true}
-                    transitionAppearTimeout={700}>
-                    <center>
-                        <div className="paging">
-                            <ul>
+                <Input onChange={this.onSearchChange} style={{ width: '50%', marginLeft: '1%' }} size="" placeholder="Search by name" type="text"></Input>
+                <center>
+                    <div className="paging">
+                        <ul>
+                            <ReactCSSTransitionGroup
+                                transitionName="fade"
+                                transitionEnterTimeout={700}
+                                transitionLeaveTimeout={700}
+                                transitionAppear={true}
+                                transitionAppearTimeout={700}>
                                 {renderToilets}
-                            </ul>
-                            <ul className="page-numbers">
-                                {renderPageNumbers}
-                            </ul>
-                        </div>
-                    </center>
-                </ReactCSSTransitionGroup>
+                            </ReactCSSTransitionGroup>
+                        </ul>
+                        <ul className="page-numbers">
+                            {renderPageNumbers}
+                        </ul>
+                    </div>
+                </center>
+
             </div>
         );
     }

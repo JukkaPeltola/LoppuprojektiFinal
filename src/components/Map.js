@@ -46,7 +46,7 @@ const MapWithASearchBox = compose(
         console.log(youPosition);
         sessionStorage.setItem('lat', youPosition.lat);
         sessionStorage.setItem('lng', youPosition.lng);
-        this.setState({center: youPosition})
+        this.setState({ center: youPosition })
         console.log(`olen showPositionissa`)
       }
 
@@ -90,7 +90,7 @@ const MapWithASearchBox = compose(
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
           const bounds = new window.google.maps.LatLngBounds();
-          
+
           places.forEach(place => {
             if (place.geometry.viewport) {
               bounds.union(place.geometry.viewport)
@@ -114,21 +114,21 @@ const MapWithASearchBox = compose(
       })
     }, componentWillReceiveProps(nextProps) {
       if (nextProps.filteredMarkers !== this.props.filteredMarkers) {
-        this.setState({ toiletmarkers: nextProps.filteredMarkers, })
-       
-        var firstSet = nextProps.filteredMarkers.slice(0,1);
+        this.setState({ toiletmarkers: nextProps.filteredMarkers })
+        console.log(nextProps)//
+        var firstSet = nextProps.filteredMarkers.slice(0, 1);
         var firstPoint = new google.maps.LatLng(firstSet[0].latitude, firstSet[0].longitude);
-        var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length-1, nextProps.filteredMarkers.length);
+        var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length - 1, nextProps.filteredMarkers.length);
         var lastPoint = new google.maps.LatLng(secondSet[0].latitude, secondSet[0].longitude);
         var bounds1 = new google.maps.LatLngBounds();
         bounds1.extend(firstPoint);
         bounds1.extend(lastPoint);
-       
-        if(nextProps.filteredMarkers.length === 1) {
+
+        if (nextProps.filteredMarkers.length === 1) {
           refs.map.panTo(firstPoint);
         }
         else {
-        refs.map.fitBounds(bounds1)
+          refs.map.fitBounds(bounds1)
         }
       }
       else if (nextProps.addedMarkers !== this.props.addedMarkers) {
@@ -159,7 +159,7 @@ const MapWithASearchBox = compose(
     // onBoundsChanged={props.onBoundsChanged}
     onClick={props.onMapClick}
     defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false }}
-  >   
+  >
     <div>
       <SearchBox
         ref={props.onSearchBoxMounted}
