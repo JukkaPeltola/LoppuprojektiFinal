@@ -19,7 +19,7 @@ const MapWithADirectionsRenderer = compose(
     containerElement: <div style={{ height: `86vh`, width: '100wv' }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
-  withScriptjs,
+  // withScriptjs,
   withGoogleMap,
   lifecycle({
     componentDidMount() {

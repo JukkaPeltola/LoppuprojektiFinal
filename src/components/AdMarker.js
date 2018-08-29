@@ -130,7 +130,7 @@ class AdMarker extends Component {
                 {
                     this.state.markerOpen &&
                     <Marker
-                        position={this.state.latLng}
+                        position={this.props.position}
                         draggable={this.state.draggable}
                         onDragEnd={this.getLocation}
                         onDrag={this.dragtoggle}
