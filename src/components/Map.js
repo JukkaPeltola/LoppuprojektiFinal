@@ -54,6 +54,7 @@ const MapWithASearchBox = compose(
 
 
       getAllToilets((data) => {
+        allToilets=[]
         data.map(res => {
           allToilets.push(res)
         })
