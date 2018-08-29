@@ -24,10 +24,12 @@ class ModalAddReview extends Component {
     }
 
     addReview = () => {
+        let id = sessionStorage.getItem('id')
         let review = {
-            user_id: 1, toilet_id: this.props.marker.toilet_id, rating: this.state.stars,
+            social_id: id, toilet_id: this.props.marker.toilet_id, rating: this.state.stars,
             review_text: this.state.review
         }
+
         addNewReview(review);
 
         setTimeout(this.props.testi,500)

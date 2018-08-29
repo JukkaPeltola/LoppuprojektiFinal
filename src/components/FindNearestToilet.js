@@ -25,27 +25,22 @@ class FindNearestToilet extends Component {
     }
     componentDidMount() {
         this.setState({lat: sessionStorage.getItem("lat"), lng: sessionStorage.getItem("lng")})
-        console.log(this.state.lat)
+        
     }
  
 
     componentWillReceiveProps(nextProps){
         if(nextProps.markerList !== this.props.markerList){
              this.setState({ markers: nextProps.markerList })
-                // count++;
+               
         }
-        // if(nextProps.updatedStatus !== false ) {
-        //     this.setState({changeToggle: false})
-        //     console.log("hiiohoi")
-        // } 
-        // if(count=== 2) {
-           
-        // }
-        
+
     };
     onSubmit() {
-        // listWithAll = this.state.markers;
-        // console.log(listWithAll)
+        if(sessionStorage.getItem("lat") === null) {
+            alert("Please enable GPS to use this feature");
+            return;
+        }
         var sortedList = listWithAll.sort((a, b) => (geolib.getDistance(
             { latitude: this.state.lat, longitude: this.state.lng },
             { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
@@ -56,32 +51,20 @@ class FindNearestToilet extends Component {
     
         this.props.getFilterData(nearestToilet);
         this.setState({changeToggle: true});
-
+  
     }
     cancel() {
         this.props.getFilterData(listWithAll);
         this.setState({changeToggle: false})
     }
     render() {
-        console.log(this.state.markers)
+
         count++;
-        console.log(count)
-        if(count === 3 && this.state.lat !== null) {
+        if(count === 3) {
             
             listWithAll = this.state.markers;
-            console.log(listWithAll)
-        //     var sortedList = listWithAll.sort((a, b) => (geolib.getDistance(
-        //         { latitude: this.state.lat, longitude: this.state.lng },
-        //         { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
-        //             { latitude: this.state.lat, longitude: this.state.lng },
-        //             { latitude: b.latitude, longitude: b.longitude })
-        //         ));
-        //     nearestToilet = sortedList.slice(0,1);
-        // }
-        // console.log("adslfasdäf")
-        // console.log(listWithAll)
         }
-        if(this.state.lat !== null) {
+        
             if(!this.state.changeToggle) {
                 return (          
                     <div>
@@ -97,14 +80,6 @@ class FindNearestToilet extends Component {
                 );
             }
             
-        }
-        else {
-            return (
-            <div>
-                    {/* <Button disabled></Button> */}
-                </div>
-            );
-        }   
 
     }
 }

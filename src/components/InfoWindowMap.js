@@ -20,6 +20,12 @@ class InfoWindowMap extends Component {
         }
 
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.status !== this.props.status){
+            this.setState({ isOpen: nextProps.status })
+            
+        }  
+    };
 
     testi = () => {
         GetOneToilets(this.props.marker.toilet_id,(data) => {
@@ -32,7 +38,7 @@ class InfoWindowMap extends Component {
     }
 
     handleToggleOpen = () => {
-
+    
         this.setState({
             isOpen: true
         });
@@ -45,6 +51,10 @@ class InfoWindowMap extends Component {
     }
 
     showDirectionsMap = () => {
+        if(sessionStorage.getItem("lat") === null) {
+            alert("Please enable GPS to use this feature");
+            return;
+        }
         this.props.showRouteOnClick(this.props.marker.latitude, this.props.marker.longitude)
         console.log('olen infowindowsmapissa ja showroutemap:issa')
     }
@@ -65,6 +75,7 @@ class InfoWindowMap extends Component {
           height: `30px`,}} src={Disable} />;;
       }    
         return (
+           
             <Marker
                 key={this.props.index}
                 position={{ lat: parseFloat(this.props.lat), lng: parseFloat(this.props.lng) }}
@@ -97,7 +108,6 @@ class InfoWindowMap extends Component {
 
 
             </Marker>
-
         )
 
     }

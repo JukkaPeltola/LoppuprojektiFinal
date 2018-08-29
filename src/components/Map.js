@@ -8,10 +8,12 @@ import logo from './plus.png';
 import YourPosition from './YourPosition';
 import AdMarker from './AdMarker';
 import FindNearestToilet from './FindNearestToilet';
+import { componentWillUnmount } from 'react-google-maps/lib/utils/MapChildHelper';
 
 const google = window.google;
+console.log(google)
 const _ = require("lodash");
-const { compose, withProps, lifecycle } = require("recompose");
+const { compose, withProps, lifecycle, } = require("recompose");
 const {
   withScriptjs,
   withGoogleMap,
@@ -21,39 +23,34 @@ const {
 } = require("react-google-maps");
 var youPosition = {};
 // const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
-
+var refs = {}
 var allToilets = []
-var ballMarkers = []
 const MapWithASearchBox = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `92vh`, width: '100wv' }} />,
-    mapElement: <div style={{ height: `100%` }} />,
+    mapElement: <div style={{ height: `100%` }}  />,
   }),
   lifecycle({
-
+    
     componentDidMount() {
 
       function errorPosition() {
-        alert(`Unfortunately I can't locate you!`)
+        alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all features.`)
       }
-
+     
       function showPosition(position) {
-        // this.setState({
-        //   lat: position.coords.latitude,
-        //   lng: position.coords.longitude
-        // })
         youPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
         console.log(youPosition);
         sessionStorage.setItem('lat', youPosition.lat);
         sessionStorage.setItem('lng', youPosition.lng);
-        // this.props.getPositionFromMap(youPosition)
+        this.setState({center: youPosition})
+        console.log(`olen showPositionissa`)
       }
 
-
-
-      navigator.geolocation.watchPosition(showPosition, errorPosition, { enableHighAccuracy: true });
+      navigator.geolocation.watchPosition(showPosition.bind(this), errorPosition, { enableHighAccuracy: true });
+      
 
       getAllToilets((data) => {
         data.map(res => {
@@ -62,7 +59,7 @@ const MapWithASearchBox = compose(
         this.setState({ toiletmarkers: allToilets })
       });
 
-      const refs = {}
+      refs = {}
 
       this.setState({
         bounds: null,
@@ -77,7 +74,7 @@ const MapWithASearchBox = compose(
         onBoundsChanged: () => {
           this.setState({
             bounds: refs.map.getBounds(),
-            // center: refs.map.getCenter(),
+            center: refs.map.getCenter(),
           })
         },
         onSearchBoxMounted: ref => {
@@ -85,8 +82,8 @@ const MapWithASearchBox = compose(
         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
-          const bounds = new google.maps.LatLngBounds();
-
+          const bounds = new window.google.maps.LatLngBounds();
+          
           places.forEach(place => {
             if (place.geometry.viewport) {
               bounds.union(place.geometry.viewport)
@@ -104,14 +101,28 @@ const MapWithASearchBox = compose(
             markers: nextMarkers,
           });
 
-          // refs.map.fitBounds(bounds);
+          //refs.map.fitBounds(bounds);
         },
 
       })
     }, componentWillReceiveProps(nextProps) {
       if (nextProps.filteredMarkers !== this.props.filteredMarkers) {
         this.setState({ toiletmarkers: nextProps.filteredMarkers, })
-        console.log("loel")
+       
+        var firstSet = nextProps.filteredMarkers.slice(0,1);
+        var firstPoint = new google.maps.LatLng(firstSet[0].latitude, firstSet[0].longitude);
+        var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length-1, nextProps.filteredMarkers.length);
+        var lastPoint = new google.maps.LatLng(secondSet[0].latitude, secondSet[0].longitude);
+        var bounds1 = new google.maps.LatLngBounds();
+        bounds1.extend(firstPoint);
+        bounds1.extend(lastPoint);
+       
+        if(nextProps.filteredMarkers.length === 1) {
+          refs.map.panTo(firstPoint);
+        }
+        else {
+        refs.map.fitBounds(bounds1)
+        }
       }
       else if (nextProps.addedMarkers !== this.props.addedMarkers) {
         for (let index = 0; index < nextProps.addedMarkers.length; index++) {
@@ -124,9 +135,10 @@ const MapWithASearchBox = compose(
         this.setState({ toiletmarkers: allToilets })
       }
 
-    }
+     }
+    
   }),
-  withScriptjs,
+  // withScriptjs,
   withGoogleMap
 )(props =>
 
@@ -137,8 +149,8 @@ const MapWithASearchBox = compose(
     onIdle={props.onMapIdle}
     // onBoundsChanged={props.onBoundsChanged}
     onClick={props.onMapClick}
-    defaultOptions={{ mapTypeControl: false }}
-  >
+    defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false }}
+  >   
     <div>
       <SearchBox
         ref={props.onSearchBoxMounted}
@@ -169,7 +181,8 @@ const MapWithASearchBox = compose(
         <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <br />
-        <AdMarker addMarker={props.addMarker} />
+        <AdMarker addMarker={props.addMarker} position={youPosition} />
+        
       </MapControl>
     </div>
     {props.markers.map((marker, index) =>
@@ -181,7 +194,7 @@ const MapWithASearchBox = compose(
     <YourPosition lat={youPosition.lat} lng={youPosition.lng} />
   </GoogleMap>
 );
-
+  
 
 class Map2 extends Component {
   state = { markers: [], addedMarker: [] };
@@ -189,11 +202,11 @@ class Map2 extends Component {
     this.setState({ markers: filterData });
   }
   addMarker = (newMarker) => {
-    var a = []
-    a.push(newMarker)
-    console.log(a)
-    this.setState({ addedMarker: a })
+    var newMarkers = []
+    newMarkers.push(newMarker)
+    this.setState({ addedMarker: newMarkers })
   }
+ 
   render() {
 
     return (

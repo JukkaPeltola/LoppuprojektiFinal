@@ -16,12 +16,13 @@ class Filter extends Component {
           modal: false,
           filterButtonShown: true,
           markers:[],
-          lat: 60.17131,
-          lng: 24.94145,
+          lat: null,
+          lng: null,
           all: [],
           disabledCheckboxState: false,
           disabledCheckboxState2: false,
-          rating: 0      
+          rating: 0 ,
+          sliderDisabled: false     
         };
     this.applyFilters = this.applyFilters.bind(this);   
     this.toggle = this.toggle.bind(this);
@@ -35,6 +36,7 @@ class Filter extends Component {
             this.setState({ markers: nextProps.markerList })
             
         }  
+        this.setState({lat: sessionStorage.getItem("lat"), lng: sessionStorage.getItem("lng")});
     };
     
     toggle() {
@@ -56,6 +58,14 @@ class Filter extends Component {
         if(this.state.disabledCheckboxState && distanceRange === 40075000)
         {
             a = kaikkiVessat.filter(marker => marker.inva && marker.rating >= this.state.rating);
+            if(a.length === 0) {
+                alert("No toilets found!")
+                this.setState({disabledCheckboxState: false});
+                this.setState({disabledCheckboxState2: false});
+                this.setState({rating: 0})
+                distanceRange = 40075000;
+                return ;
+              }
             this.props.getFilterData(a);
         }
         if(this.state.disabledCheckboxState && distanceRange !== 40075000){
@@ -64,6 +74,14 @@ class Filter extends Component {
             {latitude: marker.latitude, longitude: marker.longitude}
         ) < distanceRange);
         c = b.filter(marker => marker.inva && marker.rating >= this.state.rating);
+        if(c.length === 0) {
+            alert("No toilets found!")
+            this.setState({disabledCheckboxState: false});
+            this.setState({disabledCheckboxState2: false});
+            this.setState({rating: 0})
+            distanceRange = 40075000;
+            return ;
+        }
         this.props.getFilterData(c);
         }
 
@@ -73,6 +91,15 @@ class Filter extends Component {
                 {latitude: this.state.lat, longitude: this.state.lng},
                 {latitude: marker.latitude, longitude: marker.longitude}
             ) < distanceRange && marker.rating >= this.state.rating);
+
+            if(b.length === 0) {
+                alert("No toilets found!")
+                this.setState({disabledCheckboxState: false});
+                this.setState({disabledCheckboxState2: false});
+                this.setState({rating: 0})
+                distanceRange = 40075000;
+                return ;
+              }
             this.props.getFilterData(b);
         } 
         this.setState({filterButtonShown: false});
@@ -96,14 +123,22 @@ class Filter extends Component {
     }
 
     onSliderChange = (value) => {
+        if(sessionStorage.getItem("lat") === null) {
+            alert("Please enable GPS to use this feature");
+            this.setState({sliderDisabled: true})
+            return;
+        }
         distanceRange = (value);       
     }
     
     render() {
+        console.log(sessionStorage.getItem("lat"))
         count++;
         if(count === 2) {
             listWithAll = this.props.markerList;
+            this.setState({lat: sessionStorage.getItem("lat"), lng: sessionStorage.getItem("lng")});
         }
+        
         // var currentlyOpen = this.props.markerList((marker) => {
         //     var dateNow = new Date().getDay();
         //     var timeNow = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit', hour12: false});
@@ -128,8 +163,9 @@ class Filter extends Component {
             <Modal size="sm" isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
               {/* <ModalHeader toggle={this.toggle}></ModalHeader> */}
               <div style={{ marginBottom: '20px'}}>
-              <ModalBody>       
-              <Slider min={0} max={1000} step={10} marks={{0: '0m', 250: '250m', 500: '500m', 750: '750m', 990: '1000m'}} defaultValue={500} onAfterChange={this.onSliderChange}/>  
+              <ModalBody>
+              <div style={{fontWeight: 'bold'}}>Search within range (in meters) </div>    
+              <Slider disabled={this.state.sliderDisabled} min={0} max={1000} step={10} marks={{0: '0m', 250: '250m', 500: '500m', 750: '750m', 990: '1000m'}} defaultValue={500} onAfterChange={this.onSliderChange}/>  
               <br/>
               <div style={{fontWeight: 'bold'}}>Disabled access? </div>
               <div className="onoffswitch">

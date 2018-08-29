@@ -3,7 +3,7 @@ import './Toiletlist.css';
 import { getAllToilets } from '../utilities/Service';
 import geolib from 'geolib';
 import Toilet from './Toilet';
-import {Input, Button, ButtonGroup } from 'reactstrap';
+import { Input, Button, ButtonGroup } from 'reactstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 var allToilets = []
@@ -37,17 +37,21 @@ class Toiletlist extends Component {
     }
 
     onRadioBtnClick(rSelected) {
+        if(sessionStorage.getItem("lat") === null && rSelected === 4) {
+            alert("Please enable GPS to use this feature");
+            return;
+        }
         this.setState({ rSelected }, () => {
             this.filterToilets();
         })
     }
 
     onSearchChange = (e) => {
-        this.setState({searchText: e.target.value}, () => {
+        this.setState({ searchText: e.target.value }, () => {
             let tempToilet = allToilets.filter(x => x.name.includes(this.state.searchText))
-            this.setState({markers: tempToilet})
+            this.setState({ markers: tempToilet })
         })
-        
+
     }
 
     filterToilets = () => {
@@ -75,6 +79,7 @@ class Toiletlist extends Component {
     componentDidMount() {
 
         getAllToilets((data) => {
+            allToilets = []
             data.map(res => {
                 allToilets.push(res)
             })

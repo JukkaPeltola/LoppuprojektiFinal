@@ -23,10 +23,13 @@ class ModalReportToilet extends Component {
     }
 
     reportToilet = () => {
+        let user_id = sessionStorage.getItem('id')
         let text = this.state.text;
+
         let toilet_id = this.props.marker.toilet_id;
         let name = this.props.marker.name;
-        let user_id = 1;
+        // let user_id = id;
+
         let newReport = { toilet_id: toilet_id, user_id: user_id, name: name, text: text };
         addNewReport(newReport)
         this.toggle();
