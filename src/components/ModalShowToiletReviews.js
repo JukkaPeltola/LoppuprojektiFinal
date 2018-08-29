@@ -35,7 +35,6 @@ class ModalShowToiletReviews extends Component {
                 return <OneReview deleteReview={this.deleteReview} toilet={this.props.marker} review={review} key={index}></OneReview>
             })
             this.setState({rev: reviews})
-            console.log(this.state.rev)
 
         })
     }

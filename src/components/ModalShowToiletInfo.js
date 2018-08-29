@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { UpdateToilet } from '../utilities/Service';
+import { UpdateToilet, GetOneUser } from '../utilities/Service';
 
 class ModalShowToiletInfo extends Component {
     constructor(props) {
@@ -10,7 +10,7 @@ class ModalShowToiletInfo extends Component {
             modal: false,
             nestedModal: false,
             closeAll: false,
-            admin: true
+            admin: false
         };
 
         this.nameRef = React.createRef()
@@ -52,6 +52,17 @@ class ModalShowToiletInfo extends Component {
         });
     }
 
+    componentDidMount() {
+        let id = sessionStorage.getItem('id')
+        if (id != null) {
+            GetOneUser(id, (data) => {
+                if (data.admin) {
+                    this.setState({admin: true})
+                }
+            })
+        }
+    }
+
     changeInfo = () => {
         let newToilet = {
             'toilet_id': this.props.marker.toilet_id, 'name': this.nameRef.value, 'address': this.addressRef.value,
@@ -60,7 +71,7 @@ class ModalShowToiletInfo extends Component {
             'opening': this.openingRef.value, 'closing': this.closingRef.value, 'pricing': this.pricingRef.value,
             'rating': this.props.marker.rating
         }
-        // UpdateToilet(newToilet); TÄMÄ PÄIVITTÄÄ TIETOKANTAAN!
+        UpdateToilet(newToilet);
         console.log(newToilet);
         this.toggleAll();
     }

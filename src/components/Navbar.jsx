@@ -11,6 +11,7 @@ import {
     Form
 } from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
+import { GetOneUser } from '../utilities/Service';
 
 export default class CustomNavbar extends React.Component {
     constructor(props) {
@@ -19,13 +20,35 @@ export default class CustomNavbar extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.state = {
             isOpen: false,
-            logged: false
+            logged: false,
+            admin: props.isAdmin
         };
+        //Testaus Toimiiko???
+    }
+
+    componentDidMount() {
+        if (this.state.admin) {
+            return
+        }
+
+        let logged = sessionStorage.getItem('id');
+        if (logged == null) {
+            return
+        } else {
+            GetOneUser(logged, (data) => {
+                if (data.admin) {
+                    this.setState({ admin: true })
+                    this.props.setAdmin(true)
+                }
+                return
+            })
+        }
     }
 
     logout = () => {
         sessionStorage.removeItem('id')
-        
+        this.props.setAdmin(false)
+        this.setState({ admin: false })
     }
 
     changeToLoggedIn = () => {
@@ -67,7 +90,7 @@ export default class CustomNavbar extends React.Component {
                                 <NavLink onClick={this.changeToLoggedOut} to="/About" activeClassName="active" tag={RRNavLink}>Tietoa</NavLink>
                             </NavItem>
                             {
-                                this.state.addNew &&
+                                this.props.isAdmin &&
                                 <NavItem>
                                     <NavLink onClick={this.changeToLoggedOut} to="/Reports" activeClassName="active" tag={RRNavLink}>Reports</NavLink>
                                 </NavItem>
