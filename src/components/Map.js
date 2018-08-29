@@ -214,7 +214,6 @@ class Map2 extends Component {
   }
   sendProps = (receivedMessage) => {
     this.setState({ status: receivedMessage })
-    console.log(this.state.status)
   }
 
   render() {
