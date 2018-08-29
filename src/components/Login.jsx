@@ -52,8 +52,6 @@ class Login extends Component {
             this.setState({ userList: allUsers })
             console.log(this.state.userList)
         });
-
-        console.log("Käyttäjät ladattu.");
     }
 
     onSubmit(e) {
@@ -102,6 +100,7 @@ class Login extends Component {
                                 className="buttonLogin"
                                 type="submit"
                             >
+                            {/* {console.log(this.props.isAdmin)} */}
                                 Kirjaudu
                             </Button>
                         </Form>
@@ -110,9 +109,9 @@ class Login extends Component {
 
                     <div className="socialAuth">
                         <br />
-                        {!this.state.facebookIn && <Google googleIn={this.googleIn} />}
+                        {!this.state.facebookIn && <Google setAdmin={this.props.setAdmin} googleIn={this.googleIn} />}
                         <br />
-                        {!this.state.googleIn && <Facebook facebookIn={this.facebookIn} />}
+                        {!this.state.googleIn && <Facebook setAdmin={this.props.setAdmin} facebookIn={this.facebookIn} />}
                         <br />
                     </div>
                     <hr style={{ marginBottom: '0', marginTop: '2%' }}></hr>

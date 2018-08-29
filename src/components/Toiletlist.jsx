@@ -3,7 +3,7 @@ import './Toiletlist.css';
 import { getAllToilets } from '../utilities/Service';
 import geolib from 'geolib';
 import Toilet from './Toilet';
-import {Input, Button, ButtonGroup } from 'reactstrap';
+import { Input, Button, ButtonGroup } from 'reactstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 var allToilets = []
@@ -36,11 +36,11 @@ class Toiletlist extends Component {
     }
 
     onSearchChange = (e) => {
-        this.setState({searchText: e.target.value}, () => {
+        this.setState({ searchText: e.target.value }, () => {
             let tempToilet = allToilets.filter(x => x.name.includes(this.state.searchText))
-            this.setState({markers: tempToilet})
+            this.setState({ markers: tempToilet })
         })
-        
+
     }
 
     filterToilets = () => {
@@ -68,6 +68,7 @@ class Toiletlist extends Component {
     componentDidMount() {
 
         getAllToilets((data) => {
+            allToilets = []
             data.map(res => {
                 allToilets.push(res)
             })
@@ -94,7 +95,7 @@ class Toiletlist extends Component {
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(3)} active={this.state.rSelected === 3}>Name</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
                 </ButtonGroup>
-                <Input onChange={this.onSearchChange} style={{width: '50%', marginLeft: '1%'}} size="" placeholder="Search by name.." type="text"></Input>
+                <Input onChange={this.onSearchChange} style={{ width: '50%', marginLeft: '1%' }} size="" placeholder="Search by name.." type="text"></Input>
                 <ReactCSSTransitionGroup
                     transitionName="fade"
                     transitionEnterTimeout={700}

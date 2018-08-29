@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { getAllReports } from '../utilities/Service';
 import Report from './Report';
+import {Input, Button} from 'reactstrap';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 
 var allReports = []
 
@@ -12,6 +15,10 @@ class Reportlist extends Component{
             admin: false,
             search:''
         }
+    }
+    filterReports = () => {
+            let tempToilets = allReports.filter(x => x.date)
+            this.setState({ markers: tempToilets })
     }
 
     componentDidMount() {
@@ -55,13 +62,18 @@ class Reportlist extends Component{
         return(
             <div>
                 <h1>Reports</h1>
-                <input type="text" placeholder= "Search toilet" value={this.state.search} style={{width: `240px`, fontSize:15, fontFamily:'Lucida Console'}}
+                <Button className="filterBtn" color="primary" onClick={this.filterReports}>time</Button>
+                <Input type="text" placeholder= "Search toilet" value={this.state.search} style={{width: `40%`, fontSize:15, fontFamily:'Lucida Console'}}
                         onChange={this.updateSearch.bind(this)} />
 
-                <ul>
-                {kaikki}
-                </ul>    
-             
+                <ReactCSSTransitionGroup
+                    transitionName="fade"
+                    transitionEnterTimeout={700}
+                    transitionLeaveTimeout={700}
+                    transitionAppear={true}
+                    transitionAppearTimeout={700}>
+                    {kaikki}
+                </ReactCSSTransitionGroup>
             </div>
 
         );
