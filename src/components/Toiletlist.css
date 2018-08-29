@@ -1,22 +1,65 @@
+.page-numbers {
+    list-style: none;
+    margin: 0;
+    display: inline-block;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.page-numbers > li {
+    margin-right: 1.2em;
+    color: rgb(76, 76, 250);
+    user-select: none;
+    cursor: pointer;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.page-numbers ul li.active {
+    color: green;
+}
+
+.page-numbers a:active {
+    color: yellow;
+}
+
+.page-numbers > li:hover {
+    color: red;
+}
+
+ul li {
+    list-style: none;
+    display: inline;
+}
+
+.paging {
+    margin-left: 0;
+    margin-right: 0;
+    display: inline;
+}
 
 .filterBtn {
-    width: 120px;
+    width: 25%;
     margin: 1%;
+}
+
+.filterBtns {
+    width: 40%;
 }
 
 @media screen and (max-width: 1000px) {
     .wc {
-        display: block;
+        display: none;
         float: none;
-        width: 80%;
+        width: 90%;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 840px) {
     .filterBtn {
         display: block;
         float: none;
-        width: 85px;
+    }
+    .filterBtns {
+        width: 90%;
     }
 }
 

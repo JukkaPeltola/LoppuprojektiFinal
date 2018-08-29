@@ -2,3 +2,11 @@
     display: inline-block;
     margin: 1%;
 }
+
+@media screen and (max-width: 400px) {
+    .toiletItem {
+        display: block;
+        float: none;
+        width: 100%;
+    }
+}

@@ -18,11 +18,22 @@ class Toiletlist extends Component {
             zoom: 17,
             markers: [],
             rSelected: Number,
-            searchText: ''
+            searchText: '',
+            
+            currentPage: 1,
+            toiletsPerPage: 10,
+            active: false
         }
 
         this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
+    }
+
+    handleClick(event) {
+        this.setState({
+            currentPage: Number(event.target.id)
+        });
     }
 
     onRadioBtnClick(rSelected) {
@@ -72,32 +83,94 @@ class Toiletlist extends Component {
             console.log(this.state.markers)
         });
     }
+
+
+
     render() {
+
         var toilets = this.state.markers.map(marker => (
             <Toilet marker={marker} key={marker.toilet_id}>
             </Toilet>
         ));
+
+        const { currentPage, toiletsPerPage } = this.state;
+
+        // Logic for displaying toilets
+        const indexOfLastToilet = currentPage * toiletsPerPage;
+        const indexOfFirstToilet = indexOfLastToilet - toiletsPerPage;
+        const toiletsSliced = toilets.slice(indexOfFirstToilet, indexOfLastToilet);
+
+        const renderToilets = toiletsSliced.map((toilet, index) => {
+            return <li key={index}>{toilet}</li>;
+        });
+
+        // Logic for displaying page numbers
+        var pageNumbers = [];
+        var startPage;
+        var endPage;
+
+        for (let i = 1; i <= Math.ceil(toilets.length / toiletsPerPage); i++) {
+            pageNumbers.push(i);
+
+            if (currentPage > 3 && pageNumbers > 5) {
+                startPage = currentPage - 2;
+                endPage = currentPage + 2;
+            }
+
+            if (currentPage <= 3 && pageNumbers < 5) {
+                startPage = 1;
+                endPage = 5;
+            } else if (currentPage + 2 >= pageNumbers) {
+                startPage = pageNumbers - 4;
+                endPage = pageNumbers;
+            } else {
+                startPage = currentPage - 3;
+                endPage = currentPage + 2;
+            }
+
+        }
+
+        const renderPageNumbers = pageNumbers.map(number => {
+            return (
+            <li 
+                style={{ border: 'solid 1px', borderRadius: '5px', padding: '2%', backgroundColor: '#e2edff' }}
+                // key={number}
+                id={number}
+                onClick={this.handleClick}
+            >
+                {number}
+            </li>
+            );
+        });
 
         return (
             <div>
                 <br />
                 <h2>TOILET LIST</h2>
                 <br />
-                <h6>Järjestä</h6>
-                <ButtonGroup>
+                <ButtonGroup className="filterBtns">
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Rating</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(2)} active={this.state.rSelected === 2}>Inva</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(3)} active={this.state.rSelected === 3}>Name</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
                 </ButtonGroup>
-                <Input onChange={this.onSearchChange} style={{width: '50%', marginLeft: '1%'}} size="" placeholder="Search by name.." type="text"></Input>
+                <Input onChange={this.onSearchChange} style={{width: '50%', marginLeft: '1%'}} size="" placeholder="Search by name" type="text"></Input>
                 <ReactCSSTransitionGroup
                     transitionName="fade"
                     transitionEnterTimeout={700}
                     transitionLeaveTimeout={700}
                     transitionAppear={true}
                     transitionAppearTimeout={700}>
-                    {toilets}
+                    <center>
+                        <div className="paging">
+                            <ul>
+                                {renderToilets}
+                            </ul>
+                            <ul className="page-numbers">
+                                {renderPageNumbers}
+                            </ul>
+                        </div>
+                    </center>
                 </ReactCSSTransitionGroup>
             </div>
         );
