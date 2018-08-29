@@ -23,7 +23,7 @@ const {
 } = require("react-google-maps");
 var youPosition = {};
 // const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
-
+var refs = {}
 var allToilets = []
 const MapWithASearchBox = compose(
   withProps({
@@ -35,7 +35,7 @@ const MapWithASearchBox = compose(
   lifecycle({
     
     componentDidMount() {
-    
+
       function errorPosition() {
         alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all features.`)
       }
@@ -63,7 +63,7 @@ const MapWithASearchBox = compose(
         this.setState({ toiletmarkers: allToilets })
       });
 
-      const refs = {}
+      refs = {}
 
       this.setState({
         bounds: null,
@@ -86,6 +86,7 @@ const MapWithASearchBox = compose(
         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
+          const bounds = new window.google.maps.LatLngBounds();
           
           places.forEach(place => {
             if (place.geometry.viewport) {
@@ -104,14 +105,28 @@ const MapWithASearchBox = compose(
             markers: nextMarkers,
           });
 
-          // refs.map.fitBounds(bounds);
+          //refs.map.fitBounds(bounds);
         },
 
       })
     }, componentWillReceiveProps(nextProps) {
       if (nextProps.filteredMarkers !== this.props.filteredMarkers) {
         this.setState({ toiletmarkers: nextProps.filteredMarkers, })
-        console.log("loel")
+       
+        var firstSet = nextProps.filteredMarkers.slice(0,1);
+        var firstPoint = new google.maps.LatLng(firstSet[0].latitude, firstSet[0].longitude);
+        var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length-1, nextProps.filteredMarkers.length);
+        var lastPoint = new google.maps.LatLng(secondSet[0].latitude, secondSet[0].longitude);
+        var bounds1 = new google.maps.LatLngBounds();
+        bounds1.extend(firstPoint);
+        bounds1.extend(lastPoint);
+       
+        if(nextProps.filteredMarkers.length === 1) {
+          refs.map.panTo(firstPoint);
+        }
+        else {
+        refs.map.fitBounds(bounds1)
+        }
       }
       else if (nextProps.addedMarkers !== this.props.addedMarkers) {
         for (let index = 0; index < nextProps.addedMarkers.length; index++) {
@@ -124,7 +139,7 @@ const MapWithASearchBox = compose(
         this.setState({ toiletmarkers: allToilets })
       }
 
-    }
+     }
     
   }),
   // withScriptjs,
@@ -139,7 +154,7 @@ const MapWithASearchBox = compose(
     // onBoundsChanged={props.onBoundsChanged}
     onClick={props.onMapClick}
     defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false }}
-  >
+  >   
     <div>
       <SearchBox
         ref={props.onSearchBoxMounted}
