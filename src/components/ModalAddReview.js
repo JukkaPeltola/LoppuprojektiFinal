@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import StarRating from './StarRating';
 import { addNewReview } from '../utilities/Service';
 
+
 class ModalAddReview extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +33,7 @@ class ModalAddReview extends Component {
 
         addNewReview(review);
 
-        setTimeout(this.props.testi,500)
+        setTimeout(this.props.testi, 500)
 
         this.toggle();
     }
@@ -56,6 +57,8 @@ class ModalAddReview extends Component {
             closeAll: true
         });
     }
+
+    
 
     render() {
         return (
