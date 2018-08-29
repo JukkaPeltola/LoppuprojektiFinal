@@ -14,6 +14,7 @@ class Filter extends Component {
         super(props);
         this.state = {
           modal: false,
+          filterButtonShown: true,
           markers:[],
           lat: 60.17131,
           lng: 24.94145,
@@ -31,7 +32,7 @@ class Filter extends Component {
 
     componentWillReceiveProps(nextProps){
         if(nextProps.markerList !== this.props.markerList){
-             this.setState({ markers: nextProps.markerList })
+            this.setState({ markers: nextProps.markerList })
             
         }  
     };
@@ -74,7 +75,8 @@ class Filter extends Component {
             ) < distanceRange && marker.rating >= this.state.rating);
             this.props.getFilterData(b);
         } 
-        this.toggle();     
+        this.setState({filterButtonShown: false});
+        this.toggle();           
     }
 
     clear(event) {
@@ -84,7 +86,7 @@ class Filter extends Component {
         this.setState({disabledCheckboxState2: false});
         this.setState({rating: 0})
         distanceRange = 40075000;
-        this.toggle();
+        this.setState({filterButtonShown: true});
     }
     handleChecked () {
         this.setState({disabledCheckboxState: !this.state.disabledCheckboxState});
@@ -107,10 +109,22 @@ class Filter extends Component {
         //     var timeNow = new Date().toLocaleString([], {hour: '2-digit', minute:'2-digit', hour12: false});
             
         // });
-        
+        if(this.state.filterButtonShown) {
         return (           
             <div>
-            <Button style={{width: '125px', height: '50px',  borderColor:'transparent', marginTop: '5px', marginLeft: '10px', borderRadius: '10%', backgroundColor: '#ff2d55', color: 'white', fontFamily: 'Roboto Mono', fontSize:'17px', fontWeight: 'bold'}} onClick={this.toggle}>FILTERING</Button>
+            <Button className="mapFilterBtn bg-dark" style={{
+                width: '80px',  
+                borderColor:'transparent', 
+                margin: '5%',
+                marginLeft: '15px',
+                opacity: '0.7',
+                float: 'left',
+                borderRadius: '3px', 
+                color: 'white', 
+                display: 'inline-block', 
+                fontSize:'16px'
+            }} onClick={this.toggle}>Filtering</Button>
+
             <Modal size="sm" isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
               {/* <ModalHeader toggle={this.toggle}></ModalHeader> */}
               <div style={{ marginBottom: '20px'}}>
@@ -146,12 +160,28 @@ class Filter extends Component {
               </ModalBody>
               <ModalFooter>
                 <Button style={{backgroundColor: '#ff2d55', color: 'white', fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.applyFilters}>Apply filters</Button>
-                <Button style={{fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.clear}>Cancel</Button>
+                <Button style={{fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.toggle}>Cancel</Button>
               </ModalFooter>
               </div>
             </Modal>
           </div>
         );   
+        } 
+        if(!this.state.filterButtonShown) {
+            return (
+                <Button className="mapFilterBtn bg-dark" style={{
+                                borderColor:'transparent', 
+                                margin: '5%',
+                                marginLeft: '15px',
+                                opacity: '0.7',
+                                float: 'left',
+                                borderRadius: '3px', 
+                                color: 'white', 
+                                display: 'inline-block', 
+                                fontSize:'16px'
+                            }} onClick={this.clear}>Show all toilets</Button>
+            );
+        }
     }
 }
 
