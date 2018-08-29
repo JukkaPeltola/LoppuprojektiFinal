@@ -46,6 +46,10 @@ class FindNearestToilet extends Component {
     onSubmit() {
         // listWithAll = this.state.markers;
         // console.log(listWithAll)
+        if(sessionStorage.getItem("lat") === null) {
+            alert("Please enable GPS to use this feature");
+            return;
+        }
         var sortedList = listWithAll.sort((a, b) => (geolib.getDistance(
             { latitude: this.state.lat, longitude: this.state.lng },
             { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
@@ -63,6 +67,7 @@ class FindNearestToilet extends Component {
         this.setState({changeToggle: false})
     }
     render() {
+        console.log(sessionStorage.getItem("lat"))
         console.log(this.state.markers)
         count++;
         console.log(count)
@@ -81,7 +86,7 @@ class FindNearestToilet extends Component {
         // console.log("adslfasdäf")
         // console.log(listWithAll)
         }
-        if(this.state.lat !== null) {
+        
             if(!this.state.changeToggle) {
                 return (          
                     <div>
@@ -97,14 +102,6 @@ class FindNearestToilet extends Component {
                 );
             }
             
-        }
-        else {
-            return (
-            <div>
-                    {/* <Button disabled></Button> */}
-                </div>
-            );
-        }   
 
     }
 }

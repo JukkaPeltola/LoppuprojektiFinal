@@ -26,6 +26,10 @@ class Toiletlist extends Component {
     }
 
     onRadioBtnClick(rSelected) {
+        if(sessionStorage.getItem("lat") === null && rSelected === 4) {
+            alert("Please enable GPS to use this feature");
+            return;
+        }
         this.setState({ rSelected }, () => {
             this.filterToilets();
         })
