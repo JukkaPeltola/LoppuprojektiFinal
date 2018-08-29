@@ -17,6 +17,7 @@ class report extends Component {
     
     render() {
         const formattedDate = Moment(this.props.marker.date).format('DD-MMM-YY HH:mm');
+        
         return (
             <div>
             <center style={{
