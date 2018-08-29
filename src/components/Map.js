@@ -86,8 +86,7 @@ const MapWithASearchBox = compose(
         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
-          const bounds = new google.maps.LatLngBounds();
-
+          
           places.forEach(place => {
             if (place.geometry.viewport) {
               bounds.union(place.geometry.viewport)
