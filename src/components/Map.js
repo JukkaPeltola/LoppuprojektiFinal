@@ -8,11 +8,12 @@ import logo from './plus.png';
 import YourPosition from './YourPosition';
 import AdMarker from './AdMarker';
 import FindNearestToilet from './FindNearestToilet';
+import { componentWillUnmount } from 'react-google-maps/lib/utils/MapChildHelper';
 
 const google = window.google;
 console.log(google)
 const _ = require("lodash");
-const { compose, withProps, lifecycle } = require("recompose");
+const { compose, withProps, lifecycle, } = require("recompose");
 const {
   withScriptjs,
   withGoogleMap,
@@ -24,22 +25,21 @@ var youPosition = {};
 // const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 
 var allToilets = []
-var ballMarkers = []
 const MapWithASearchBox = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `92vh`, width: '100wv' }} />,
-    mapElement: <div style={{ height: `100%` }} />,
+    mapElement: <div style={{ height: `100%` }}  />,
   }),
   lifecycle({
-
+    
     componentDidMount() {
-
+    
       function errorPosition() {
         alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all features.`)
       }
-
+     
       function showPosition(position) {
         // this.setState({
         //   lat: position.coords.latitude,
@@ -50,11 +50,11 @@ const MapWithASearchBox = compose(
         sessionStorage.setItem('lat', youPosition.lat);
         sessionStorage.setItem('lng', youPosition.lng);
         // this.props.getPositionFromMap(youPosition)
+        this.setState({center: youPosition})
       }
 
-
-
-      navigator.geolocation.watchPosition(showPosition, errorPosition, { enableHighAccuracy: true });
+      navigator.geolocation.watchPosition(showPosition.bind(this), errorPosition, { enableHighAccuracy: true });
+      
 
       getAllToilets((data) => {
         data.map(res => {
@@ -78,7 +78,7 @@ const MapWithASearchBox = compose(
         onBoundsChanged: () => {
           this.setState({
             bounds: refs.map.getBounds(),
-            // center: refs.map.getCenter(),
+            center: refs.map.getCenter(),
           })
         },
         onSearchBoxMounted: ref => {
@@ -125,8 +125,9 @@ const MapWithASearchBox = compose(
       }
 
     }
+    
   }),
-  withScriptjs,
+  // withScriptjs,
   withGoogleMap
 )(props =>
 
@@ -137,7 +138,7 @@ const MapWithASearchBox = compose(
     onIdle={props.onMapIdle}
     // onBoundsChanged={props.onBoundsChanged}
     onClick={props.onMapClick}
-    defaultOptions={{ mapTypeControl: false }}
+    defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false }}
   >
     <div>
       <SearchBox
@@ -169,7 +170,8 @@ const MapWithASearchBox = compose(
         <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <br />
-        <AdMarker addMarker={props.addMarker} />
+        <AdMarker addMarker={props.addMarker} position={youPosition} />
+        
       </MapControl>
     </div>
     {props.markers.map((marker, index) =>
@@ -189,11 +191,11 @@ class Map2 extends Component {
     this.setState({ markers: filterData });
   }
   addMarker = (newMarker) => {
-    var a = []
-    a.push(newMarker)
-    console.log(a)
-    this.setState({ addedMarker: a })
+    var newMarkers = []
+    newMarkers.push(newMarker)
+    this.setState({ addedMarker: newMarkers })
   }
+ 
   render() {
 
     return (

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getAllReports } from '../utilities/Service';
 import Report from './Report';
-import {Input, Button} from 'reactstrap';
+import {Input, Button, ButtonGroup} from 'reactstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
@@ -17,8 +17,28 @@ class Reportlist extends Component{
         }
     }
     filterReports = () => {
-            let tempToilets = allReports.filter(x => x.date)
-            this.setState({ markers: tempToilets })
+            console.log(this.state.markers[0].date)
+            console.log(new Date().toDateString())
+            // var a=this.state.markers;                
+            // var b = a.sort(function(a, b){return a.date>b.date});
+            // console.log(b);
+            
+            if(this.state.selected===2 || this.state.selected===null){
+                let tempToilets = this.state.markers.sort((a, b) => (a.date > b.date ? 1 : -1))
+                this.setState({ markers: tempToilets })
+                this.setState({selected:3})
+            }
+            else{
+                let tempToilets = this.state.markers.sort((a, b) => (a.date < b.date ? 1 : -1))
+                this.setState({ markers: tempToilets })
+                this.setState({selected:2})
+            }
+            
+            
+            
+            
+            // let tempToilets = this.state.markers.filter(x => x.date <new Date().toDateString())
+            // this.setState({ markers: b })
     }
 
     componentDidMount() {
@@ -62,7 +82,8 @@ class Reportlist extends Component{
         return(
             <div>
                 <h1>Reports</h1>
-                <Button className="filterBtn" color="primary" onClick={this.filterReports}>time</Button>
+                <Button className="filterBtn" color="primary" onClick={this.filterReports}>Filter by time</Button>
+                
                 <Input type="text" placeholder= "Search toilet" value={this.state.search} style={{width: `40%`, fontSize:15, fontFamily:'Lucida Console'}}
                         onChange={this.updateSearch.bind(this)} />
 
