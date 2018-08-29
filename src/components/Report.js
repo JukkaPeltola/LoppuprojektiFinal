@@ -16,6 +16,7 @@ class report extends Component {
     
     render() {
         return (
+            <div>
             <center style={{
                 width: '70%',
                 margin: '1% 0',
@@ -28,6 +29,9 @@ class report extends Component {
                 <p>{this.props.marker.text}</p>
                 <Button onClick={this.poistaReport} color="danger">Delete</Button>
             </center>
+            </div>
+
+            
         );
     }
 }
