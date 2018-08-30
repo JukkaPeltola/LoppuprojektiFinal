@@ -76,6 +76,7 @@ class InfoWindowMap extends Component {
                 height: `30px`,
             }} src={Disable} />;;
         }
+
         return (
 
             <Marker
@@ -87,35 +88,46 @@ class InfoWindowMap extends Component {
             >
                 {
                     this.state.isOpen &&
-                    <InfoWindow options={{maxWidth:280}} onCloseClick={this.handleToggleClose}>
+                    <InfoWindow options={{ maxWidth: 280 }} onCloseClick={this.handleToggleClose}>
                         <div>
                             <h4>{this.props.marker.name}</h4>
                             <h4>{inva}</h4>
-                            {
-                                this.state.addNew && paivitetty != null &&
-                                // <h6>Rating: {(paivitetty.rating).toFixed(2)} ★</h6>
-                                <ReactStars
-                                    count={5}
-                                    size={30}
-                                    color2={'#ffd700'}
-                                    value={(paivitetty.rating).toFixed(2)}
-                                    edit={false} />
-                            }
-                            {
-                                this.state.addNew === false &&
-                                // <h6>Rating: {rating} ★</h6>
-                                <ReactStars
-                                    count={5}
-                                    size={26}
-                                    color2={'#ffd700'}
-                                    value={rating}
-                                    edit={false} />
-                            }
+                            <div style={{marginLeft:"30%"}}>
+                            
+                                {
+                                    this.state.addNew && paivitetty != null &&
+                                    // <h6>Rating: {(paivitetty.rating).toFixed(2)} ★</h6>
+
+                                    <ReactStars
+                                        count={5}
+                                        size={30}
+                                        color2={'#ffd700'}
+                                        value={(paivitetty.rating).toFixed(2)}
+                                        edit={false} />
+
+                                }
+                                {
+                                    this.state.addNew === false &&
+                                    // <h6>Rating: {rating} ★</h6>
+
+                                    <ReactStars
+                                        count={5}
+                                        size={26}
+                                        color2={'#ffd700'}
+                                        value={rating}
+                                        edit={false} />
+
+                                }
+                            
+                            </div>
                             <div className="btn-group">
                                 <ModalAddReview testi={this.testi} marker={this.props.marker} />
                                 <ModalShowToiletReviews marker={this.props.marker} />
+
+                            </div>
+                            <div className="btn-group">
                                 <ModalReportToilet marker={this.props.marker} />
-                                <Button onClick={this.showDirectionsMap} color="success">Route</Button>{' '}
+                                <Button style= {{marginTop:'1px'}} onClick={this.showDirectionsMap} color="success">Route</Button>{' '}
                             </div>
                         </div>
                     </InfoWindow>

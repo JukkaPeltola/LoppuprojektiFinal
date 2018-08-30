@@ -219,12 +219,11 @@ const MapWithASearchBox = compose(
         />
       </SearchBox>
       <MapControl position={google.maps.ControlPosition.RIGHT_BOTTOM}>
-        <AdMarker addMarker={props.addMarker} position={youPosition} />
+        <AdMarker getCenterAgain={props.getCenterAgain} addMarker={props.addMarker} position={youPosition} />
       </MapControl>
       <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
         <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
-        <AdMarker getCenterAgain={props.getCenterAgain} addMarker={props.addMarker} position={youPosition} />
        
       </MapControl>
     </div>
