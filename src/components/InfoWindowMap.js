@@ -7,7 +7,7 @@ import { GetOneToilets } from '../utilities/Service';
 import NotDisabled from '../images/notForDisabled.gif';
 import Disable from '../images/suitableForDisabled.jpg';
 import ReactStars from 'react-stars';
-import toileticon from '../images/vessa_icon16x16.png'
+import toileticon from './pointer.png'
 import ModalShowToiletReviews from './ModalShowToiletReviews';
 
 var paivitetty;
