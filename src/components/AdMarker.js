@@ -28,7 +28,7 @@ class AdMarker extends Component {
     }
     markerToggleOpen = () => {
         console.log("moi")
-        if(sessionStorage.getItem("lat") === null) {
+        if (sessionStorage.getItem("lat") === null) {
             alert("Please enable GPS to use this feature");
             return;
         }
@@ -72,7 +72,8 @@ class AdMarker extends Component {
                 var Address = response.results[0].formatted_address.toString();
 
                 this.setState({
-                    infoWindowOpen: true, latLng: { lat: lat, lng: lng },
+                    infoWindowOpen: true,
+                    latLng: { lat: lat, lng: lng },
                     newToilet: {
                         latitude: lat,
                         longitude: lng,

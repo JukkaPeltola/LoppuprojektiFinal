@@ -6,6 +6,8 @@ import { Button } from 'reactstrap';
 import { GetOneToilets } from '../utilities/Service';
 import NotDisabled from '../images/notForDisabled.gif';
 import Disable from '../images/suitableForDisabled.jpg';
+
+
 var paivitetty;
 
 class InfoWindowMap extends Component {
@@ -19,13 +21,12 @@ class InfoWindowMap extends Component {
 
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.status !== this.props.status){
-            this.setState({ isOpen: nextProps.status })
-            
+        if(nextProps.status !== 3){
+            this.setState({ isOpen: false })
         }  
     };
 
-    testi = () => {
+    testi = () => { 
         GetOneToilets(this.props.marker.toilet_id,(data) => {
             paivitetty = data
             console.log(paivitetty)
@@ -36,12 +37,10 @@ class InfoWindowMap extends Component {
     }
 
     handleToggleOpen = () => {
-    
-        this.setState({
-            isOpen: true
-        });
+        this.props.sendProps("sendmessagetothiscomponent")
+        this.setState({isOpen: this})
     }
-
+    
     handleToggleClose = () => {
         this.setState({
             isOpen: false
@@ -92,11 +91,11 @@ class InfoWindowMap extends Component {
                             
                             }
                             {
-                                this.state.addNew == false &&
+                                this.state.addNew === false &&
                                 <h6>Rating: {rating}</h6>
                             }
                             <div className="btn-group">
-                            <ModalAddReview testi={this.testi} marker={this.props.marker} />                           
+                            <ModalAddReview testi={this.testi} marker={this.props.marker} />                       
                             <ModalReportToilet marker={this.props.marker}/>
                             <Button onClick={this.showDirectionsMap} color="success">Reitti</Button>{' '}
                             </div>                                                  
