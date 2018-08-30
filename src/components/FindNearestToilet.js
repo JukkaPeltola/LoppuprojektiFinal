@@ -38,15 +38,20 @@ class FindNearestToilet extends Component {
     };
     onSubmit() {
         if(sessionStorage.getItem("lat") === null) {
-            alert("Please enable GPS to use this feature");
+            alert("Please make sure your GPS is enabled to use this feature");
             return;
         }
+
+        console.log(listWithAll)
         var sortedList = listWithAll.sort((a, b) => (geolib.getDistance(
-            { latitude: this.state.lat, longitude: this.state.lng },
+            { latitude:sessionStorage.getItem("lat"), longitude: sessionStorage.getItem("lng") },
             { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
-                { latitude: this.state.lat, longitude: this.state.lng },
+                { latitude: sessionStorage.getItem("lat"), longitude: sessionStorage.getItem("lng")  },
                 { latitude: b.latitude, longitude: b.longitude })
             ));
+        console.log(sortedList)
+        console.log(sessionStorage.getItem("lat"))
+        
         nearestToilet = sortedList.slice(0,1);
     
         this.props.getFilterData(nearestToilet);
@@ -57,28 +62,32 @@ class FindNearestToilet extends Component {
         this.props.getFilterData(listWithAll);
         this.setState({changeToggle: false})
     }
-    render() {
-
-        count++;
-        if(count === 3) {
-            
-            listWithAll = this.state.markers;
+    render() {           
+                if(this.state.markers.length === 0) {
+                    return (null);
+                }
+                else {
+                    if(count===0) {
+                        listWithAll = this.state.markers;
+                        count++;
+                    }
+                    console.log(listWithAll)
+                    if(!this.state.changeToggle) {
+                    return (          
+                        <div>
+                            <Button style={{ marginLeft: '15px', marginTop: '10%' }} onClick={this.onSubmit}>Find nearest toilet</Button>
+                        </div>
+                    );
+                }
+                if(this.state.changeToggle) {
+                    return (
+                        <div>
+                            <Button style={{ marginLeft: '15px', marginTop: '10%' }} onClick={this.cancel}>Show all toilets</Button>¨
+                        </div>
+                    );
+                }
         }
         
-            if(!this.state.changeToggle) {
-                return (          
-                    <div>
-                        <Button style={{ marginLeft: '15px', marginTop: '10%' }} onClick={this.onSubmit}>Find nearest toilet</Button>
-                    </div>
-                );
-            }
-            if(this.state.changeToggle) {
-                return (
-                    <div>
-                        <Button style={{ marginLeft: '15px', marginTop: '10%' }} onClick={this.cancel}>Show all toilets</Button>¨
-                    </div>
-                );
-            }
             
 
     }
