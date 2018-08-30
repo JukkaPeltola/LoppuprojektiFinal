@@ -194,7 +194,7 @@ const MapWithASearchBox = compose(
     defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false, zoomControl: false }}
   >
     <div>
-      <SearchBox
+      <SearchBox id="sbox"
         ref={props.onSearchBoxMounted}
         bounds={props.bounds}
         controlPosition={google.maps.ControlPosition.TOP_LEFT}
@@ -204,12 +204,12 @@ const MapWithASearchBox = compose(
           type="text"
           placeholder="Search places"
           style={{
-            marginLeft: '1%',
+            marginLeft: '4%',
             boxSizing: `border-box`,
             border: `1px solid transparent`,
             width: `240px`,
             height: `32px`,
-            marginTop: `1%`,
+            marginTop: `3.62%`,
             padding: `0 12px`,
             borderRadius: `3px`,
             boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
@@ -223,12 +223,12 @@ const MapWithASearchBox = compose(
         <AdMarker getCenterAgain={props.getCenterAgain} addMarker={props.addMarker} position={youPosition} />
       </MapControl>
       <MapControl position={google.maps.ControlPosition.LEFT_BOTTOM}>
+        <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
       <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
       </MapControl>
 
       <MapControl position={google.maps.ControlPosition.TOP_CENTER}>
        
-        <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
       </MapControl>
 
         <MapControl position={google.maps.ControlPosition.TOP_RIGHT}>
@@ -270,7 +270,6 @@ class Map2 extends Component {
 
     return (
       <div>
-
         <MapWithASearchBox boundCounter = {this.state.boundCounter}getBounds={this.state.getBounds} getCenterAgain={this.getYourCenterOnClick}sendProps={this.sendProps} status={this.state.status} addMarker={this.addMarker} addedMarkers={this.state.addedMarker} getFilterData={this.filterCallback} filteredMarkers={this.state.markers} showRouteOnClick={this.props.showRouteOnClick} />
 
       </div>

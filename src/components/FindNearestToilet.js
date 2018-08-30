@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Button} from 'reactstrap';
-import geolib from 'geolib';import ModalShowToiletInfo from './ModalShowToiletInfo';
+import geolib from 'geolib';
+import ModalShowToiletInfo from './ModalShowToiletInfo';
 import InfoWindowMap from './InfoWindowMap';
 
 var listWithAll = [];
@@ -75,14 +76,14 @@ class FindNearestToilet extends Component {
                     if(!this.state.changeToggle) {
                     return (          
                         <div>
-                            <Button style={{ marginLeft: '3%', marginTop: '8%' }} onClick={this.onSubmit}>Nearest</Button>
+                            <Button style={{ marginLeft: '4%', marginTop: '8%' }} onClick={this.onSubmit}>Nearest</Button>
                         </div>
                     );
                 }
                 if(this.state.changeToggle) {
                     return (
                         <div>
-                            <Button style={{ marginLeft: '3%', marginTop: '8%' }} onClick={this.cancel}>Show all</Button>¨
+                            <Button style={{ marginLeft: '4%', marginTop: '8%' }} onClick={this.cancel}>Show all</Button>
                         </div>
                     );
                 }

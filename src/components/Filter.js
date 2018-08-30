@@ -176,17 +176,17 @@ class Filter extends Component {
                 return (           
                     <div>
                     <Button className="mapFilterBtn bg-dark" style={{
-                        width: '80px',  
+                        width: '82px',  
                         borderColor:'transparent', 
-                        marginTop: '3%',
-                        marginLeft: '3%',
+                        // marginTop: '3%',
+                        marginLeft: '4%',
                         opacity: '0.7',
-                        float: 'left',
+                        // float: 'left',
                         borderRadius: '3px', 
                         color: 'white', 
                         display: 'inline-block', 
                         fontSize:'16px'
-                    }} onClick={this.toggle}>Filtering</Button>
+                    }} onClick={this.toggle}>Filter</Button>
         
                     <Modal size="sm" isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
                       {/* <ModalHeader toggle={this.toggle}></ModalHeader> */}
@@ -238,12 +238,12 @@ class Filter extends Component {
                                         margin: '1%',
                                         marginLeft: '5px',
                                         opacity: '0.7',
-                                        float: 'left',
+                                        // float: 'left',
                                         borderRadius: '3px', 
                                         color: 'white', 
                                         display: 'inline-block', 
                                         fontSize:'16px'
-                                    }} onClick={this.clear}>Show all toilets</Button>
+                                    }} onClick={this.clear}>Show all</Button>
                     );
                 }
             }
