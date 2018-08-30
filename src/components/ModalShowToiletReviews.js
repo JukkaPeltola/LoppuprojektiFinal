@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { GetOneReview } from '../utilities/Service';
+import { GetOneReview, GetOneUser } from '../utilities/Service';
 import OneReview from './OneReview';
 import { DeleteReview } from '../utilities/Service';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -13,7 +13,8 @@ class ModalShowToiletReviews extends Component {
             modal: false,
             nestedModal: false,
             closeAll: false,
-            rev: null
+            rev: null,
+            admin: false
         };
 
         this.toggle = this.toggle.bind(this);
@@ -24,15 +25,27 @@ class ModalShowToiletReviews extends Component {
     deleteReview = (review_id) => {
         let templist = this.state.rev.filter(x=> x.props.review.review_id != review_id);
         this.setState({rev: templist})
-        // Kun halutaan poistaa databasesta!
-        // DeleteReview(review_id)
+        DeleteReview(review_id)
     }
 
     componentDidMount(){
+        let id = sessionStorage.getItem('id')
+        if (id != null){
+            GetOneUser(id,(data) => {
+                if (data.admin == true){
+                    this.setState({admin: true})
+                    console.log("Admin muuttui")
+                } else {
+                    this.setState({admin: false})
+                }
+            })
+        } else {
+            this.setState({admin: false})
+        }
+
         GetOneReview(this.props.marker.toilet_id, (data) => {
-            
             reviews = data.map((review, index) => {
-                return <OneReview deleteReview={this.deleteReview} toilet={this.props.marker} review={review} key={index}></OneReview>
+                return <OneReview isAdmin={this.state.admin} deleteReview={this.deleteReview} toilet={this.props.marker} review={review} key={index}></OneReview>
             })
             this.setState({rev: reviews})
 

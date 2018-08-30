@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllReports } from '../utilities/Service';
+import { getAllReports, GetOneUser } from '../utilities/Service';
 import Report from './Report';
 import {Input, Button, ButtonGroup} from 'reactstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -21,13 +21,7 @@ class Reportlist extends Component{
 
         this.handleClick = this.handleClick.bind(this);
     }
-    filterReports = () => {
-            console.log(this.state.markers[0].date)
-            console.log(new Date().toDateString())
-            // var a=this.state.markers;                
-            // var b = a.sort(function(a, b){return a.date>b.date});
-            // console.log(b);
-            
+    filterReports = () => {           
             if(this.state.selected===2 || this.state.selected===null){
                 let tempToilets = this.state.markers.sort((a, b) => (a.date > b.date ? 1 : -1))
                 this.setState({ markers: tempToilets })
@@ -37,13 +31,12 @@ class Reportlist extends Component{
                 let tempToilets = this.state.markers.sort((a, b) => (a.date < b.date ? 1 : -1))
                 this.setState({ markers: tempToilets })
                 this.setState({selected:2})
-            }
-            
-            // let tempToilets = this.state.markers.filter(x => x.date <new Date().toDateString())
-            // this.setState({ markers: b })
+            }            
     }
 
     componentDidMount() {
+        
+        
 
         getAllReports((data) => {
             data.map(res => {
