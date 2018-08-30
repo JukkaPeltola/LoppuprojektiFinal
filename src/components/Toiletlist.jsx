@@ -89,8 +89,6 @@ class Toiletlist extends Component {
         });
     }
 
-
-
     render() {
 
         var toilets = this.state.markers.map(marker => (
@@ -139,7 +137,7 @@ class Toiletlist extends Component {
             return (
                 <li
                     style={{ border: 'solid 1px', borderRadius: '5px', padding: '2%', backgroundColor: '#e2edff' }}
-                    // key={number}
+                    key={number}
                     id={number}
                     onClick={this.handleClick}
                 >
