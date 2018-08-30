@@ -38,8 +38,8 @@ const MapWithASearchBox = compose(
 
     componentDidMount() {
 
-      function  getYourCenterOnClick (){
-        this.setState({center:youPosition}).bind(this)
+      function getYourCenterOnClick() {
+        this.setState({ center: youPosition }).bind(this)
       }
 
       function errorPosition() {
@@ -52,8 +52,8 @@ const MapWithASearchBox = compose(
         console.log(youPosition);
         sessionStorage.setItem('lat', youPosition.lat);
         sessionStorage.setItem('lng', youPosition.lng);
-        if(positionCounter<1){
-        this.setState({center: youPosition})
+        if (positionCounter < 1) {
+          this.setState({ center: youPosition })
         }
         console.log(`olen showPositionissa`)
       }
@@ -62,7 +62,7 @@ const MapWithASearchBox = compose(
 
 
       getAllToilets((data) => {
-        allToilets=[]
+        allToilets = []
         data.map(res => {
           allToilets.push(res)
         })
@@ -182,7 +182,7 @@ const MapWithASearchBox = compose(
     // onBoundsChanged={props.onBoundsChanged}
     onClick={props.onMapClick}
     defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false, zoomControl: false }}
-  >   
+  >
     <div>
       <SearchBox
         ref={props.onSearchBoxMounted}
@@ -194,12 +194,12 @@ const MapWithASearchBox = compose(
           type="text"
           placeholder="Search places"
           style={{
-            marginLeft: '15px',
+            marginLeft: '1%',
             boxSizing: `border-box`,
             border: `1px solid transparent`,
             width: `240px`,
             height: `32px`,
-            marginTop: `22px`,
+            marginTop: `1%`,
             padding: `0 12px`,
             borderRadius: `3px`,
             boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
@@ -209,10 +209,13 @@ const MapWithASearchBox = compose(
           }}
         />
       </SearchBox>
+      <MapControl position={google.maps.ControlPosition.RIGHT_BOTTOM}>
+        <AdMarker addMarker={props.addMarker} position={youPosition} />
+      </MapControl>
       <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
         <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
-        <AdMarker addMarker={props.addMarker} position={youPosition} />
+
       </MapControl>
     </div>
     {props.markers.map((marker, index) =>
