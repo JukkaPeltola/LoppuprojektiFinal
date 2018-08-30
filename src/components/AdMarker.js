@@ -152,7 +152,7 @@ class AdMarker extends Component {
                 }
 
                 <Modal isOpen={this.state.modalOpen} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>sdfsdsdfds</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Add new toilet</ModalHeader>
                     <ModalBody>
                         <label>Name: </label>
                         <input ref="name" type="text"></input><br />
