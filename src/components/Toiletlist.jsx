@@ -89,11 +89,15 @@ class Toiletlist extends Component {
             console.log(this.state.markers)
         });
     }
+    poistaVessa = (id) => {
+        let temp = this.state.markers.filter(x => x.toilet_id != id)
+        this.setState({markers: temp})
+    }
 
     render() {
 
         var toilets = this.state.markers.map(marker => (
-            <Toilet marker={marker} key={marker.toilet_id}>
+            <Toilet poistaVessa={this.poistaVessa} marker={marker} key={marker.toilet_id}>
             </Toilet>
         ));
 
