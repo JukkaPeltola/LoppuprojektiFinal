@@ -10,6 +10,7 @@ import AdMarker from './AdMarker';
 import FindNearestToilet from './FindNearestToilet';
 // import './Map.css'
 import { componentWillUnmount } from 'react-google-maps/lib/utils/MapChildHelper';
+import GetCenter from './GetCenter'
 
 const google = window.google;
 console.log(google)
@@ -209,11 +210,20 @@ const MapWithASearchBox = compose(
       <MapControl position={google.maps.ControlPosition.RIGHT_BOTTOM}>
         <AdMarker getCenterAgain={props.getCenterAgain} addMarker={props.addMarker} position={youPosition} />
       </MapControl>
-      <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
-        <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
-        <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
-       
+      <MapControl position={google.maps.ControlPosition.LEFT_BOTTOM}>
+      <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
       </MapControl>
+
+      <MapControl position={google.maps.ControlPosition.TOP_CENTER}>
+       
+        <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
+      </MapControl>
+
+        <MapControl position={google.maps.ControlPosition.TOP_RIGHT}>
+        <GetCenter getCenterAgain={props.getCenterAgain} position={youPosition} />
+      </MapControl>
+      
+       
     </div>
     {props.markers.map((marker, index) =>
       <Marker key={index} position={marker.position} />

@@ -131,13 +131,11 @@ class AdMarker extends Component {
     switchClick = () => {
         this.setState({ checked: !this.state.checked })
     }
-    get = () => {
-        this.props.getCenterAgain(this.props.position)
-    }
+
     render() {
         return (
             <div>
-                <button onClick={this.get}>getcenter</button>
+               
                 <button onClick={this.markerToggleOpen} style={{
                     backgroundColor: 'transparent',
                     display: 'inline-block',
