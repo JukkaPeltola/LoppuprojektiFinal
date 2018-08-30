@@ -36,7 +36,8 @@ class StarRating extends React.Component {
                     size={30}
                     onChange={this.ratingChanged}
                     color2={'#ffd700'}
-                    value={this.state.rating} />
+                    value={this.state.rating}
+                    half={false} />
             </div>
         );
     }
