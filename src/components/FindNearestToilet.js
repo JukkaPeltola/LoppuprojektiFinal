@@ -11,14 +11,14 @@ class FindNearestToilet extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          markers:[],
-          lat: 0,
-          lng: 0,
-          modal: false,
-          nestedModal: false,
-          closeAll: false,
-          admin: true,
-          changeToggle: false
+            markers:[],
+            lat: 0,
+            lng: 0,
+            modal: false,
+            nestedModal: false,
+            closeAll: false,
+            admin: true,
+            changeToggle: false
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.cancel = this.cancel.bind(this);
@@ -31,8 +31,8 @@ class FindNearestToilet extends Component {
 
     componentWillReceiveProps(nextProps){
         if(nextProps.markerList !== this.props.markerList){
-             this.setState({ markers: nextProps.markerList })
-               
+            this.setState({ markers: nextProps.markerList })
+            
         }
 
     };
@@ -51,7 +51,7 @@ class FindNearestToilet extends Component {
     
         this.props.getFilterData(nearestToilet);
         this.setState({changeToggle: true});
-  
+
     }
     cancel() {
         this.props.getFilterData(listWithAll);

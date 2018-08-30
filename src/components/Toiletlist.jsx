@@ -162,25 +162,24 @@ class Toiletlist extends Component {
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(3)} active={this.state.rSelected === 3}>Name</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
                 </ButtonGroup>
-                <Input onChange={this.onSearchChange} style={{ width: '50%', marginLeft: '1%' }} size="" placeholder="Search by name" type="text"></Input>
-                <center>
-                    <div className="paging">
-                        <ul>
-                            <ReactCSSTransitionGroup
-                                transitionName="fade"
-                                transitionEnterTimeout={700}
-                                transitionLeaveTimeout={700}
-                                transitionAppear={true}
-                                transitionAppearTimeout={700}>
+                <Input onChange={this.onSearchChange} style={{width: '50%', marginLeft: '1%'}} size="" placeholder="Search by name" type="text"></Input>
+                <ReactCSSTransitionGroup
+                    transitionName="fade"
+                    transitionEnterTimeout={700}
+                    transitionLeaveTimeout={700}
+                    transitionAppear={true}
+                    transitionAppearTimeout={700}>
+                    <center>
+                        <div className="paging">
+                            <ul>
                                 {renderToilets}
-                            </ReactCSSTransitionGroup>
-                        </ul>
-                        <ul className="page-numbers">
-                            {renderPageNumbers}
-                        </ul>
-                    </div>
-                </center>
-
+                            </ul>
+                            <ul className="page-numbers">
+                                {renderPageNumbers}
+                            </ul>
+                        </div>
+                    </center>
+                </ReactCSSTransitionGroup>
             </div>
         );
     }

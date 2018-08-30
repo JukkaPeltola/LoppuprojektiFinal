@@ -30,7 +30,7 @@ class StarRating extends React.Component {
 
         return (
             <div>
-                <Input onChange={this.onTextChange} maxLength="300" placeholder="Kirjoita arvostelu.." />
+                <Input onChange={this.onTextChange} maxLength="300" placeholder="Write a review" />
                 <ReactStars
                     count={5}
                     size={30}

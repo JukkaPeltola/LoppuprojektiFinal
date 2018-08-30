@@ -140,7 +140,7 @@ class AdMarker extends Component {
                             this.state.infoWindowOpen &&
                             <InfoWindow>
                                 <div>
-                                    <Button style={{ marginRight: `10px` }} color="success" onClick={this.modalToggleopen}>Add new toilet</Button>
+                                    <Button style={{ marginRight: `10px` }} color="success" onClick={this.modalToggleopen}>Add a new toilet</Button>
                                     <Button style={{ marginRight: `10px` }} onClick={this.markerToggleClose}>Cancel</Button>
                                 </div>
                             </InfoWindow>
@@ -151,11 +151,11 @@ class AdMarker extends Component {
                 }
 
                 <Modal isOpen={this.state.modalOpen} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Add new toilet</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Add a new toilet</ModalHeader>
                     <ModalBody>
                         <label>Name: </label>
                         <input ref="name" type="text"></input><br />
-                        <label>inva: </label>
+                        <label>Inva: </label>
                         <div className="onoffswitch">
                             <input ref="inva" type="checkbox" name="onoffswitch" className="onoffswitch-checkbox" id="myonoffswitch"
                                 checked={this.state.checked} onClick={this.switchClick} />
@@ -164,10 +164,10 @@ class AdMarker extends Component {
                                 <span className="onoffswitch-switch"></span>
                             </label>
                         </div>
-                        <label>Hinta: </label>
+                        <label>Price: </label>
                         <input ref="hinta" type="number"></input><br />
-                        <label>Kuvaus: </label>
-                        <input ref="kuvaus" type="text" placeholder="Valinnainen"></input>
+                        <label>Description: </label>
+                        <input ref="kuvaus" type="text" placeholder="Optional"></input>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.addNew}>Add</Button>
