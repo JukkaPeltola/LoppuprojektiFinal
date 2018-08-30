@@ -135,7 +135,7 @@ class Reportlist extends Component{
         return(
             <div>
                 <br />
-                <h2>Reports</h2>
+                <h2><b>REPORTS</b></h2>
                 <Button style={{width: `40%`}} className="filterBtn" color="primary" onClick={this.filterReports}>Filter by time</Button>
                 
                 <Input type="text" placeholder= "Search toilet" value={this.state.search} style={{width: `40%`, fontSize:15, fontFamily:'Lucida Console'}}
