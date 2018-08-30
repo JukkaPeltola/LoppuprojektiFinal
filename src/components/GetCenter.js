@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import target from '../images/target.png'
 
 class GetCenter extends Component {
   constructor(props){
@@ -15,7 +15,13 @@ class GetCenter extends Component {
   render() {
     return (
         <div>
-         <button onClick={this.get}>get</button> 
+         <button onClick={this.get} style={{
+                    backgroundColor: 'transparent',
+                    display: 'inline-block',
+                    border: 'none',
+                    marginTop: '15px',
+                    marginRight: '10px'
+                }}><img src={target} alt="target"></img></button> 
 
         </div>
     
