@@ -4,7 +4,7 @@ import ModalShowToiletReviews from './ModalShowToiletReviews';
 import geolib from 'geolib';
 import './Toilet.css';
 import { Button } from 'reactstrap';
-import { GetOneUser } from '../utilities/Service';
+import { GetOneUser, DeleteToilet } from '../utilities/Service';
 class Toilet extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +12,11 @@ class Toilet extends Component {
             admin: false
         }
     }
-
+    poistaToilet = () => {
+        console.log(this.props.marker.toilet_id)
+        this.props.poistaVessa(this.props.marker.toilet_id)
+        DeleteToilet(this.props.marker.toilet_id)
+    }
     componentDidMount() {
         let user = sessionStorage.getItem('id')
         if (user != null) {
@@ -22,6 +26,7 @@ class Toilet extends Component {
             })
         }
     }
+    
 
     render() {
         var ratingFixed = this.props.marker.rating != null ? this.props.marker.rating.toFixed(2) : 0
@@ -56,7 +61,7 @@ class Toilet extends Component {
                     <div className="toiletlistBtn"><ModalShowToiletReviews marker={this.props.marker} /></div>
                     <div className="toiletlistBtn">
                         {
-                            this.state.admin && <Button color="danger">Delete</Button>
+                            this.state.admin && <Button onClick={this.poistaToilet} color="danger">Poista</Button>
                         }
                     </div>
 

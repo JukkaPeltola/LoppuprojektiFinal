@@ -63,7 +63,7 @@ class ModalAddReview extends Component {
     render() {
         return (
             <div>
-                <Button color="info" onClick={this.toggle}>Rate the toilet</Button>{' '}
+                <Button style={{marginRight:'5px'}} color="info" onClick={this.toggle}>Rate the toilet</Button>{' '}
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Rate the toilet</ModalHeader>
                     &nbsp;&nbsp;&nbsp;&nbsp;{this.props.marker.name}
