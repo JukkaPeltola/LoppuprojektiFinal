@@ -205,8 +205,8 @@ class Filter extends Component {
                     return (
                         <Button className="mapFilterBtn bg-dark" style={{
                                         borderColor:'transparent', 
-                                        margin: '5%',
-                                        marginLeft: '15px',
+                                        margin: '1%',
+                                        marginLeft: '5px',
                                         opacity: '0.7',
                                         float: 'left',
                                         borderRadius: '3px', 
