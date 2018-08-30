@@ -31,7 +31,7 @@ class InfoWindowMap extends Component {
         GetOneToilets(this.props.marker.toilet_id, (data) => {
             paivitetty = data
             console.log(paivitetty)
-            setTimeout(this.setState({ addNew: true }), 100)
+            setTimeout(this.setState({ addNew: true }), 1300)
         })
 
 
