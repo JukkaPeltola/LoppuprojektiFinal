@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button} from 'reactstrap';
 import Moment from 'moment';
 import {deleteReport} from '../utilities/Service';
+
 class report extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +17,9 @@ class report extends Component {
     }
     
     render() {
-        const formattedDate = Moment(this.props.marker.date).format('DD-MMM-YY HH:mm');
+        var stillUtc = Moment.utc(this.props.marker.date).toDate();
+        var local = Moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss'); 
+        
         
         return (
             <div>
@@ -28,14 +31,13 @@ class report extends Component {
                 borderRadius: '10px',
                 backgroundColor: '#e2edff'
             }}>
-               <h4 style={{fontWeight: 'bold'}}>{this.props.marker.name}</h4> 
-                <p>{this.props.marker.text}</p>
-                <p>{formattedDate}</p>
+                <h4 style={{fontWeight: 'bold'}}>{this.props.marker.name}</h4><br />
+                <p><em>"{this.props.marker.text}"</em></p>
+                <p>{local}</p>
                 <Button onClick={this.poistaReport} color="danger">Delete</Button>
             </center>
             </div>
-
-            
+        
         );
     }
 }

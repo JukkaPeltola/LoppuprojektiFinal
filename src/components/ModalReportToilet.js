@@ -40,16 +40,16 @@ class ModalReportToilet extends Component {
     render() {
         return (
             <div>
-                <Button color="danger" onClick={this.toggle}>Report</Button>
+                <Button style={{marginRight:'5px', marginTop:'1px'}} color="danger" onClick={this.toggle}>Report</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Ilmoita ylläpitäjälle</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Report the moderator</ModalHeader>
                     &nbsp;&nbsp;&nbsp;&nbsp;{this.props.marker.name}
                     <ModalBody>
-                            <Input onChange={this.takeReportText} type="text" maxLength="500" placeholder="Mikä on muuttunut/vialla?" />
+                            <Input onChange={this.takeReportText} type="text" maxLength="500" placeholder="What has changed/is wrong?" />
                     </ModalBody>
                     <ModalFooter>
                         <Button onClick={this.reportToilet} color="primary" >Report</Button>{' '}
-                        <Button color="secondary" >Jotain tähän?</Button>
+                        {/* <Button color="secondary" >Something here?</Button> */}
                     </ModalFooter>
                 </Modal>
             </div>

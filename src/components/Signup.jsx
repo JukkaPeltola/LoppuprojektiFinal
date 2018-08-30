@@ -64,11 +64,11 @@ class Signup extends Component {
                 <center>
                 <br />
                 <div className="normalSignup">
-                    <h2>Rekisteröidy</h2>
+                    <h2>Register</h2>
                     <br />
                     <Form onSubmit={this.onSubmit}>
                             <FormGroup>
-                                <Label for="exampleEmail">Käyttäjätunnus</Label>
+                                <Label for="exampleEmail">Username</Label>
                                 <Input
                                     type="text" 
                                     name="username"
@@ -77,10 +77,10 @@ class Signup extends Component {
                                     // error={errors.identifier}
                                     onChange={this.onChange}
                                     id="username" 
-                                    placeholder="Syötä käyttäjätunnus" />
+                                    placeholder="Username" />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="examplePassword">Salasana</Label>
+                                <Label for="examplePassword">Password</Label>
                                 <Input
                                     field="password"
                                     value={this.state.password}
@@ -90,13 +90,13 @@ class Signup extends Component {
                                     onChange={this.onChange} 
                                     required="true"
                                     id="password" 
-                                    placeholder="Syötä salasana" />
+                                    placeholder="Password" />
                             </FormGroup>
                             <Button 
                                 className="buttonSignup"
                                 type="submit"
                             >
-                            Rekisteröidy
+                            Register
                             </Button>
                     </Form>
                 </div>
@@ -110,7 +110,7 @@ class Signup extends Component {
                         <br />
                     </div>
                     <hr style={{ marginBottom: '0', marginTop: '2%' }}></hr>
-                    <span className="notReg">Oletko jo käyttäjä? <Link to="/Login">Kirjaudu tästä!</Link></span>
+                    <span className="notReg">User already? <Link to="/Login">Sign in here!</Link></span>
                     <br /><br />
                 </center>
             </div>

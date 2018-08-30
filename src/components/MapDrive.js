@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import YourPosition from './YourPosition';
+import './mapdrive.css';
 
 const { compose, withProps, lifecycle } = require("recompose");
 const {
@@ -15,8 +16,8 @@ const google = window.google;
 const MapWithADirectionsRenderer = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k&v=3.exp&libraries=geometry,drawing,places",
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `86vh`, width: '100wv' }} />,
+    loadingElement: <div style={{ height: `100vh` }} />,
+    containerElement: <div style={{ height: `100vh`, width: '100vw', }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
   // withScriptjs,
@@ -60,7 +61,7 @@ const MapWithADirectionsRenderer = compose(
     onBoundsChanged={props.onBoundsChanged}
     defaultZoom={7}
     defaultCenter={new google.maps.LatLng(60.17131, 24.94145)}
-    defaultOptions={{mapTypeControl: false}}
+    defaultOptions={{mapTypeControl: false, fullscreenControl: false, streetViewControl: false, zoomControl: false}}
   >
     {props.directions && <DirectionsRenderer directions={props.directions} />}
     <YourPosition lat={youPosition.lat} lng={youPosition.lng} />
@@ -77,7 +78,7 @@ class MapDrive extends Component {
     return (
       <div>
         <MapWithADirectionsRenderer position={this.props.position} />
-        <Button onClick={this.showNormalMap} color="primary" size="lg" block>Palaa takaisin</Button>{' '}
+        <Button onClick={this.showNormalMap} color="primary" size="lg" block>Return</Button>{' '}
 
 
       </div>

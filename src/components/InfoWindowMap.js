@@ -6,7 +6,9 @@ import { Button } from 'reactstrap';
 import { GetOneToilets } from '../utilities/Service';
 import NotDisabled from '../images/notForDisabled.gif';
 import Disable from '../images/suitableForDisabled.jpg';
-
+import ReactStars from 'react-stars';
+import toileticon from './pointer.png'
+import ModalShowToiletReviews from './ModalShowToiletReviews';
 
 var paivitetty;
 
@@ -16,31 +18,31 @@ class InfoWindowMap extends Component {
 
         this.state = {
             isOpen: false,
-            addNew : false
+            addNew: false
         }
 
     }
-    componentWillReceiveProps(nextProps){
-        if(nextProps.status !== 3){
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.status !== 3) {
             this.setState({ isOpen: false })
-        }  
+        }
     };
 
-    testi = () => { 
-        GetOneToilets(this.props.marker.toilet_id,(data) => {
+    testi = () => {
+        GetOneToilets(this.props.marker.toilet_id, (data) => {
             paivitetty = data
             console.log(paivitetty)
-            setTimeout( this.setState({addNew:true}),100)
+            setTimeout(this.setState({ addNew: true }), 1300)
         })
-        
-    
+
+
     }
 
     handleToggleOpen = () => {
         this.props.sendProps("sendmessagetothiscomponent")
-        this.setState({isOpen: this})
+        this.setState({ isOpen: this })
     }
-    
+
     handleToggleClose = () => {
         this.setState({
             isOpen: false
@@ -48,32 +50,37 @@ class InfoWindowMap extends Component {
     }
 
     showDirectionsMap = () => {
-        if(sessionStorage.getItem("lat") === null) {
+        if (sessionStorage.getItem("lat") === null) {
             alert("Please enable GPS to use this feature");
             return;
         }
         this.props.showRouteOnClick(this.props.marker.latitude, this.props.marker.longitude)
-        console.log('olen infowindowsmapissa ja showroutemap:issa')
     }
 
-    render() {    
+    render() {
         let rating = this.props.marker.rating;
-        
+
         if (rating != null) {
             rating = rating.toFixed(2);
         }
-        let inva =this.props.marker.inva;
-      if(!inva){
-        inva=<img alt='some value' style={{ width: `30px`,
-        height: `30px`,}} src={NotDisabled} />;
-      }
-      else{
-          inva=<img alt='some value' style={{ width: `30px`,
-          height: `30px`,}} src={Disable} />;;
-      }    
+        let inva = this.props.marker.inva;
+        if (!inva) {
+            inva = <img alt='some value' style={{
+                width: `30px`,
+                height: `30px`,
+            }} src={NotDisabled} />;
+        }
+        else {
+            inva = <img alt='some value' style={{
+                width: `30px`,
+                height: `30px`,
+            }} src={Disable} />;;
+        }
+
         return (
-           
+
             <Marker
+                icon={toileticon}
                 key={this.props.index}
                 position={{ lat: parseFloat(this.props.lat), lng: parseFloat(this.props.lng) }}
                 label={this.props.toilet_id}
@@ -81,24 +88,47 @@ class InfoWindowMap extends Component {
             >
                 {
                     this.state.isOpen &&
-                    <InfoWindow onCloseClick={this.handleToggleClose}>
+                    <InfoWindow options={{ maxWidth: 280 }} onCloseClick={this.handleToggleClose}>
                         <div>
                             <h4>{this.props.marker.name}</h4>
                             <h4>{inva}</h4>
-                            {
-                                this.state.addNew && 
-                                <h6>Rating: {(paivitetty.rating).toFixed(2)}</h6>
+                            <div style={{marginLeft:"30%"}}>
                             
-                            }
-                            {
-                                this.state.addNew === false &&
-                                <h6>Rating: {rating}</h6>
-                            }
+                                {
+                                    this.state.addNew && paivitetty != null &&
+                                    // <h6>Rating: {(paivitetty.rating).toFixed(2)} ★</h6>
+
+                                    <ReactStars
+                                        count={5}
+                                        size={30}
+                                        color2={'#ffd700'}
+                                        value={(paivitetty.rating).toFixed(2)}
+                                        edit={false} />
+
+                                }
+                                {
+                                    this.state.addNew === false &&
+                                    // <h6>Rating: {rating} ★</h6>
+
+                                    <ReactStars
+                                        count={5}
+                                        size={26}
+                                        color2={'#ffd700'}
+                                        value={rating}
+                                        edit={false} />
+
+                                }
+                            
+                            </div>
                             <div className="btn-group">
-                            <ModalAddReview testi={this.testi} marker={this.props.marker} />                       
-                            <ModalReportToilet marker={this.props.marker}/>
-                            <Button onClick={this.showDirectionsMap} color="success">Reitti</Button>{' '}
-                            </div>                                                  
+                                <ModalAddReview testi={this.testi} marker={this.props.marker} />
+                                <ModalShowToiletReviews marker={this.props.marker} />
+
+                            </div>
+                            <div className="btn-group">
+                                <ModalReportToilet marker={this.props.marker} />
+                                <Button style= {{marginTop:'1px'}} onClick={this.showDirectionsMap} color="success">Route</Button>{' '}
+                            </div>
                         </div>
                     </InfoWindow>
                 }
