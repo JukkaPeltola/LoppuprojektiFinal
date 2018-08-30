@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import YourPosition from './YourPosition';
+import './mapdrive.css';
 
 const { compose, withProps, lifecycle } = require("recompose");
 const {
@@ -77,7 +78,7 @@ class MapDrive extends Component {
     return (
       <div>
         <MapWithADirectionsRenderer position={this.props.position} />
-        <Button onClick={this.showNormalMap} color="primary" size="lg" block>Palaa takaisin</Button>{' '}
+        <Button onClick={this.showNormalMap} color="primary" size="lg" block>Return back</Button>{' '}
 
 
       </div>

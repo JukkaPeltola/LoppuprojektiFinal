@@ -68,12 +68,12 @@ class Login extends Component {
                 <br />
                 <center>
                     <div className="normalLogin">
-                        <h2>Kirjaudu</h2>
+                        <h2>Login</h2>
                         <br />
 
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
-                                <Label for="exampleEmail">Käyttäjätunnus</Label>
+                                <Label for="exampleEmail">Username</Label>
                                 <Input
                                     type="text"
                                     name="username"
@@ -81,10 +81,10 @@ class Login extends Component {
                                     value={this.state.username}
                                     onChange={this.onChange}
                                     id="username"
-                                    placeholder="Syötä käyttäjätunnus" />
+                                    placeholder="Username" />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="examplePassword">Salasana</Label>
+                                <Label for="examplePassword">Password</Label>
                                 <Input
                                     field="password"
                                     value={this.state.password}
@@ -94,14 +94,14 @@ class Login extends Component {
                                     onChange={this.onChange}
                                     required="true"
                                     id="password"
-                                    placeholder="Syötä salasana" />
+                                    placeholder="Password" />
                             </FormGroup>
                             <Button
                                 className="buttonLogin"
                                 type="submit"
                             >
                             {/* {console.log(this.props.isAdmin)} */}
-                                Kirjaudu
+                                Login
                             </Button>
                         </Form>
                     </div>
@@ -115,7 +115,7 @@ class Login extends Component {
                         <br />
                     </div>
                     <hr style={{ marginBottom: '0', marginTop: '2%' }}></hr>
-                    <span className="notReg">Et vielä käyttäjä? <Link to="/Signup">Rekisteröidy tästä!</Link></span>
+                    {/* <span className="notReg">Not a user yet? <Link to="/Signup">Sign up here!</Link></span> */}
                     <br /><br />
                 </center>
             </div>

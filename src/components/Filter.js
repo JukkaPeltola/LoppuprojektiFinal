@@ -13,16 +13,16 @@ class Filter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          modal: false,
-          filterButtonShown: true,
-          markers:[],
-          lat: null,
-          lng: null,
-          all: [],
-          disabledCheckboxState: false,
-          disabledCheckboxState2: false,
-          rating: 0 ,
-          sliderDisabled: false     
+            modal: false,
+            filterButtonShown: true,
+            markers:[],
+            lat: null,
+            lng: null,
+            all: [],
+            disabledCheckboxState: false,
+            disabledCheckboxState2: false,
+            rating: 0 ,
+            sliderDisabled: false     
         };
     this.applyFilters = this.applyFilters.bind(this);   
     this.toggle = this.toggle.bind(this);
@@ -65,7 +65,7 @@ class Filter extends Component {
                 this.setState({rating: 0})
                 distanceRange = 40075000;
                 return ;
-              }
+            }
             this.props.getFilterData(a);
         }
         if(this.state.disabledCheckboxState && distanceRange !== 40075000){
@@ -99,7 +99,7 @@ class Filter extends Component {
                 this.setState({rating: 0})
                 distanceRange = 40075000;
                 return ;
-              }
+            }
             this.props.getFilterData(b);
         } 
         this.setState({filterButtonShown: false});
@@ -117,7 +117,8 @@ class Filter extends Component {
     }
     handleChecked () {
         this.setState({disabledCheckboxState: !this.state.disabledCheckboxState});
-      }
+    }
+
     handleChecked2 () {
         this.setState({disabledCheckboxState2: !this.state.disabledCheckboxState2});
     }
@@ -162,45 +163,45 @@ class Filter extends Component {
 
             <Modal size="sm" isOpen={this.state.modal} fade={false} toggle={this.toggle} className={this.props.className} >
               {/* <ModalHeader toggle={this.toggle}></ModalHeader> */}
-              <div style={{ marginBottom: '20px'}}>
-              <ModalBody>
-              <div style={{fontWeight: 'bold'}}>Search within range (in meters) </div>    
-              <Slider disabled={this.state.sliderDisabled} min={0} max={1000} step={10} marks={{0: '0m', 250: '250m', 500: '500m', 750: '750m', 990: '1000m'}} defaultValue={500} onAfterChange={this.onSliderChange}/>  
-              <br/>
-              <div style={{fontWeight: 'bold'}}>Disabled access? </div>
-              <div className="onoffswitch">
-              <input type="checkbox" name="onoffswitch" className="onoffswitch-checkbox" id="myonoffswitch" checked={this.state.disabledCheckboxState} onChange={this.handleChecked}></input>           
-              <label className="onoffswitch-label" htmlFor="myonoffswitch">
-                <span className="onoffswitch-inner"></span>
-                <span className="onoffswitch-switch"></span>
-              </label>
-              </div>
+            <div style={{ marginBottom: '20px'}}>
+                <ModalBody>
+                <div style={{fontWeight: 'bold'}}>Search within range (in meters) </div><br /> 
+                <Slider disabled={this.state.sliderDisabled} min={0} max={1000} step={10} marks={{0: '0m', 250: '250m', 500: '500m', 750: '750m', 990: '1000m'}} defaultValue={500} onAfterChange={this.onSliderChange}/>  
+                <br/><br />
+                <div style={{fontWeight: 'bold'}}>Disabled access? </div>
+                <div className="onoffswitch">
+                <input type="checkbox" name="onoffswitch" className="onoffswitch-checkbox" id="myonoffswitch" checked={this.state.disabledCheckboxState} onChange={this.handleChecked}></input>           
+                <label className="onoffswitch-label" htmlFor="myonoffswitch">
+                    <span className="onoffswitch-inner"></span>
+                    <span className="onoffswitch-switch"></span>
+                </label>
+            </div>
             
-              <div style={{fontWeight: 'bold'}}>Open? </div>
-              <div className="onoffswitch2">
-              <input type="checkbox" name="onoffswitch2" className="onoffswitch-checkbox2" id="myonoffswitch2" checked={this.state.disabledCheckboxState2} onChange={this.handleChecked2}></input>
-              <label className="onoffswitch-label2" htmlFor="myonoffswitch2">
-                <span className="onoffswitch-inner2"></span>
-                <span className="onoffswitch-switch2"></span>
-              </label>
-              </div>
-              <div style={{fontWeight: 'bold'}}>How many stars? </div>
-              <StarRatingComponent
-                    className="mt-2"
-                    name="rateToilet"
-                    starCount={5}
-                    value={this.state.rating}
-                    onStarClick={this.onStarClick.bind(this)}
-                />
+            <div style={{fontWeight: 'bold'}}>Open? </div>
+            <div className="onoffswitch2">
+                <input type="checkbox" name="onoffswitch2" className="onoffswitch-checkbox2" id="myonoffswitch2" checked={this.state.disabledCheckboxState2} onChange={this.handleChecked2}></input>
+                <label className="onoffswitch-label2" htmlFor="myonoffswitch2">
+                    <span className="onoffswitch-inner2"></span>
+                    <span className="onoffswitch-switch2"></span>
+                </label>
+            </div><br />
+            <div style={{fontWeight: 'bold'}}>How many stars? </div>
+            <StarRatingComponent
+                className="mt-2"
+                name="rateToilet"
+                starCount={5}
+                value={this.state.rating}
+                onStarClick={this.onStarClick.bind(this)}
+            />
 
-              </ModalBody>
-              <ModalFooter>
-                <Button style={{backgroundColor: '#ff2d55', color: 'white', fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.applyFilters}>Apply filters</Button>
-                <Button style={{fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.toggle}>Cancel</Button>
-              </ModalFooter>
-              </div>
+            </ModalBody>
+                <ModalFooter>
+                    <Button style={{backgroundColor: '#ff2d55', color: 'white', fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.applyFilters}>Apply filters</Button>
+                    <Button style={{fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.toggle}>Cancel</Button>
+                </ModalFooter>
+                </div>
             </Modal>
-          </div>
+        </div>
         );   
         } 
         if(!this.state.filterButtonShown) {

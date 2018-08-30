@@ -42,14 +42,14 @@ class Toilet extends Component {
                     <h6>{this.props.marker.inva}</h6>
                     <h6>{geolib.getDistance(
                         { latitude: parseFloat(sessionStorage.getItem('lat')), longitude: parseFloat(sessionStorage.getItem('lng')) },
-                        { latitude: this.props.marker.latitude, longitude: this.props.marker.longitude })} metriä sijainnistasi</h6>
+                        { latitude: this.props.marker.latitude, longitude: this.props.marker.longitude })} meters from your position</h6>
                         <p>INFORMATION</p>
                         
                         <div className="toiletlistBtn"><ModalShowToiletInfo marker={this.props.marker} /></div>
                         <div className="toiletlistBtn"><ModalShowToiletReviews marker={this.props.marker} /></div>
                         <div className="toiletlistBtn">
                         {
-                            this.state.admin && <Button color="danger">Poista</Button>
+                            this.state.admin && <Button color="danger">Delete</Button>
                         }
                         </div>   
                     

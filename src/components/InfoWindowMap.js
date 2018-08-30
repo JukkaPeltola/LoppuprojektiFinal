@@ -6,7 +6,7 @@ import { Button } from 'reactstrap';
 import { GetOneToilets } from '../utilities/Service';
 import NotDisabled from '../images/notForDisabled.gif';
 import Disable from '../images/suitableForDisabled.jpg';
-import ReactStars from 'react-stars'
+import ReactStars from 'react-stars';
 
 
 var paivitetty;
@@ -113,7 +113,7 @@ class InfoWindowMap extends Component {
                             <div className="btn-group">
                                 <ModalAddReview testi={this.testi} marker={this.props.marker} />
                                 <ModalReportToilet marker={this.props.marker} />
-                                <Button onClick={this.showDirectionsMap} color="success">Reitti</Button>{' '}
+                                <Button onClick={this.showDirectionsMap} color="success">Route</Button>{' '}
                             </div>
                         </div>
                     </InfoWindow>

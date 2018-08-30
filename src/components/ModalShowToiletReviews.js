@@ -64,9 +64,9 @@ class ModalShowToiletReviews extends Component {
 
         return (
             <div>
-                <Button color="dark" onClick={this.toggle}>Vessan arvostelut</Button>
+                <Button color="dark" onClick={this.toggle}>Toilet reviews</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Arvostelut</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Reviews</ModalHeader>
                     &nbsp;&nbsp;&nbsp;&nbsp;{}
                     <ModalBody>
                         <ReactCSSTransitionGroup
@@ -81,8 +81,8 @@ class ModalShowToiletReviews extends Component {
                         </ReactCSSTransitionGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" >Jotain</Button>{' '}
-                        <Button onClick={this.toggle} color="secondary" >Palaa</Button>
+                        {/* <Button color="primary" >Something</Button>{' '} */}
+                        <Button onClick={this.toggle} color="secondary" >Back</Button>
                     </ModalFooter>
                 </Modal>
             </div>
