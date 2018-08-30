@@ -55,7 +55,6 @@ class InfoWindowMap extends Component {
             return;
         }
         this.props.showRouteOnClick(this.props.marker.latitude, this.props.marker.longitude)
-        console.log('olen infowindowsmapissa ja showroutemap:issa')
     }
 
     render() {
