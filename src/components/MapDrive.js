@@ -78,7 +78,7 @@ class MapDrive extends Component {
     return (
       <div>
         <MapWithADirectionsRenderer position={this.props.position} />
-        <Button onClick={this.showNormalMap} color="primary" size="lg" block>Return back</Button>{' '}
+        <Button onClick={this.showNormalMap} color="primary" size="lg" block>Return</Button>{' '}
 
 
       </div>
