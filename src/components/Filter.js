@@ -13,16 +13,16 @@ class Filter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          modal: false,
-          filterButtonShown: true,
-          markers:[],
-          lat: null,
-          lng: null,
-          all: [],
-          disabledCheckboxState: false,
-          disabledCheckboxState2: false,
-          rating: 0 ,
-          sliderDisabled: false     
+            modal: false,
+            filterButtonShown: true,
+            markers:[],
+            lat: null,
+            lng: null,
+            all: [],
+            disabledCheckboxState: false,
+            disabledCheckboxState2: false,
+            rating: 0 ,
+            sliderDisabled: false     
         };
     this.applyFilters = this.applyFilters.bind(this);   
     this.toggle = this.toggle.bind(this);
@@ -68,7 +68,7 @@ class Filter extends Component {
                 this.setState({rating: 0})
                 distanceRange = 40075000;
                 return ;
-              }
+            }
             this.props.getFilterData(a);
         }
         if(this.state.disabledCheckboxState && distanceRange !== 40075000){
@@ -100,7 +100,7 @@ class Filter extends Component {
                 this.setState({disabledCheckboxState2: false});
                 this.setState({rating: 0})                
                 return ;
-              }
+            }
             this.props.getFilterData(b);
         } 
         this.setState({filterButtonShown: false});
@@ -118,7 +118,8 @@ class Filter extends Component {
     }
     handleChecked () {
         this.setState({disabledCheckboxState: !this.state.disabledCheckboxState});
-      }
+    }
+
     handleChecked2 () {
         this.setState({disabledCheckboxState2: !this.state.disabledCheckboxState2});
     }

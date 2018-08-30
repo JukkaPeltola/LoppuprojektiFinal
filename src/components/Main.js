@@ -25,16 +25,15 @@ class Main extends Component {
     render() {
             return (
                 <div>
-                 <Map2  showRouteOnClick={this.showRouteOnClick}/>
-                 <div id="mapdrive">
+                    <Map2  showRouteOnClick={this.showRouteOnClick}/>
+                    <div id="mapdrive">
                 {  this.state.route &&
-                  
+                
                     <MapDrive  showNormalMap={this.showNormalMap} position={{lat: this.state.lat, lng: this.state.lng}} />
                 }
                 </div>
                 </div>
             )
-       
         }
     }
 

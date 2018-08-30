@@ -83,16 +83,16 @@ class ModalShowToiletInfo extends Component {
         }
         return (
             <div>
-                <Button color="info" onClick={this.toggle}>Tiedot</Button>
+                <Button color="info" onClick={this.toggle}>Info</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{this.props.marker.name}</ModalHeader>
                     <ModalBody>
-                        <li>Rating: {rating}</li>
+                        <li>Rating: {rating} ★</li>
                         <li>{this.props.marker.address}, {this.props.marker.zip}, {this.props.marker.city}</li>
                     </ModalBody>
                     <ModalFooter>
-                        {this.state.admin &&  <Button color="success" onClick={this.toggleNested}>Muokkaa tietoja</Button>}
-                       
+                        {this.state.admin &&  <Button color="success" onClick={this.toggleNested}>Change the information</Button>}
+                    
                         <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested} onClosed={this.state.closeAll ? this.toggle : undefined}>
                             <ModalHeader>{this.props.marker.name}</ModalHeader>
                             <ModalBody>
@@ -116,11 +116,11 @@ class ModalShowToiletInfo extends Component {
                                 </Form>
                             </ModalBody>
                             <ModalFooter>
-                                <Button color="primary" onClick={this.changeInfo}>Valmis</Button>{' '}
-                                <Button color="secondary" onClick={this.toggleNested}>Peruuta</Button>
+                                <Button color="primary" onClick={this.changeInfo}>Finish</Button>{' '}
+                                <Button color="secondary" onClick={this.toggleNested}>Cancel</Button>
                             </ModalFooter>
                         </Modal>
-                        <Button color="secondary" >Näytä kartalla??</Button>
+                        {/* <Button color="secondary" >Show on map??</Button> */}
                     </ModalFooter>
                 </Modal>
             </div>

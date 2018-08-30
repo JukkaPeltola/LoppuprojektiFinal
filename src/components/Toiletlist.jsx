@@ -61,7 +61,8 @@ class Toiletlist extends Component {
         } else if (this.state.rSelected == 1) {
             let tempToilets = allToilets.sort((a, b) => (a.rating < b.rating ? 1 : -1))
             this.setState({ markers: tempToilets })
-        } else if (this.state.rSelected == 4) {
+        } 
+        else if (this.state.rSelected == 4) {
             let tempToilets = allToilets.sort((a, b) => (geolib.getDistance(
                 { latitude: sessionStorage.getItem('lat'), longitude: sessionStorage.getItem('lng') },
                 { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
@@ -88,13 +89,15 @@ class Toiletlist extends Component {
             console.log(this.state.markers)
         });
     }
-
-
+    poistaVessa = (id) => {
+        let temp = this.state.markers.filter(x => x.toilet_id != id)
+        this.setState({markers: temp})
+    }
 
     render() {
 
         var toilets = this.state.markers.map(marker => (
-            <Toilet marker={marker} key={marker.toilet_id}>
+            <Toilet poistaVessa={this.poistaVessa} marker={marker} key={marker.toilet_id}>
             </Toilet>
         ));
 
@@ -139,7 +142,7 @@ class Toiletlist extends Component {
             return (
                 <li
                     style={{ border: 'solid 1px', borderRadius: '5px', padding: '2%', backgroundColor: '#e2edff' }}
-                    // key={number}
+                    key={number}
                     id={number}
                     onClick={this.handleClick}
                 >
@@ -159,25 +162,24 @@ class Toiletlist extends Component {
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(3)} active={this.state.rSelected === 3}>Name</Button>
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
                 </ButtonGroup>
-                <Input onChange={this.onSearchChange} style={{ width: '50%', marginLeft: '1%' }} size="" placeholder="Search by name" type="text"></Input>
-                <center>
-                    <div className="paging">
-                        <ul>
-                            <ReactCSSTransitionGroup
-                                transitionName="fade"
-                                transitionEnterTimeout={700}
-                                transitionLeaveTimeout={700}
-                                transitionAppear={true}
-                                transitionAppearTimeout={700}>
+                <Input onChange={this.onSearchChange} style={{width: '50%', marginLeft: '1%'}} size="" placeholder="Search by name" type="text"></Input>
+                <ReactCSSTransitionGroup
+                    transitionName="fade"
+                    transitionEnterTimeout={700}
+                    transitionLeaveTimeout={700}
+                    transitionAppear={true}
+                    transitionAppearTimeout={700}>
+                    <center>
+                        <div className="paging">
+                            <ul>
                                 {renderToilets}
-                            </ReactCSSTransitionGroup>
-                        </ul>
-                        <ul className="page-numbers">
-                            {renderPageNumbers}
-                        </ul>
-                    </div>
-                </center>
-
+                            </ul>
+                            <ul className="page-numbers">
+                                {renderPageNumbers}
+                            </ul>
+                        </div>
+                    </center>
+                </ReactCSSTransitionGroup>
             </div>
         );
     }

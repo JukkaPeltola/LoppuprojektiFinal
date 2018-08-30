@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import StarRating from './StarRating';
 import { addNewReview } from '../utilities/Service';
 
+
 class ModalAddReview extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +33,7 @@ class ModalAddReview extends Component {
 
         addNewReview(review);
 
-        setTimeout(this.props.testi,500)
+        setTimeout(this.props.testi, 500)
 
         this.toggle();
     }
@@ -57,19 +58,21 @@ class ModalAddReview extends Component {
         });
     }
 
+    
+
     render() {
         return (
             <div>
-                <Button color="info" onClick={this.toggle}>Arvostele</Button>{' '}
+                <Button color="info" onClick={this.toggle}>Rate the toilet</Button>{' '}
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Arvostele vessa</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Rate the toilet</ModalHeader>
                     &nbsp;&nbsp;&nbsp;&nbsp;{this.props.marker.name}
                     <ModalBody>
                         <StarRating TakeStarsAndReview={this.TakeStarsAndReview} />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.addReview}>Lisää arvostelu</Button>{' '}
-                        <Button color="secondary" onClick={this.DeleteReview}>Poista arvostelu</Button>
+                        <Button color="primary" onClick={this.addReview}>Add a review</Button>{' '}
+                        <Button color="secondary" onClick={this.DeleteReview}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>
