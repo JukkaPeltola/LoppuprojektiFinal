@@ -25,8 +25,7 @@ class ModalShowToiletReviews extends Component {
     deleteReview = (review_id) => {
         let templist = this.state.rev.filter(x=> x.props.review.review_id != review_id);
         this.setState({rev: templist})
-        // Kun halutaan poistaa databasesta!
-        // DeleteReview(review_id)
+        DeleteReview(review_id)
     }
 
     componentDidMount(){
