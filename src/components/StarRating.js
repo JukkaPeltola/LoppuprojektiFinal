@@ -1,7 +1,7 @@
 import React from 'react';
-import StarRatingComponent from 'react-star-rating-component';
-import star from '../images/star.png';
 import { InputGroup, Input } from 'reactstrap';
+import ReactStars from 'react-stars'
+
 
 class StarRating extends React.Component {
     constructor(props) {
@@ -13,31 +13,31 @@ class StarRating extends React.Component {
         };
     }
 
-    onStarClick(nextValue, prevValue, name) {
-        this.setState({ rating: nextValue }, () => {
-            this.props.TakeStarsAndReview(this.state.rating, this.state.text)
-        })
-    }
-
     onTextChange = (e) => {
         this.setState({ text: e.target.value }, () => {
             this.props.TakeStarsAndReview(this.state.rating, this.state.text)
+            console.log(this.state)
+        })
+    }
+    ratingChanged = (newRating) => {
+        this.setState({ rating: newRating }, () => {
+            this.props.TakeStarsAndReview(this.state.rating, this.state.text)
+            console.log(this.state)
         })
     }
 
     render() {
-        const { rating } = this.state;
 
         return (
             <div>
                 <Input onChange={this.onTextChange} maxLength="300" placeholder="Kirjoita arvostelu.." />
-                <StarRatingComponent
-                    className="mt-2"
-                    name="rateToilet"
-                    starCount={5}
-                    value={rating}
-                    onStarClick={this.onStarClick.bind(this)}
-                />
+                <ReactStars
+                    count={5}
+                    size={30}
+                    onChange={this.ratingChanged}
+                    color2={'#ffd700'}
+                    value={this.state.rating}
+                    half={false} />
             </div>
         );
     }
