@@ -45,7 +45,9 @@ class Google extends Component {
             } else {
                 this.props.googleIn()
                 sessionStorage.setItem('id', response.googleId)
-                exist[0].admin == true ? this.setState({admin:true}) : null
+                exist[0].admin == true ? this.setState({ admin: true }, () => this.props.setAdmin(true)) 
+                : this.setState({admin: false}, () => this.props.setAdmin(false))
+                console.log(exist[0])
             }
         })
     }

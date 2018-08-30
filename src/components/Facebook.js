@@ -53,9 +53,7 @@ class Facebook extends Component {
             }
         })
     }
-    aa = () => {
-        this.props.setAdmin()
-    }
+
     render() {
 
         let fbContent;

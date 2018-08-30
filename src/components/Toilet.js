@@ -27,7 +27,7 @@ class Toilet extends Component {
         var ratingFixed = this.props.marker.rating != null ? this.props.marker.rating.toFixed(2) : 0
 
         return (
-            <div>
+            <div className="toiletItem">
                 <center style={{
                     width: '70%',
                     margin: '1% 0',

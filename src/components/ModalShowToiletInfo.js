@@ -87,7 +87,7 @@ class ModalShowToiletInfo extends Component {
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{this.props.marker.name}</ModalHeader>
                     <ModalBody>
-                        <li>Rating: {rating}</li>
+                        <li>Rating: {rating} ★</li>
                         <li>{this.props.marker.address}, {this.props.marker.zip}, {this.props.marker.city}</li>
                     </ModalBody>
                     <ModalFooter>

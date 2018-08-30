@@ -97,6 +97,32 @@ export default class CustomNavbar extends React.Component {
                             }
                         </Nav>
 
+                {/*Tarvitaanko?*/}
+                {/* <NavbarToggler onClick={this.toggle} />
+                <Collapse isOpen={this.state.isOpen} navbar>
+                
+                <Nav className="navbar-nav mr-auto" navbar>
+                    <NavItem>
+                        <NavLink onClick={this.changeToLoggedOut} to="/" activeClassName="active" tag={RRNavLink}>Koti</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink onClick={this.changeToLoggedOut} to="/Wclist" activeClassName="active" tag={RRNavLink}>WC-lista</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink onClick={this.changeToLoggedOut} to="/Chat" activeClassName="active" tag={RRNavLink}>Chat</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink onClick={this.changeToLoggedOut} to="/About" activeClassName="active" tag={RRNavLink}>Tietoa</NavLink>
+                    </NavItem>
+                    {
+                        this.state.addNew &&
+                    <NavItem>
+                        <NavLink onClick={this.changeToLoggedOut} to="/Reports" activeClassName="active" tag={RRNavLink}>Reports</NavLink>
+                    </NavItem>
+                    }
+                    
+                </Nav> */}
+                {/*Tähän asti? plus mahd. alempi pökäle. v/o*/}
                         <Nav className="navbar-nav ml-auto">
                             {
                                 (loggedin != null && this.state.logged == false) &&

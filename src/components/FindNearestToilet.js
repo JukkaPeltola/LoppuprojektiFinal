@@ -68,14 +68,14 @@ class FindNearestToilet extends Component {
             if(!this.state.changeToggle) {
                 return (          
                     <div>
-                        <Button onClick={this.onSubmit}>Find nearest toilet</Button>
+                        <Button style={{ marginLeft: '15px', marginTop: '10%' }} onClick={this.onSubmit}>Find nearest toilet</Button>
                     </div>
                 );
             }
             if(this.state.changeToggle) {
                 return (
                     <div>
-                        <Button onClick={this.cancel}>Show all toilets</Button>¨
+                        <Button style={{ marginLeft: '15px', marginTop: '10%' }} onClick={this.cancel}>Show all toilets</Button>¨
                     </div>
                 );
             }
