@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button} from 'reactstrap';
 import Moment from 'moment';
 import {deleteReport} from '../utilities/Service';
+
 class report extends Component {
     constructor(props) {
         super(props);
@@ -30,14 +31,13 @@ class report extends Component {
                 borderRadius: '10px',
                 backgroundColor: '#e2edff'
             }}>
-                <h5 style={{fontWeight: 'bold'}}>{this.props.marker.name}</h5> 
-                <p>{this.props.marker.text}</p>
+                <h4 style={{fontWeight: 'bold'}}>{this.props.marker.name}</h4><br />
+                <p><em>"{this.props.marker.text}"</em></p>
                 <p>{local}</p>
                 <Button onClick={this.poistaReport} color="danger">Delete</Button>
             </center>
             </div>
-
-            
+        
         );
     }
 }

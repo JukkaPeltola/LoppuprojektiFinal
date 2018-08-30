@@ -67,9 +67,7 @@ class Login extends Component {
             <div className="teksti">
                 <br />
                 <center>
-                    <div className="normalLogin">
-                        <h2>Login</h2>
-                        <br />
+                    {/* <div className="normalLogin">
 
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
@@ -100,19 +98,19 @@ class Login extends Component {
                                 className="buttonLogin"
                                 type="submit"
                             >
-                            {/* {console.log(this.props.isAdmin)} */}
+                            {console.log(this.props.isAdmin)}
                                 Login
                             </Button>
                         </Form>
-                    </div>
-                    <br />
+                    </div>*/}
 
-                    <div className="socialAuth">
+                    <div className="socialAuth"><br />
+                    <h2>Login</h2>
                         <br />
                         {!this.state.facebookIn && <Google setAdmin={this.props.setAdmin} googleIn={this.googleIn} />}
                         <br />
                         {!this.state.googleIn && <Facebook setAdmin={this.props.setAdmin} facebookIn={this.facebookIn} />}
-                        <br />
+                        <br /><br />
                     </div>
                     <hr style={{ marginBottom: '0', marginTop: '2%' }}></hr>
                     {/* <span className="notReg">Not a user yet? <Link to="/Signup">Sign up here!</Link></span> */}

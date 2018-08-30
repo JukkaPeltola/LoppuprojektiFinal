@@ -58,6 +58,10 @@ class Filter extends Component {
         var a = [];
         var b = [];
         var c = [];
+        var d = [];
+        var e = [];
+        console.log(listWithAll)
+        console.log(distanceRange)
         if(this.state.disabledCheckboxState && distanceRange === 40075000)
         {
             a = kaikkiVessat.filter(marker => marker.inva && marker.rating >= this.state.rating);
@@ -73,7 +77,7 @@ class Filter extends Component {
         }
         if(this.state.disabledCheckboxState && distanceRange !== 40075000){
             b = kaikkiVessat.filter(marker => geolib.getDistance(
-                {latitude: this.state.lat, longitude: this.state.lng},
+                {latitude: sessionStorage.getItem("lat"), longitude: sessionStorage.getItem("lng")},
                 {latitude: marker.latitude, longitude: marker.longitude}
             ) < distanceRange);
             c = b.filter(marker => marker.inva && marker.rating >= this.state.rating);
@@ -88,7 +92,7 @@ class Filter extends Component {
             this.props.getFilterData(c);
         }
 
-        if(!this.state.disabledCheckboxState)
+        if(!this.state.disabledCheckboxState && distanceRange !== 40075000)
         {
             b = kaikkiVessat.filter(marker => geolib.getDistance(
                 {latitude: sessionStorage.getItem("lat"), longitude: sessionStorage.getItem("lng")},
@@ -103,6 +107,31 @@ class Filter extends Component {
             }
             this.props.getFilterData(b);
         } 
+        if(!this.state.disabledCheckboxState && distanceRange === 40075000)
+        {
+            e = kaikkiVessat.filter(marker => marker.rating >= this.state.rating);
+            if(e.length === 0) {
+                alert("No toilets found!")
+                this.setState({disabledCheckboxState: false});
+                this.setState({disabledCheckboxState2: false});
+                this.setState({rating: 0})                
+                return ;
+            }
+            this.props.getFilterData(e);
+        } 
+        if(this.state.disabledCheckboxState && distanceRange !== 40075000)
+        {
+            d = kaikkiVessat.filter(marker => marker.rating >= this.state.rating);
+            if(a.length === 0) {
+                alert("No toilets found!")
+                this.setState({disabledCheckboxState: false});
+                this.setState({disabledCheckboxState2: false});
+                this.setState({rating: 0})
+                distanceRange = 40075000;
+                return ;
+            }
+            this.props.getFilterData(d);
+        }
         this.setState({filterButtonShown: false});
         this.toggle();           
     }
@@ -129,6 +158,7 @@ class Filter extends Component {
             alert("Please enable GPS to use this feature");
             this.setState({sliderDisabled: true})
             return;
+            
         }
         distanceRange = (value);       
     }
@@ -176,7 +206,7 @@ class Filter extends Component {
                     
                       <div style={{fontWeight: 'bold'}}>Open? </div>
                       <div className="onoffswitch2">
-                      <input type="checkbox" name="onoffswitch2" className="onoffswitch-checkbox2" id="myonoffswitch2" checked={this.state.disabledCheckboxState2} onChange={this.handleChecked2}></input>
+                      <input type="checkbox" disabled name="onoffswitch2" className="onoffswitch-checkbox2" id="myonoffswitch2" checked={this.state.disabledCheckboxState2} onChange={this.handleChecked2}></input>
                       <label className="onoffswitch-label2" htmlFor="myonoffswitch2">
                         <span className="onoffswitch-inner2"></span>
                         <span className="onoffswitch-switch2"></span>

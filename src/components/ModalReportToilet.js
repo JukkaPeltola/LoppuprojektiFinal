@@ -40,7 +40,7 @@ class ModalReportToilet extends Component {
     render() {
         return (
             <div>
-                <Button color="danger" onClick={this.toggle}>Report</Button>
+                <Button style={{marginRight:'5px', marginTop:'1px'}} color="danger" onClick={this.toggle}>Report</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Report the moderator</ModalHeader>
                     &nbsp;&nbsp;&nbsp;&nbsp;{this.props.marker.name}
@@ -49,7 +49,7 @@ class ModalReportToilet extends Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button onClick={this.reportToilet} color="primary" >Report</Button>{' '}
-                        <Button color="secondary" >Something here?</Button>
+                        {/* <Button color="secondary" >Something here?</Button> */}
                     </ModalFooter>
                 </Modal>
             </div>

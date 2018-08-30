@@ -30,6 +30,10 @@ ul li {
     display: inline;
 }
 
+li {
+    list-style: none;
+}
+
 .paging {
     margin-left: 0;
     margin-right: 0;
