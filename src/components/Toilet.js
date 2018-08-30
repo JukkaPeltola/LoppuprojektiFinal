@@ -3,7 +3,7 @@ import ModalShowToiletInfo from './ModalShowToiletInfo';
 import ModalShowToiletReviews from './ModalShowToiletReviews';
 import geolib from 'geolib';
 import './Toilet.css';
-import {Button} from 'reactstrap';
+import { Button } from 'reactstrap';
 import { GetOneUser } from '../utilities/Service';
 class Toilet extends Component {
     constructor(props) {
@@ -13,19 +13,19 @@ class Toilet extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let user = sessionStorage.getItem('id')
         if (user != null) {
-            GetOneUser(user,(data) => {
+            GetOneUser(user, (data) => {
                 // console.log((data.admin))
-                this.setState({admin: data.admin})
+                this.setState({ admin: data.admin })
             })
         }
     }
 
     render() {
         var ratingFixed = this.props.marker.rating != null ? this.props.marker.rating.toFixed(2) : 0
-
+        var lat = sessionStorage.getItem('lat')
         return (
             <div className="toiletItem">
                 <center style={{
@@ -40,19 +40,26 @@ class Toilet extends Component {
                     <h5>★{ratingFixed}★</h5>
                     <h6>{this.props.marker.address}, {this.props.marker.city}</h6>
                     <h6>{this.props.marker.inva}</h6>
-                    <h6>{geolib.getDistance(
-                        { latitude: parseFloat(sessionStorage.getItem('lat')), longitude: parseFloat(sessionStorage.getItem('lng')) },
-                        { latitude: this.props.marker.latitude, longitude: this.props.marker.longitude })} metriä sijainnistasi</h6>
-                        <p>INFORMATION</p>
-                        
-                        <div className="toiletlistBtn"><ModalShowToiletInfo marker={this.props.marker} /></div>
-                        <div className="toiletlistBtn"><ModalShowToiletReviews marker={this.props.marker} /></div>
-                        <div className="toiletlistBtn">
+                    {lat == null &&
+                        <h6>Can't calculate distances</h6>
+                    }
+                    {lat != null &&
+                        <h6>
+                            {geolib.getDistance(
+                            { latitude: parseFloat(sessionStorage.getItem('lat')), longitude: parseFloat(sessionStorage.getItem('lng')) },
+                            { latitude: this.props.marker.latitude, longitude: this.props.marker.longitude })} metriä sijainnistasi
+                        </h6>
+                    }
+                    <p>INFORMATION</p>
+
+                    <div className="toiletlistBtn"><ModalShowToiletInfo marker={this.props.marker} /></div>
+                    <div className="toiletlistBtn"><ModalShowToiletReviews marker={this.props.marker} /></div>
+                    <div className="toiletlistBtn">
                         {
                             this.state.admin && <Button color="danger">Poista</Button>
                         }
-                        </div>   
-                    
+                    </div>
+
                 </center>
 
             </div>

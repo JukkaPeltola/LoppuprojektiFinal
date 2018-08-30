@@ -61,7 +61,8 @@ class Toiletlist extends Component {
         } else if (this.state.rSelected == 1) {
             let tempToilets = allToilets.sort((a, b) => (a.rating < b.rating ? 1 : -1))
             this.setState({ markers: tempToilets })
-        } else if (this.state.rSelected == 4) {
+        } 
+        else if (this.state.rSelected == 4) {
             let tempToilets = allToilets.sort((a, b) => (geolib.getDistance(
                 { latitude: sessionStorage.getItem('lat'), longitude: sessionStorage.getItem('lng') },
                 { latitude: a.latitude, longitude: a.longitude }) - geolib.getDistance(
@@ -88,8 +89,6 @@ class Toiletlist extends Component {
             console.log(this.state.markers)
         });
     }
-
-
 
     render() {
 
