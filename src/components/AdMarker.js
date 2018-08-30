@@ -28,7 +28,7 @@ class AdMarker extends Component {
         this.setState({ infoWindowOpen: false })
     }
     markerToggleOpen = () => {
-        this.setState({latLng: this.props.position})
+        this.setState({ latLng: this.props.position })
         this.props.getCenterAgain(this.props.position)
         if (sessionStorage.getItem("lat") === null) {
             alert("Please enable GPS to use this feature");
@@ -68,15 +68,14 @@ class AdMarker extends Component {
         })
     }
     getLocation = (e) => {
-        if(e === NaN)
-        {
+        if (e === NaN) {
             alert("hello")
         }
         var lat = e.latLng.lat(), lng = e.latLng.lng()
         Geocode.fromLatLng(lat, lng).then(
             response => {
                 var Address = response.results[0].formatted_address.toString();
-                    console.log(Address)
+                console.log(Address)
                 this.setState({
                     infoWindowOpen: true,
                     latLng: { lat: lat, lng: lng },
@@ -90,17 +89,17 @@ class AdMarker extends Component {
 
     }
     addNew = () => {
-        var name=""
-        let length=this.refs.name.value
+        var name = ""
+        let length = this.refs.name.value
         var theAddress = this.state.address
         var splittedAddress = theAddress.split(" ")
         var zip = splittedAddress[1].trim(" ")
-  
-       if(length.length > 2){
-        name=this.refs.name.value
-       }else{
-           name = splittedAddress[0] + " " + splittedAddress[1].replace(",","")
-       }
+
+        if (length.length > 2) {
+            name = this.refs.name.value
+        } else {
+            name = splittedAddress[0] + " " + splittedAddress[1].replace(",", "")
+        }
 
         var newToilet = {
             inva: this.state.checked,
@@ -109,7 +108,7 @@ class AdMarker extends Component {
             information: this.refs.kuvaus.value,
             latitude: this.state.newToilet.latitude,
             longitude: this.state.newToilet.longitude,
-            address: splittedAddress[0] + " " + splittedAddress[1].replace(",",""),
+            address: splittedAddress[0] + " " + splittedAddress[1].replace(",", ""),
             zip: splittedAddress[2],
             city: splittedAddress[3],
             toilet_id: counter
@@ -132,12 +131,13 @@ class AdMarker extends Component {
     switchClick = () => {
         this.setState({ checked: !this.state.checked })
     }
-    get=()=>{
+    get = () => {
         this.props.getCenterAgain(this.props.position)
     }
     render() {
         return (
             <div>
+                <button onClick={this.get}>getcenter</button>
                 <button onClick={this.markerToggleOpen} style={{
                     backgroundColor: 'transparent',
                     display: 'inline-block',
@@ -193,7 +193,6 @@ class AdMarker extends Component {
                         <Button color="secondary" onClick={this.modalToggleClose} >Cancel</Button>
                     </ModalFooter>
                 </Modal>
-                 <button onClick={this.get}>getcenter</button>
             </div>
         );
     }
