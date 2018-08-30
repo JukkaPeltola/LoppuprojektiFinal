@@ -88,7 +88,11 @@ class InfoWindowMap extends Component {
             >
                 {
                     this.state.isOpen &&
+<<<<<<< HEAD
                     <InfoWindow options={{maxWidth:280}} onCloseClick={this.handleToggleClose}>
+=======
+                    <InfoWindow onCloseClick={this.handleToggleClose}>
+>>>>>>> e4316eeaf982a0f3b932b692eec0e9aa7dd56e05
                         <div>
                             <h4>{this.props.marker.name}</h4>
                             <h4>{inva}</h4>
