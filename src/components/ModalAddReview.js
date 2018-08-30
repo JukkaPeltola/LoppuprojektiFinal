@@ -72,7 +72,7 @@ class ModalAddReview extends Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.addReview}>Add a review</Button>{' '}
-                        <Button color="secondary" onClick={this.DeleteReview}>Cancel</Button>
+                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>
