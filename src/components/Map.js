@@ -8,6 +8,7 @@ import logo from './plus.png';
 import YourPosition from './YourPosition';
 import AdMarker from './AdMarker';
 import FindNearestToilet from './FindNearestToilet';
+// import './Map.css'
 import { componentWillUnmount } from 'react-google-maps/lib/utils/MapChildHelper';
 
 const google = window.google;
@@ -21,12 +22,12 @@ const {
   Marker,
   DirectionsRenderer
 } = require("react-google-maps");
-var youPosition = {};
-var propsCounter = 5
 // const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 var refs = {}
 var allToilets = []
 var positionCounter = 0
+var propsCounter = 5
+var youPosition = {};
 const MapWithASearchBox = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k&v=3.exp&libraries=geometry,drawing,places",
@@ -38,24 +39,20 @@ const MapWithASearchBox = compose(
 
     componentDidMount() {
 
-      function getYourCenterOnClick() {
-        this.setState({ center: youPosition }).bind(this)
-      }
+     
 
       function errorPosition() {
         alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all features.`)
       }
 
       function showPosition(position) {
-        console.log(positionCounter)
         youPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
-        console.log(youPosition);
         sessionStorage.setItem('lat', youPosition.lat);
         sessionStorage.setItem('lng', youPosition.lng);
-        if (positionCounter < 1) {
-          this.setState({ center: youPosition })
+        if(positionCounter<1){
+        this.setState({center: youPosition})
+        positionCounter++
         }
-        console.log(`olen showPositionissa`)
       }
 
       navigator.geolocation.watchPosition(showPosition.bind(this), errorPosition, { enableHighAccuracy: true });
@@ -95,6 +92,7 @@ const MapWithASearchBox = compose(
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         },
+         
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
           const bounds = new window.google.maps.LatLngBounds();
@@ -151,9 +149,20 @@ const MapWithASearchBox = compose(
         }
         this.setState({ toiletmarkers: allToilets })
       }
+     
+      else if(nextProps.getBounds !== this.props.getBounds ||  nextProps.boundCounter !== this.props.boundCounter){
+        var  firstPoint = new google.maps.LatLng(nextProps.getBounds.lat-(0.005), nextProps.getBounds.lng-(0.005));
+        var lastPoint = new google.maps.LatLng(nextProps.getBounds.lat+(0.005), nextProps.getBounds.lng+(0.005));
+        var bounds1 = new google.maps.LatLngBounds();
+        bounds1.extend(firstPoint);
+        bounds1.extend(lastPoint);
+
+        refs.map.fitBounds(bounds1)
+      }
       else if (nextProps.status !== 3) {
         propsCounter++
-        this.setState({ status: propsCounter })
+        this.setState({ status: propsCounter, })
+       
       }
     }
 
@@ -198,12 +207,12 @@ const MapWithASearchBox = compose(
         />
       </SearchBox>
       <MapControl position={google.maps.ControlPosition.RIGHT_BOTTOM}>
-        <AdMarker addMarker={props.addMarker} position={youPosition} />
+        <AdMarker getCenterAgain={props.getCenterAgain} addMarker={props.addMarker} position={youPosition} />
       </MapControl>
       <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
         <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
-
+       
       </MapControl>
     </div>
     {props.markers.map((marker, index) =>
@@ -218,7 +227,7 @@ const MapWithASearchBox = compose(
 
 
 class Map2 extends Component {
-  state = { markers: [], addedMarker: [], status: null };
+  state = { markers: [], addedMarker: [], status: null, getBounds: {}, boundCounter: 0 };
   filterCallback = (filterData) => {
     this.setState({ markers: filterData });
   }
@@ -230,13 +239,17 @@ class Map2 extends Component {
   sendProps = (receivedMessage) => {
     this.setState({ status: receivedMessage })
   }
+  getYourCenterOnClick= (position)=>{
+    this.state.boundCounter++
+    this.setState({getBounds: position})
+  }
 
   render() {
 
     return (
       <div>
 
-        <MapWithASearchBox sendProps={this.sendProps} status={this.state.status} addMarker={this.addMarker} addedMarkers={this.state.addedMarker} getFilterData={this.filterCallback} filteredMarkers={this.state.markers} showRouteOnClick={this.props.showRouteOnClick} />
+        <MapWithASearchBox boundCounter = {this.state.boundCounter}getBounds={this.state.getBounds} getCenterAgain={this.getYourCenterOnClick}sendProps={this.sendProps} status={this.state.status} addMarker={this.addMarker} addedMarkers={this.state.addedMarker} getFilterData={this.filterCallback} filteredMarkers={this.state.markers} showRouteOnClick={this.props.showRouteOnClick} />
 
       </div>
     );
