@@ -37,9 +37,10 @@ class Toilet extends Component {
                     backgroundColor: '#e2edff'
                 }}>
                     <h5>{this.props.marker.name}</h5>
-                    <h5>★{ratingFixed}★</h5>
                     <h6>{this.props.marker.address}, {this.props.marker.city}</h6>
+                    <h5>★{ratingFixed}★</h5>
                     <h6>{this.props.marker.inva}</h6>
+                    <br />
                     {lat == null &&
                         <h6>Can't calculate distances</h6>
                     }
@@ -50,7 +51,6 @@ class Toilet extends Component {
                             { latitude: this.props.marker.latitude, longitude: this.props.marker.longitude })} meters from your position
                         </h6>
                     }
-                    <p>INFORMATION</p>
 
                     <div className="toiletlistBtn"><ModalShowToiletInfo marker={this.props.marker} /></div>
                     <div className="toiletlistBtn"><ModalShowToiletReviews marker={this.props.marker} /></div>

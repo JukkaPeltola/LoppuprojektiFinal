@@ -28,14 +28,13 @@ class report extends Component {
                 borderRadius: '10px',
                 backgroundColor: '#e2edff'
             }}>
-                <h4 style={{fontWeight: 'bold'}}>{this.props.marker.name}</h4> 
-                <p>{this.props.marker.text}</p>
+                <h4 style={{fontWeight: 'bold'}}>{this.props.marker.name}</h4><br />
+                <p><em>"{this.props.marker.text}"</em></p>
                 <p>{formattedDate}</p>
                 <Button onClick={this.poistaReport} color="danger">Delete</Button>
             </center>
             </div>
-
-            
+        
         );
     }
 }

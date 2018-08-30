@@ -16,7 +16,7 @@ class Reportlist extends Component{
             search:'',
 
             currentPage: 1,
-            reportsPerPage: 5
+            reportsPerPage: 10
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -133,7 +133,8 @@ class Reportlist extends Component{
 
         return(
             <div>
-                <h1>Reports</h1>
+                <br />
+                <h2>Reports</h2>
                 <Button className="filterBtn" color="primary" onClick={this.filterReports}>Filter by time</Button>
                 
                 <Input type="text" placeholder= "Search toilet" value={this.state.search} style={{width: `40%`, fontSize:15, fontFamily:'Lucida Console'}}

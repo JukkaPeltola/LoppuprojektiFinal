@@ -1,0 +1,24 @@
+.reviewView {
+    background-color: #e2edff;
+    padding: 8%;
+    margin: 3%;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.reviewText {
+    width: 95%;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.reviewRating {
+    color: #EA9E8D;
+    border: solid 3px;
+    font-size: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    width: 14%;
+    position: relative;
+}

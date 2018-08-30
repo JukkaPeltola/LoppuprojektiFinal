@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'reactstrap';
+require('./OneReview.css');
 
 class OneReview extends Component {
     constructor(props) {
@@ -19,12 +20,13 @@ class OneReview extends Component {
 
     render() {
         return (
-            <div>
-                <h5>Review</h5>
-                <h5>{this.props.review.rating}</h5>
-                <p>{this.props.review.review_text}</p>
+            <div className="reviewView">
+                
+                {/* <h5>Review</h5> */}
+                
+                <p className="reviewText">{this.props.review.review_text}</p><hr />
+                <p className="reviewRating"><center>{this.props.review.rating}</center></p>
                 {this.state.admin && <Button onClick={this.deleteReview} color="secondary">Delete review</Button>}
-                <br/><br />
             </div>
         );
     }

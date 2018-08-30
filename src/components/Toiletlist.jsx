@@ -21,7 +21,7 @@ class Toiletlist extends Component {
             searchText: '',
 
             currentPage: 1,
-            toiletsPerPage: 10,
+            toiletsPerPage: 20,
             active: false
         }
 
@@ -167,9 +167,9 @@ class Toiletlist extends Component {
                     transitionAppearTimeout={700}>
                     <center>
                         <div className="paging">
-                            <ul>
-                                {renderToilets}
-                            </ul>
+                            
+                            {renderToilets}
+            
                             <ul className="page-numbers">
                                 {renderPageNumbers}
                             </ul>
