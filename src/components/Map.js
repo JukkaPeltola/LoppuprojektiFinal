@@ -22,10 +22,11 @@ const {
   DirectionsRenderer
 } = require("react-google-maps");
 var youPosition = {};
-var counter = 5
+var propsCounter = 5
 // const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 var refs = {}
 var allToilets = []
+var positionCounter = 0
 const MapWithASearchBox = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k&v=3.exp&libraries=geometry,drawing,places",
@@ -37,16 +38,23 @@ const MapWithASearchBox = compose(
 
     componentDidMount() {
 
+      function  getYourCenterOnClick (){
+        this.setState({center:youPosition}).bind(this)
+      }
+
       function errorPosition() {
         alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all features.`)
       }
 
       function showPosition(position) {
+        console.log(positionCounter)
         youPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
         console.log(youPosition);
         sessionStorage.setItem('lat', youPosition.lat);
         sessionStorage.setItem('lng', youPosition.lng);
+        if(positionCounter<1){
         this.setState({center: youPosition})
+        }
         console.log(`olen showPositionissa`)
       }
 
@@ -74,8 +82,8 @@ const MapWithASearchBox = compose(
           refs.map = ref;
         },
         onMapClick: () => {
-          counter++
-          this.setState({ status: counter })
+          propsCounter++
+          this.setState({ status: propsCounter })
         },
         onBoundsChanged: () => {
           this.setState({
@@ -140,8 +148,8 @@ const MapWithASearchBox = compose(
         this.setState({ toiletmarkers: allToilets })
       }
       else if (nextProps.status !== 3) {
-        counter++
-        this.setState({ status: counter })
+        propsCounter++
+        this.setState({ status: propsCounter })
       }
     }
 
@@ -157,7 +165,7 @@ const MapWithASearchBox = compose(
     onIdle={props.onMapIdle}
     // onBoundsChanged={props.onBoundsChanged}
     onClick={props.onMapClick}
-    defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false }}
+    defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false, zoomControl: false }}
   >   
     <div>
       <SearchBox
