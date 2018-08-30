@@ -77,6 +77,7 @@ class InfoWindowMap extends Component {
                 height: `30px`,
             }} src={Disable} />;;
         }
+       
         return (
 
             <Marker
@@ -95,22 +96,26 @@ class InfoWindowMap extends Component {
                             {
                                 this.state.addNew && paivitetty != null &&
                                 // <h6>Rating: {(paivitetty.rating).toFixed(2)} ★</h6>
+                                
                                 <ReactStars
                                     count={5}
                                     size={30}
                                     color2={'#ffd700'}
                                     value={(paivitetty.rating).toFixed(2)}
                                     edit={false} />
+                                    
                             }
                             {
                                 this.state.addNew === false &&
                                 // <h6>Rating: {rating} ★</h6>
+                                
                                 <ReactStars
                                     count={5}
                                     size={26}
                                     color2={'#ffd700'}
                                     value={rating}
                                     edit={false} />
+                                    
                             }
                             <div className="btn-group">
                                 <ModalAddReview testi={this.testi} marker={this.props.marker} />
