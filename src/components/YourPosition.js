@@ -11,8 +11,6 @@ class YourPosition extends Component {
         }
     }
 
-
-
     componentWillReceiveProps() {
         let lat = parseFloat(sessionStorage.getItem('lat'))
         let lng = parseFloat(sessionStorage.getItem('lng'))

@@ -39,9 +39,6 @@ class Reportlist extends Component{
                 this.setState({selected:2})
             }
             
-            
-            
-            
             // let tempToilets = this.state.markers.filter(x => x.date <new Date().toDateString())
             // this.setState({ markers: b })
     }
@@ -149,10 +146,13 @@ class Reportlist extends Component{
                 <Input type="text" placeholder= "Search toilet" value={this.state.search} style={{width: `40%`, fontSize:15, fontFamily:'Lucida Console'}}
                         onChange={this.updateSearch.bind(this)} />
 
-                {/* <ul>
-                {kaikki}
-                </ul> */}
 
+                <ReactCSSTransitionGroup
+                    transitionName="fade"
+                    transitionEnterTimeout={700}
+                    transitionLeaveTimeout={700}
+                    transitionAppear={true}
+                    transitionAppearTimeout={700}>
                 <div className="paging">
                     <ul>
                         {renderToilets}
@@ -161,15 +161,8 @@ class Reportlist extends Component{
                         {renderPageNumbers}
                     </ul>
                 </div>
-            
-                <ReactCSSTransitionGroup
-                    transitionName="fade"
-                    transitionEnterTimeout={700}
-                    transitionLeaveTimeout={700}
-                    transitionAppear={true}
-                    transitionAppearTimeout={700}>
-                    {kaikki}
                 </ReactCSSTransitionGroup>
+                
             </div>
 
         );

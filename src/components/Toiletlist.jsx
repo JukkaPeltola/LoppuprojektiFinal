@@ -89,8 +89,6 @@ class Toiletlist extends Component {
         });
     }
 
-
-
     render() {
 
         var toilets = this.state.markers.map(marker => (
