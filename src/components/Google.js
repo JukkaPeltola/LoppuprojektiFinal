@@ -33,9 +33,9 @@ class Google extends Component {
             let exist = users.filter(x => x.social_id == response.googleId);
             if (exist.length == 0){
                 let newUser = {
-                    'firstname': "", 'lastname': "", 'email': "",
-                    'nickname': "", 'password': "", 'picture': "",
-                    'admin': false, 'social_id': response.googleId
+                    firstname: "", lastname: "", email: "",
+                    nickname: "", password: "", picture: "",
+                    admin: false, social_id: response.googleId
                 }
                 this.props.googleIn()
                 console.log(newUser)

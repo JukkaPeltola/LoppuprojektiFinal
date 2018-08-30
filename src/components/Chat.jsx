@@ -5,7 +5,7 @@ class Chat extends Component {
         return (
             <div>
                 <br />
-                <h2>CHATTI</h2>
+                <h2>CHAT</h2>
             </div>
         );
     }

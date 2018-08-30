@@ -59,7 +59,7 @@ const MapWithASearchBox = compose(
 
 
       getAllToilets((data) => {
-        allToilets=[]
+        allToilets = []
         data.map(res => {
           allToilets.push(res)
         })
@@ -124,14 +124,17 @@ const MapWithASearchBox = compose(
         console.log(nextProps)//
         var firstSet = nextProps.filteredMarkers.slice(0, 1);
         var firstPoint = new google.maps.LatLng(firstSet[0].latitude, firstSet[0].longitude);
-        var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length - 1, nextProps.filteredMarkers.length);
-        var lastPoint = new google.maps.LatLng(secondSet[0].latitude, secondSet[0].longitude);
+        // var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length - 1, nextProps.filteredMarkers.length);
+        var lastPoint = new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng"));
         var bounds1 = new google.maps.LatLngBounds();
         bounds1.extend(firstPoint);
         bounds1.extend(lastPoint);
 
         if (nextProps.filteredMarkers.length === 1) {
-          refs.map.panTo(firstPoint);
+          var bounds2 = new google.maps.LatLngBounds();
+          bounds2.extend(firstPoint);
+          bounds2.extend(new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng")));
+          refs.map.fitBounds(bounds2)
         }
         else {
           refs.map.fitBounds(bounds1)
@@ -176,9 +179,8 @@ const MapWithASearchBox = compose(
     // onBoundsChanged={props.onBoundsChanged}
     onClick={props.onMapClick}
     defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false, zoomControl: false }}
-  >   
-    <div >
-
+  >
+    <div>
       <SearchBox
         ref={props.onSearchBoxMounted}
         bounds={props.bounds}
@@ -189,12 +191,12 @@ const MapWithASearchBox = compose(
           type="text"
           placeholder="Search places"
           style={{
-            marginLeft: '15px',
+            marginLeft: '1%',
             boxSizing: `border-box`,
             border: `1px solid transparent`,
             width: `240px`,
             height: `32px`,
-            marginTop: `22px`,
+            marginTop: `1%`,
             padding: `0 12px`,
             borderRadius: `3px`,
             boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
@@ -204,6 +206,9 @@ const MapWithASearchBox = compose(
           }}
         />
       </SearchBox>
+      <MapControl position={google.maps.ControlPosition.RIGHT_BOTTOM}>
+        <AdMarker addMarker={props.addMarker} position={youPosition} />
+      </MapControl>
       <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
         <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />

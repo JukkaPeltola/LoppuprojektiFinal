@@ -6,8 +6,9 @@ import { Button } from 'reactstrap';
 import { GetOneToilets } from '../utilities/Service';
 import NotDisabled from '../images/notForDisabled.gif';
 import Disable from '../images/suitableForDisabled.jpg';
-import ReactStars from 'react-stars'
-
+import ReactStars from 'react-stars';
+import toileticon from '../images/vessa_icon16x16.png'
+import ModalShowToiletReviews from './ModalShowToiletReviews';
 
 var paivitetty;
 
@@ -30,7 +31,8 @@ class InfoWindowMap extends Component {
     testi = () => {
         GetOneToilets(this.props.marker.toilet_id, (data) => {
             paivitetty = data
-            setTimeout(this.setState({ addNew: true }), 100)
+            console.log(paivitetty)
+            setTimeout(this.setState({ addNew: true }), 1300)
         })
 
 
@@ -77,6 +79,7 @@ class InfoWindowMap extends Component {
         return (
 
             <Marker
+                icon={toileticon}
                 key={this.props.index}
                 position={{ lat: parseFloat(this.props.lat), lng: parseFloat(this.props.lng) }}
                 label={this.props.toilet_id}
@@ -84,12 +87,12 @@ class InfoWindowMap extends Component {
             >
                 {
                     this.state.isOpen &&
-                    <InfoWindow onCloseClick={this.handleToggleClose}>
+                    <InfoWindow options={{maxWidth:280}} onCloseClick={this.handleToggleClose}>
                         <div>
                             <h4>{this.props.marker.name}</h4>
                             <h4>{inva}</h4>
                             {
-                                this.state.addNew &&
+                                this.state.addNew && paivitetty != null &&
                                 // <h6>Rating: {(paivitetty.rating).toFixed(2)} ★</h6>
                                 <ReactStars
                                     count={5}
@@ -110,8 +113,9 @@ class InfoWindowMap extends Component {
                             }
                             <div className="btn-group">
                                 <ModalAddReview testi={this.testi} marker={this.props.marker} />
+                                <ModalShowToiletReviews marker={this.props.marker} />
                                 <ModalReportToilet marker={this.props.marker} />
-                                <Button onClick={this.showDirectionsMap} color="success">Reitti</Button>{' '}
+                                <Button onClick={this.showDirectionsMap} color="success">Route</Button>{' '}
                             </div>
                         </div>
                     </InfoWindow>

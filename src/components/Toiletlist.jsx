@@ -61,7 +61,7 @@ class Toiletlist extends Component {
         } else if (this.state.rSelected == 1) {
             let tempToilets = allToilets.sort((a, b) => (a.rating < b.rating ? 1 : -1))
             this.setState({ markers: tempToilets })
-        } 
+        }
         else if (this.state.rSelected == 4) {
             let tempToilets = allToilets.sort((a, b) => (geolib.getDistance(
                 { latitude: sessionStorage.getItem('lat'), longitude: sessionStorage.getItem('lng') },
@@ -89,11 +89,15 @@ class Toiletlist extends Component {
             console.log(this.state.markers)
         });
     }
+    poistaVessa = (id) => {
+        let temp = this.state.markers.filter(x => x.toilet_id != id)
+        this.setState({ markers: temp })
+    }
 
     render() {
 
         var toilets = this.state.markers.map(marker => (
-            <Toilet marker={marker} key={marker.toilet_id}>
+            <Toilet poistaVessa={this.poistaVessa} marker={marker} key={marker.toilet_id}>
             </Toilet>
         ));
 
@@ -159,24 +163,23 @@ class Toiletlist extends Component {
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(4)} active={this.state.rSelected === 4}>Distance</Button>
                 </ButtonGroup>
                 <Input onChange={this.onSearchChange} style={{ width: '50%', marginLeft: '1%' }} size="" placeholder="Search by name" type="text"></Input>
-                <center>
-                    <div className="paging">
-                        <ul>
-                            <ReactCSSTransitionGroup
-                                transitionName="fade"
-                                transitionEnterTimeout={700}
-                                transitionLeaveTimeout={700}
-                                transitionAppear={true}
-                                transitionAppearTimeout={700}>
-                                {renderToilets}
-                            </ReactCSSTransitionGroup>
-                        </ul>
-                        <ul className="page-numbers">
-                            {renderPageNumbers}
-                        </ul>
-                    </div>
-                </center>
+                <ReactCSSTransitionGroup
+                    transitionName="fade"
+                    transitionEnterTimeout={700}
+                    transitionLeaveTimeout={700}
+                    transitionAppear={true}
+                    transitionAppearTimeout={700}>
+                    <center>
+                        <div >
 
+                            {renderToilets}
+
+                            <ul className="paging">
+                                {renderPageNumbers}
+                            </ul>
+                        </div>
+                    </center>
+                </ReactCSSTransitionGroup>
             </div>
         );
     }

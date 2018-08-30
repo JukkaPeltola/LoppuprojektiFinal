@@ -71,23 +71,24 @@ export default class CustomNavbar extends React.Component {
         return (
             <div>
                 <Navbar className="navbar navbar-expand-md navbar-dark bg-dark" light expand="md">
-                    <NavbarBrand to="/" activeClassName="active" tag={RRNavLink}>TOILET</NavbarBrand>
+                    <NavbarBrand to="/" activeClassName="active" tag={RRNavLink}>TOILET MAP</NavbarBrand>
 
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
 
                         <Nav className="navbar-nav mr-auto" navbar>
                             <NavItem>
-                                <NavLink onClick={this.changeToLoggedOut} to="/" activeClassName="active" tag={RRNavLink}>Koti</NavLink>
+                                <NavLink onClick={this.changeToLoggedOut} to="/" activeClassName="active" tag={RRNavLink}>Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink onClick={this.changeToLoggedOut} to="/Wclist" activeClassName="active" tag={RRNavLink}>WC-lista</NavLink>
+                                <NavLink onClick={this.changeToLoggedOut} to="/Wclist" activeClassName="active" tag={RRNavLink}>Toilet list</NavLink>
                             </NavItem>
+                            {/* Chat feature for the future. Left out for now. */}
+                                {/* <NavItem>
+                                        <NavLink onClick={this.changeToLoggedOut} to="/Chat" activeClassName="active" tag={RRNavLink}>Chat</NavLink>
+                                    </NavItem> */}
                             <NavItem>
-                                <NavLink onClick={this.changeToLoggedOut} to="/Chat" activeClassName="active" tag={RRNavLink}>Chat</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink onClick={this.changeToLoggedOut} to="/About" activeClassName="active" tag={RRNavLink}>Tietoa</NavLink>
+                                <NavLink onClick={this.changeToLoggedOut} to="/About" activeClassName="active" tag={RRNavLink}>About</NavLink>
                             </NavItem>
                             {
                                 this.props.isAdmin &&
@@ -122,7 +123,7 @@ export default class CustomNavbar extends React.Component {
                     }
                     
                 </Nav> */}
-                {/*Tähän asti? plus mahd. alempi pökäle. v/o*/}
+                
                         <Nav className="navbar-nav ml-auto">
                             {
                                 (loggedin != null && this.state.logged == false) &&
@@ -133,7 +134,7 @@ export default class CustomNavbar extends React.Component {
 
                             {(loggedin == null && this.state.logged == false) &&
                                 <NavItem>
-                                    <NavLink onClick={this.changeToLoggedIn} style={{ border: '1px solid', borderRadius: '10px', backgroundColor: 'green' }} className="btn-primary" to="/Login" activeClassName="active" tag={RRNavLink}>Kirjaudu</NavLink>
+                                    <NavLink onClick={this.changeToLoggedIn} style={{ border: '1px solid', borderRadius: '10px', backgroundColor: 'green' }} className="btn-primary" to="/Login" activeClassName="active" tag={RRNavLink}>Login</NavLink>
                                 </NavItem>
                             }
                         </Nav>

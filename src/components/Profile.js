@@ -14,7 +14,7 @@ class Logged extends Component {
     render() { 
         return (
             <div className="profile">
-                <br /><h2>Profiili</h2><br />
+                <br /><h2>Profile</h2><br />
                 <Facebook />
             </div>
         );
