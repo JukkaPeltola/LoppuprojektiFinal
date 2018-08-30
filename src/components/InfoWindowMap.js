@@ -8,6 +8,7 @@ import NotDisabled from '../images/notForDisabled.gif';
 import Disable from '../images/suitableForDisabled.jpg';
 import ReactStars from 'react-stars';
 import toileticon from '../images/vessa_icon16x16.png'
+import ModalShowToiletReviews from './ModalShowToiletReviews';
 
 var paivitetty;
 
@@ -92,7 +93,7 @@ class InfoWindowMap extends Component {
                             <h4>{this.props.marker.name}</h4>
                             <h4>{inva}</h4>
                             {
-                                this.state.addNew &&
+                                this.state.addNew && paivitetty != null &&
                                 // <h6>Rating: {(paivitetty.rating).toFixed(2)} ★</h6>
                                 <ReactStars
                                     count={5}
@@ -113,6 +114,7 @@ class InfoWindowMap extends Component {
                             }
                             <div className="btn-group">
                                 <ModalAddReview testi={this.testi} marker={this.props.marker} />
+                                <ModalShowToiletReviews marker={this.props.marker} />
                                 <ModalReportToilet marker={this.props.marker} />
                                 <Button onClick={this.showDirectionsMap} color="success">Route</Button>{' '}
                             </div>
