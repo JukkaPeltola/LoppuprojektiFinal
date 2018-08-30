@@ -32,6 +32,7 @@ class AdMarker extends Component {
             alert("Please enable GPS to use this feature");
             return;
         }
+        this.props.sendProps("jeejee")
         this.setState({
             markerOpen: true
         });

@@ -197,7 +197,7 @@ const MapWithASearchBox = compose(
       <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
         <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
-        <AdMarker addMarker={props.addMarker} position={youPosition} />
+        <AdMarker sendProps={props.sendProps} addMarker={props.addMarker} position={youPosition} />
       </MapControl>
     </div>
     {props.markers.map((marker, index) =>
