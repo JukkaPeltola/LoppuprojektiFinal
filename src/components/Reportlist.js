@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllReports } from '../utilities/Service';
+import { getAllReports, GetOneUser } from '../utilities/Service';
 import Report from './Report';
 import {Input, Button, ButtonGroup} from 'reactstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -44,6 +44,8 @@ class Reportlist extends Component{
     }
 
     componentDidMount() {
+        
+        
 
         getAllReports((data) => {
             data.map(res => {

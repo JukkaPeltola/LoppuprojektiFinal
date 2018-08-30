@@ -5,8 +5,12 @@ class OneReview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin: true
+            admin: props.isAdmin
         };
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({admin: nextProps.isAdmin})
     }
 
     deleteReview = () => {
