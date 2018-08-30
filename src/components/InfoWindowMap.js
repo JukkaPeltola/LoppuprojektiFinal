@@ -120,9 +120,12 @@ class InfoWindowMap extends Component {
                             <div className="btn-group">
                                 <ModalAddReview testi={this.testi} marker={this.props.marker} />
                                 <ModalShowToiletReviews marker={this.props.marker} />
+                                
+                            </div>
+                            <div className="btn-group">
                                 <ModalReportToilet marker={this.props.marker} />
                                 <Button onClick={this.showDirectionsMap} color="success">Route</Button>{' '}
-                            </div>
+                                </div>
                         </div>
                     </InfoWindow>
                 }
