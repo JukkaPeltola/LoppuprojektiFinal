@@ -16,7 +16,9 @@ class report extends Component {
     }
     
     render() {
-        const formattedDate = Moment(this.props.marker.date).format('DD-MMM-YY HH:mm');
+        var stillUtc = Moment.utc(this.props.marker.date).toDate();
+        var local = Moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss'); 
+        
         
         return (
             <div>
@@ -28,9 +30,9 @@ class report extends Component {
                 borderRadius: '10px',
                 backgroundColor: '#e2edff'
             }}>
-                <h4 style={{fontWeight: 'bold'}}>{this.props.marker.name}</h4> 
+                <h5 style={{fontWeight: 'bold'}}>{this.props.marker.name}</h5> 
                 <p>{this.props.marker.text}</p>
-                <p>{formattedDate}</p>
+                <p>{local}</p>
                 <Button onClick={this.poistaReport} color="danger">Delete</Button>
             </center>
             </div>

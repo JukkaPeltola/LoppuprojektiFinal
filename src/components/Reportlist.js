@@ -3,6 +3,7 @@ import { getAllReports, GetOneUser } from '../utilities/Service';
 import Report from './Report';
 import {Input, Button, ButtonGroup} from 'reactstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import './Reportlist.css';
 
 
 var allReports = []
@@ -134,7 +135,7 @@ class Reportlist extends Component{
         return(
             <div>
                 <h1>Reports</h1>
-                <Button className="filterBtn" color="primary" onClick={this.filterReports}>Filter by time</Button>
+                <Button style={{width: `40%`}} className="filterBtn" color="primary" onClick={this.filterReports}>Filter by time</Button>
                 
                 <Input type="text" placeholder= "Search toilet" value={this.state.search} style={{width: `40%`, fontSize:15, fontFamily:'Lucida Console'}}
                         onChange={this.updateSearch.bind(this)} />
