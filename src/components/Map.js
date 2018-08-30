@@ -38,7 +38,7 @@ const MapWithASearchBox = compose(
 
     componentDidMount() {
 
-      function  getYourCenterOnClick (){
+      function getYourCenterOnClick (){
         this.setState({center:youPosition}).bind(this)
       }
 

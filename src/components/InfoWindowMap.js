@@ -7,7 +7,7 @@ import { GetOneToilets } from '../utilities/Service';
 import NotDisabled from '../images/notForDisabled.gif';
 import Disable from '../images/suitableForDisabled.jpg';
 import ReactStars from 'react-stars';
-
+import toileticon from '../images/vessa_icon16x16.png'
 
 var paivitetty;
 
@@ -79,6 +79,7 @@ class InfoWindowMap extends Component {
         return (
 
             <Marker
+                icon={toileticon}
                 key={this.props.index}
                 position={{ lat: parseFloat(this.props.lat), lng: parseFloat(this.props.lng) }}
                 label={this.props.toilet_id}
