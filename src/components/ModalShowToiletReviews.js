@@ -77,7 +77,7 @@ class ModalShowToiletReviews extends Component {
 
         return (
             <div>
-                <Button color="info" onClick={this.toggle}>Toilet reviews</Button>
+                <Button style={{marginRight:"5px"}} color="info" onClick={this.toggle}>Reviews</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Reviews</ModalHeader>
                     &nbsp;&nbsp;&nbsp;&nbsp;{}

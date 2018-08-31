@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
-import './Google.css';
 import { AddNewUser, GetAllUsers } from '../utilities/Service';
+require('./Google.css');
+
 var users;
 
 class Google extends Component {
@@ -58,7 +59,7 @@ class Google extends Component {
 
         if (this.state.isLoggedIn) {
             gContent = (
-                <div style={{
+                <div className="googleBtn" style={{
                     width: '20wv',
                     margin: 'auto',
                     background: '#F4F4F4',
