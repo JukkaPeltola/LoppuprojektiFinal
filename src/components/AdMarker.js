@@ -4,7 +4,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { addNewToilet } from '../utilities/Service';
 import './AdMarker.css';
 import Geocode from 'react-geocode'
-// import logo from '../plus2.png';
+import logo from './plus2.png';
+import toilet from '../images/toilet.png';
 Geocode.setApiKey("AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k");
 var counter = 100000
 var addCounter=0
@@ -28,6 +29,12 @@ class AdMarker extends Component {
         this.setState({ infoWindowOpen: false })
     }
     markerToggleOpen = () => {
+        if(sessionStorage.add>2)
+        {
+            alert("You have added too many toilets today. Please try again tomorrow.")
+            this.setState({markerOpen:false})
+            return
+        }
         this.setState({ latLng: this.props.position })
         this.props.getCenterAgain(this.props.position)
         if (sessionStorage.getItem("lat") === null) {
@@ -68,12 +75,6 @@ class AdMarker extends Component {
         })
     }
     getLocation = (e) => {
-        if(sessionStorage.add>2)
-        {
-            alert("You have added too many toilets today. Please try again tomorrow.")
-            this.setState({markerOpen:false})
-            return
-        }
         var lat = e.latLng.lat(), lng = e.latLng.lng()
         Geocode.fromLatLng(lat, lng).then(
             response => {
@@ -149,7 +150,7 @@ class AdMarker extends Component {
                     marginBottom: '13px',
                     marginRight: '10px'
                 }}>
-                    <img src={null} alt="Add toilet"></img>
+                    <img src={logo} alt="Add toilet"></img>
                 </button>
                 {
                     this.state.markerOpen &&
@@ -158,6 +159,7 @@ class AdMarker extends Component {
                         draggable={this.state.draggable}
                         onDragEnd={this.getLocation}
                         onDrag={this.dragtoggle}
+                        icon={toilet}
                     >
                         {
                             this.state.infoWindowOpen &&
