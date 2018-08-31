@@ -24,8 +24,10 @@ class Main extends Component {
 
     render() {
             return (
-                <div>
+                <div >
+                    <div id="goo">
                     <Map2  showRouteOnClick={this.showRouteOnClick}/>
+                    </div>
                     <div id="mapdrive">
                 {  this.state.route &&
                 
