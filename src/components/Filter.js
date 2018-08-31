@@ -223,8 +223,8 @@ class Filter extends Component {
         
                       </ModalBody>
                       <ModalFooter>
-                        <Button style={{backgroundColor: '#ff2d55', color: 'white', fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.applyFilters}>Apply filters</Button>
-                        <Button style={{fontFamily: 'Roboto Mono', fontWeight: 'bold'}} onClick={this.toggle}>Cancel</Button>
+                        <Button className="btn btn-success" onClick={this.applyFilters}>Apply filters</Button>
+                        <Button className="btn btn-default" onClick={this.toggle}>Cancel</Button>
                       </ModalFooter>
                       </div>
                     </Modal>
