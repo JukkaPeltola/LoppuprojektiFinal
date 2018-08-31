@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import target from '../images/target.png'
+import mag from '../images/mag.png'
 
-class GetCenter extends Component {
+class SearchButton extends Component {
   constructor(props){
     super(props)
     this.state= {
@@ -9,7 +9,7 @@ class GetCenter extends Component {
     }
   }
   get = () => {
-    this.props.getCenterAgain(this.props.position)
+    this.props.show(this.props.position)
 }
 
   render() {
@@ -21,8 +21,8 @@ class GetCenter extends Component {
                     border: 'none',
                     borderRadius: '10px',
                     marginTop: '15px',
-                    marginRight: '10px'
-                }}><img src={target} alt="target"></img></button> 
+                    marginLeft: '10px'
+                }}><img src={mag} alt="target"></img></button> 
 
         </div>
     
@@ -30,4 +30,4 @@ class GetCenter extends Component {
   }
 }
 
-export default GetCenter;
+export default SearchButton;

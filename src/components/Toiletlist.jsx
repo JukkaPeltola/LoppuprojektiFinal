@@ -154,7 +154,7 @@ class Toiletlist extends Component {
         return (
             <div>
                 <br />
-                <h2>TOILET LIST</h2>
+                <h2><b>TOILET LIST</b></h2>
                 <br />
                 <ButtonGroup className="filterBtns">
                     <Button className="filterBtn" color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Rating</Button>
