@@ -1,5 +1,6 @@
 .navbar {
     background-color: #C2B2B4;
+    position: absolute;
 }
 
 /* .verticalLine {
@@ -24,4 +25,9 @@ div.vertical-line{
     .searchBtn {
         width: 12%;
     }
+}
+#search{
+ position: absolute;
+ right:0;
+ margin-right: 85px;
 }

@@ -3,6 +3,7 @@ import {Button} from 'reactstrap';
 import geolib from 'geolib';
 import ModalShowToiletInfo from './ModalShowToiletInfo';
 import InfoWindowMap from './InfoWindowMap';
+import './Buttons.css'
 
 var listWithAll = [];
 var count = 0;
@@ -76,14 +77,14 @@ class FindNearestToilet extends Component {
                     if(!this.state.changeToggle) {
                     return (          
                         <div>
-                            <Button style={{ marginLeft: '4%', marginTop: '8%' }} onClick={this.onSubmit}>Nearest</Button>
+                            <Button id="nearest"  onClick={this.onSubmit}>Nearest</Button>
                         </div>
                     );
                 }
                 if(this.state.changeToggle) {
                     return (
                         <div>
-                            <Button style={{ marginLeft: '4%', marginTop: '8%' }} onClick={this.cancel}>Show all</Button>
+                            <Button id="nearest" onClick={this.cancel}>Show all</Button>
                         </div>
                     );
                 }

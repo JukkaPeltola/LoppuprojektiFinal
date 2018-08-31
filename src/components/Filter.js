@@ -5,6 +5,7 @@ import './Filter.css';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import StarRatingComponent from 'react-star-rating-component';
+import './Buttons.css'
 
 var listWithAll =[];
 var count = 0;
@@ -175,14 +176,14 @@ class Filter extends Component {
             if(this.state.filterButtonShown) {
                 return (           
                     <div>
-                    <Button className="mapFilterBtn bg-dark" style={{
+                    <Button id="filter"className="mapFilterBtn bg-dark" style={{
                         width: '82px',  
                         borderColor:'transparent', 
-                        // marginTop: '3%',
-                        marginLeft: '4%',
+                        marginTop: '12px',
+                        // marginRight: '5px',
                         opacity: '0.7',
                         // float: 'left',
-                        borderRadius: '3px', 
+                        // borderRadius: '3px', 
                         color: 'white', 
                         display: 'inline-block', 
                         fontSize:'16px'
@@ -233,13 +234,13 @@ class Filter extends Component {
                 } 
                 if(!this.state.filterButtonShown) {
                     return (
-                        <Button className="mapFilterBtn bg-dark" style={{
+                        <Button id="filter" className="mapFilterBtn bg-dark" style={{
                                         borderColor:'transparent', 
-                                        margin: '1%',
-                                        marginLeft: '5px',
+                                        // margin: '1%',
+                                        // marginRight: '5px',
                                         opacity: '0.7',
                                         // float: 'left',
-                                        borderRadius: '3px', 
+                                        // borderRadius: '3px', 
                                         color: 'white', 
                                         display: 'inline-block', 
                                         fontSize:'16px'
