@@ -11,6 +11,7 @@ import FindNearestToilet from './FindNearestToilet';
 // import './Map.css'
 import { componentWillUnmount } from 'react-google-maps/lib/utils/MapChildHelper';
 import GetCenter from './GetCenter'
+import SearchButton from './SearchButton';
 
 const google = window.google;
 console.log(google)
@@ -33,7 +34,7 @@ const MapWithASearchBox = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `92vh`, width: '100wv' }} />,
+    containerElement: <div style={{ height: `100vh`, width: '100wv' }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
   lifecycle({
@@ -77,12 +78,13 @@ const MapWithASearchBox = compose(
         markers: [],
         toiletmarkers: [],
         status: null,
+        searchShown: false,
         onMapMounted: ref => {
           refs.map = ref;
         },
         onMapClick: () => {
           propsCounter++
-          this.setState({ status: propsCounter })
+          this.setState({ status: propsCounter, searchShown: false })
         },
         onBoundsChanged: () => {
           this.setState({
@@ -93,7 +95,9 @@ const MapWithASearchBox = compose(
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         },
-         
+         showSearch:(e)=>{
+           this.setState({searchShown: !this.state.searchShown})
+         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
           const bounds = new window.google.maps.LatLngBounds();
@@ -191,9 +195,16 @@ const MapWithASearchBox = compose(
     onIdle={props.onMapIdle}
     // onBoundsChanged={props.onBoundsChanged}
     onClick={props.onMapClick}
-    defaultOptions={{ mapTypeControl: false, fullscreenControl: false, streetViewControl: false, zoomControl: false }}
-  >
+    defaultOptions={{   streetViewControl: false,
+      scaleControl: false,
+      mapTypeControl: false,
+      panControl: false,
+      zoomControl: false,
+      rotateControl: false,
+      fullscreenControl: false}}
+    disableDefaultUI>
     <div>
+      {props.searchShown&&
       <SearchBox id="sbox"
         ref={props.onSearchBoxMounted}
         bounds={props.bounds}
@@ -204,12 +215,13 @@ const MapWithASearchBox = compose(
           type="text"
           placeholder="Search places"
           style={{
-            marginLeft: '4%',
+            // marginLeft: '4%',
             boxSizing: `border-box`,
             border: `1px solid transparent`,
             width: `240px`,
-            height: `32px`,
-            marginTop: `3.62%`,
+            height: `40px`,
+            marginTop: `12px`,
+            marginLeft:`5%`,
             padding: `0 12px`,
             borderRadius: `3px`,
             boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
@@ -219,16 +231,19 @@ const MapWithASearchBox = compose(
           }}
         />
       </SearchBox>
+      }
       <MapControl position={google.maps.ControlPosition.RIGHT_BOTTOM}>
         <AdMarker getCenterAgain={props.getCenterAgain} addMarker={props.addMarker} position={youPosition} />
       </MapControl>
-      <MapControl position={google.maps.ControlPosition.LEFT_BOTTOM}>
+      <MapControl position={google.maps.ControlPosition.TOP_CENTER}>
         <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
+      </MapControl>
+      <MapControl position={google.maps.ControlPosition.TOP_CENTER}>
       <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
       </MapControl>
 
-      <MapControl position={google.maps.ControlPosition.TOP_CENTER}>
-       
+      <MapControl position={google.maps.ControlPosition.TOP_LEFT}>
+       <SearchButton show={props.showSearch}></SearchButton>
       </MapControl>
 
         <MapControl position={google.maps.ControlPosition.TOP_RIGHT}>

@@ -7,7 +7,7 @@ import Geocode from 'react-geocode'
 import logo from './plus.png';
 Geocode.setApiKey("AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k");
 var counter = 100000
-
+var addCounter=0
 class AdMarker extends Component {
     constructor(props) {
         super(props);
@@ -68,8 +68,11 @@ class AdMarker extends Component {
         })
     }
     getLocation = (e) => {
-        if (e === NaN) {
-            alert("hello")
+        if(sessionStorage.add>2)
+        {
+            alert("You have added too many toilets today. Please try again tomorrow.")
+            this.setState({markerOpen:false})
+            return
         }
         var lat = e.latLng.lat(), lng = e.latLng.lng()
         Geocode.fromLatLng(lat, lng).then(
@@ -89,6 +92,7 @@ class AdMarker extends Component {
 
     }
     addNew = () => {
+        
         var name = ""
         let length = this.refs.name.value
         var theAddress = this.state.address
@@ -127,6 +131,8 @@ class AdMarker extends Component {
             address: {}
         })
         counter++
+        addCounter++
+        sessionStorage.setItem('add', addCounter);
     }
     switchClick = () => {
         this.setState({ checked: !this.state.checked })
@@ -140,7 +146,7 @@ class AdMarker extends Component {
                     backgroundColor: 'transparent',
                     display: 'inline-block',
                     border: 'none',
-                    marginBottom: '10px',
+                    marginBottom: '13px',
                     marginRight: '10px'
                 }}>
                     <img src={logo} alt="Add toilet"></img>
