@@ -10,7 +10,6 @@ import AdMarker from './AdMarker';
 import FindNearestToilet from './FindNearestToilet';
 // import './Map.css'
 import { componentWillUnmount } from 'react-google-maps/lib/utils/MapChildHelper';
-import GetCenter from './GetCenter'
 
 const google = window.google;
 console.log(google)
@@ -39,8 +38,6 @@ const MapWithASearchBox = compose(
   lifecycle({
 
     componentDidMount() {
-
-     
 
       function errorPosition() {
         alert(`Unfortunately I can't locate you! Please make sure your GPS is enabled in order to use all features.`)
@@ -93,7 +90,7 @@ const MapWithASearchBox = compose(
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         },
-         
+        
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
           const bounds = new window.google.maps.LatLngBounds();
@@ -123,30 +120,18 @@ const MapWithASearchBox = compose(
       if (nextProps.filteredMarkers !== this.props.filteredMarkers) {
         this.setState({ toiletmarkers: nextProps.filteredMarkers })
         console.log(nextProps)//
-        // var firstSet = nextProps.filteredMarkers.sort()
         var firstSet = nextProps.filteredMarkers.slice(0, 1);
         var firstPoint = new google.maps.LatLng(firstSet[0].latitude, firstSet[0].longitude);
-        var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length - 1, nextProps.filteredMarkers.length);
-        var lastPoint = new google.maps.LatLng(secondSet[0].latitude, secondSet[0].longitude);
+        // var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length - 1, nextProps.filteredMarkers.length);
+        var lastPoint = new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng"));
         var bounds1 = new google.maps.LatLngBounds();
-        // bounds1.extend(firstPoint);
-        if(sessionStorage.getItem("lat")===null) {
-          bounds1.extend(lastPoint);
-        }
-        else {
-          bounds1.extend(new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng")));
-        }
         bounds1.extend(firstPoint);
+        bounds1.extend(lastPoint);
 
         if (nextProps.filteredMarkers.length === 1) {
           var bounds2 = new google.maps.LatLngBounds();
-          if(sessionStorage.getItem("lat")===null) {
-            bounds2.extend(firstPoint);
-          }
-          else {
-            bounds2.extend(new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng")));
-          }
-          bounds2.extend(lastPoint);
+          bounds2.extend(firstPoint);
+          bounds2.extend(new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng")));
           refs.map.fitBounds(bounds2)
         }
         else {
@@ -162,7 +147,7 @@ const MapWithASearchBox = compose(
         }
         this.setState({ toiletmarkers: allToilets })
       }
-     
+    
       else if(nextProps.getBounds !== this.props.getBounds ||  nextProps.boundCounter !== this.props.boundCounter){
         var  firstPoint = new google.maps.LatLng(nextProps.getBounds.lat-(0.005), nextProps.getBounds.lng-(0.005));
         var lastPoint = new google.maps.LatLng(nextProps.getBounds.lat+(0.005), nextProps.getBounds.lng+(0.005));
@@ -175,7 +160,7 @@ const MapWithASearchBox = compose(
       else if (nextProps.status !== 3) {
         propsCounter++
         this.setState({ status: propsCounter, })
-       
+      
       }
     }
 
@@ -222,20 +207,11 @@ const MapWithASearchBox = compose(
       <MapControl position={google.maps.ControlPosition.RIGHT_BOTTOM}>
         <AdMarker getCenterAgain={props.getCenterAgain} addMarker={props.addMarker} position={youPosition} />
       </MapControl>
-      <MapControl position={google.maps.ControlPosition.LEFT_BOTTOM}>
-      <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
-      </MapControl>
-
-      <MapControl position={google.maps.ControlPosition.TOP_CENTER}>
-       
+      <MapControl position={google.maps.ControlPosition.LEFT_TOP}>
+        <FindNearestToilet markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
         <Filter markerList={props.toiletmarkers} getFilterData={props.getFilterData} />
-      </MapControl>
-
-        <MapControl position={google.maps.ControlPosition.TOP_RIGHT}>
-        <GetCenter getCenterAgain={props.getCenterAgain} position={youPosition} />
-      </MapControl>
       
-       
+      </MapControl>
     </div>
     {props.markers.map((marker, index) =>
       <Marker key={index} position={marker.position} />
