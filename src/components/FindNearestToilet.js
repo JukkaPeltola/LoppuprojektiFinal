@@ -20,7 +20,8 @@ class FindNearestToilet extends Component {
             nestedModal: false,
             closeAll: false,
             admin: true,
-            changeToggle: false
+            changeToggle: false,
+            showButton: false 
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.cancel = this.cancel.bind(this);
@@ -35,6 +36,9 @@ class FindNearestToilet extends Component {
         if(nextProps.markerList !== this.props.markerList){
             this.setState({ markers: nextProps.markerList })
             
+        }
+        if(nextProps.buttonState !== this.state.showButton){
+            this.setState({showButton: nextProps.buttonState} , ()=> {console.log(this.state.showButton)})        
         }
 
     };
@@ -57,15 +61,17 @@ class FindNearestToilet extends Component {
         nearestToilet = sortedList.slice(0,1);
     
         this.props.getFilterData(nearestToilet);
+        this.props.buttonStatus(true);
         this.setState({changeToggle: true});
 
     }
     cancel() {
-        this.props.getFilterData(listWithAll);
+        this.props.getFilterData(listWithAll);        
         this.setState({changeToggle: false})
+        this.props.buttonStatus(false);
     }
     render() {           
-                if(this.state.markers.length === 0) {
+                if(this.state.markers.length === 0 || this.state.showButton === true) {
                     return (null);
                 }
                 else {

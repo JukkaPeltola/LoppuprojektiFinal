@@ -9,6 +9,8 @@ import Disable from '../images/suitableForDisabled.jpg';
 import ReactStars from 'react-stars';
 import toileticon from './pointer.png'
 import ModalShowToiletReviews from './ModalShowToiletReviews';
+import route from '../images/route.png'
+import ModalShowToiletInfo from './ModalShowToiletInfo';
 
 var paivitetty;
 
@@ -123,11 +125,16 @@ class InfoWindowMap extends Component {
                             <div className="btn-group">
                                 <ModalAddReview testi={this.testi} marker={this.props.marker} />
                                 <ModalShowToiletReviews marker={this.props.marker} />
-
+                                <ModalShowToiletInfo marker={this.props.marker}/>
                             </div>
-                            <div className="btn-group">
+                            <div style={{marginTop:'5px', width: "100%", overflow:'hidden'}}>
+                                <div style={{marginTop:'7px', float:'left'}}>
                                 <ModalReportToilet marker={this.props.marker} />
-                                <Button style= {{marginTop:'1px'}} onClick={this.showDirectionsMap} color="success">Route</Button>{' '}
+                                </div>
+                                <div style={{ float:'right'}}>
+                                <button onClick={this.showDirectionsMap} type=""> <img src={route}></img></button>
+                                </div>
+                                {/* <Button  style={{marginTop:'1px'}} onClick={this.showDirectionsMap} color="success">Route</Button>{' '} */}
                             </div>
                         </div>
                     </InfoWindow>

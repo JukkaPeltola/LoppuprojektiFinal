@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
-import './Facebook.css';
 import { GetAllUsers, AddNewUser } from '../utilities/Service';
+require('./Facebook.css');
+
 var users;
 
 class Facebook extends Component {

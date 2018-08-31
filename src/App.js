@@ -34,11 +34,12 @@ class App extends Component {
             <CustomNavbar isAdmin={this.state.isAdmin} setAdmin={this.setAdmin}/>
             <Switch>
               <Route exact path="/" component={Main} />
-              <Route path="/About" component={About} />
-              <Route path="/Wclist" component={Toiletlist} />
-              <Route path="/Chat" component={Chat} />
-              <Route path="/Reports" render={() => (this.state.isAdmin) ?  <Reportlist/> : <Redirect to="/"/> }/>
-              <Route path="/Login" render={() => <Login setAdmin={this.setAdmin} /> } />
+              <Route exact path="/Wclist" component={Toiletlist} />
+              <Route exact path="/Chat" component={Chat} />
+              <Route exact path="/Reports" render={() => (this.state.isAdmin) ?  <Reportlist/> : <Redirect to="/"/> }/>
+              <Route exact path="/Login" render={() => <Login setAdmin={this.setAdmin} /> } />
+              <Route path="/" render={() => <Redirect to="/"/>} />
+
               </Switch>
             </div>
           </Router>

@@ -87,9 +87,6 @@ export default class CustomNavbar extends React.Component {
                                 {/* <NavItem>
                                         <NavLink onClick={this.changeToLoggedOut} to="/Chat" activeClassName="active" tag={RRNavLink}>Chat</NavLink>
                                     </NavItem> */}
-                            <NavItem>
-                                <NavLink onClick={this.changeToLoggedOut} to="/About" activeClassName="active" tag={RRNavLink}>About</NavLink>
-                            </NavItem>
                             {
                                 this.props.isAdmin &&
                                 <NavItem>
@@ -134,7 +131,7 @@ export default class CustomNavbar extends React.Component {
 
                             {(loggedin == null && this.state.logged == false) &&
                                 <NavItem>
-                                    <NavLink onClick={this.changeToLoggedIn} style={{ border: '1px solid', borderRadius: '10px', backgroundColor: 'green' }} className="btn-primary" to="/Login" activeClassName="active" tag={RRNavLink}>Login</NavLink>
+                                    <NavLink onClick={this.changeToLoggedIn} style={{ width: '100px', padding: '6px', border: '1px solid', borderRadius: '10px', backgroundColor: '#4E937A' }} className="btn-primary" to="/Login" activeClassName="active" tag={RRNavLink}>Login</NavLink>
                                 </NavItem>
                             }
                         </Nav>
