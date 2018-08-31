@@ -22,7 +22,6 @@ class App extends Component {
   
   setAdmin = (state) => {
     this.setState({isAdmin: state})
-    console.log(`Olen setAdmin func ${state}`)
   }
 
   render() {
