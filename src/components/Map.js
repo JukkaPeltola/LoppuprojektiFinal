@@ -127,8 +127,8 @@ const MapWithASearchBox = compose(
         console.log(nextProps)//
         var firstSet = nextProps.filteredMarkers.slice(0, 1);
         var firstPoint = new google.maps.LatLng(firstSet[0].latitude, firstSet[0].longitude);
-        // var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length - 1, nextProps.filteredMarkers.length);
-        var lastPoint = new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng"));
+        var secondSet = nextProps.filteredMarkers.slice(nextProps.filteredMarkers.length - 1, nextProps.filteredMarkers.length);
+        var lastPoint = new google.maps.LatLng(secondSet[0].latitude, secondSet[0].longitude);
         var bounds1 = new google.maps.LatLngBounds();
         // bounds1.extend(firstPoint);
         if(sessionStorage.getItem("lat")===null) {
@@ -141,8 +141,13 @@ const MapWithASearchBox = compose(
 
         if (nextProps.filteredMarkers.length === 1) {
           var bounds2 = new google.maps.LatLngBounds();
-          bounds2.extend(firstPoint);
-          bounds2.extend(new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng")));
+          if(sessionStorage.getItem("lat")===null) {
+            bounds2.extend(firstPoint);
+          }
+          else {
+            bounds2.extend(new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("lng")));
+          }
+          bounds2.extend(lastPoint);
           refs.map.fitBounds(bounds2)
         }
         else {
