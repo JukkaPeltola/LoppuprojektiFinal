@@ -22,7 +22,8 @@ class Filter extends Component {
             disabledCheckboxState: false,
             disabledCheckboxState2: false,
             rating: 0 ,
-            sliderDisabled: false     
+            sliderDisabled: false,
+            hideButtons: false     
         };
     this.applyFilters = this.applyFilters.bind(this);   
     this.toggle = this.toggle.bind(this);
@@ -40,6 +41,9 @@ class Filter extends Component {
             
         }  
         this.setState({lat: sessionStorage.getItem("lat"), lng: sessionStorage.getItem("lng")});
+        if(nextProps.buttonState !== this.state.hideButtons){
+            this.setState({hideButtons: nextProps.buttonState} , ()=> {console.log(this.state.hideButtons)})        
+        }
     };
     
     toggle() {
@@ -118,6 +122,7 @@ class Filter extends Component {
                 return ;
             }
             this.props.getFilterData(e);
+            this.setState({filterButtonShown: false});
         } 
         if(this.state.disabledCheckboxState && distanceRange !== 40075000)
         {
@@ -133,6 +138,7 @@ class Filter extends Component {
             this.props.getFilterData(d);
         }
         this.setState({filterButtonShown: false});
+        this.props.buttonStatus(true);
         this.toggle();           
     }
 
@@ -144,6 +150,7 @@ class Filter extends Component {
         this.setState({rating: 0})
         distanceRange = 40075000;
         this.setState({filterButtonShown: true});
+        this.props.buttonStatus(false);
     }
     handleChecked () {
         this.setState({disabledCheckboxState: !this.state.disabledCheckboxState});
@@ -164,7 +171,7 @@ class Filter extends Component {
     }
     
     render() {
-        if(this.state.markers.length === 0) {
+        if(this.state.markers.length === 0 || this.state.hideButtons) {
             return (null);
         }
         else {
@@ -192,6 +199,14 @@ class Filter extends Component {
                       {/* <ModalHeader toggle={this.toggle}></ModalHeader> */}
                       <div style={{ marginBottom: '20px'}}>
                       <ModalBody>
+                            {/* <div style={{fontWeight: 'bold'}}>Open? </div>
+                      <div className="onoffswitch2">
+                      <input type="checkbox" disabled name="onoffswitch2" className="onoffswitch-checkbox2" id="myonoffswitch2" checked={this.state.disabledCheckboxState2} onChange={this.handleChecked2}></input>
+                      <label className="onoffswitch-label2" htmlFor="myonoffswitch2">
+                        <span className="onoffswitch-inner2"></span>
+                        <span className="onoffswitch-switch2"></span>
+                      </label>
+                      </div> */}
                       <div style={{fontWeight: 'bold'}}>Search within range (in meters) </div>    
                       <Slider disabled={this.state.sliderDisabled} min={0} max={1000} step={10} marks={{0: '0m', 250: '250m', 500: '500m', 750: '750m', 990: '1000m'}} defaultValue={500} onAfterChange={this.onSliderChange}/>  
                       <br/>
@@ -204,14 +219,6 @@ class Filter extends Component {
                       </label>
                       </div>
                     
-                      <div style={{fontWeight: 'bold'}}>Open? </div>
-                      <div className="onoffswitch2">
-                      <input type="checkbox" disabled name="onoffswitch2" className="onoffswitch-checkbox2" id="myonoffswitch2" checked={this.state.disabledCheckboxState2} onChange={this.handleChecked2}></input>
-                      <label className="onoffswitch-label2" htmlFor="myonoffswitch2">
-                        <span className="onoffswitch-inner2"></span>
-                        <span className="onoffswitch-switch2"></span>
-                      </label>
-                      </div>
                       <div style={{fontWeight: 'bold'}}>How many stars? </div>
                       <StarRatingComponent
                             className="mt-2"

@@ -4,7 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { addNewToilet } from '../utilities/Service';
 import './AdMarker.css';
 import Geocode from 'react-geocode'
-import logo from './plus.png';
+// import logo from '../plus2.png';
 Geocode.setApiKey("AIzaSyA724IPb4Emgc7Xdfc6WI4XdhML1eQPI6k");
 var counter = 100000
 
@@ -143,7 +143,7 @@ class AdMarker extends Component {
                     marginBottom: '10px',
                     marginRight: '10px'
                 }}>
-                    <img src={logo} alt="Add toilet"></img>
+                    <img src={null} alt="Add toilet"></img>
                 </button>
                 {
                     this.state.markerOpen &&
